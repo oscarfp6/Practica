@@ -45,5 +45,11 @@
     <Compile Include="ICapaDatos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MiLogica\MiLogica.csproj">
+      <Project>{cb0b4677-6168-4dfb-a5d8-1402c93ac6e0}</Project>
+      <Name>MiLogica</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

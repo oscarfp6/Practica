@@ -19,6 +19,8 @@
     <TestProjectType>UnitTest</TestProjectType>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <RunSettingsFilePath>
+    </RunSettingsFilePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,6 +60,10 @@
     <Compile Include="ModeloDatos\ActividadTests.cs" />
     <Compile Include="ModeloDatos\UsuarioTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\EmailTests.cs" />
+    <Compile Include="Utils\EncriptarTests.cs" />
+    <Compile Include="Utils\PasswordTests.cs" />
+    <Compile Include="Utils\ValidTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

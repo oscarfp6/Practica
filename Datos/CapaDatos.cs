@@ -1,10 +1,8 @@
 ﻿using Datos.Database;
-using MiLogica.ModeloDatos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MiLogica.ModeloDatos;
 
 namespace Datos
 {
@@ -19,8 +17,6 @@ namespace Datos
 
         public void Inicializa()
         {
-
-           
             if (tblUsuarios == null) 
             {
                 tblUsuarios = new List<Usuario>();
@@ -28,7 +24,6 @@ namespace Datos
                 _nextUserId = 0;
                 _nextActividadId = 0;
             }
-            
         }
 
 
