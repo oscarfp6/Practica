@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiLogica", "MiLogica\MiLogi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Datos", "Datos\Datos.csproj", "{789D1F0D-5E0D-4243-A40F-939470747DDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiLogicaTests", "MiLogicaTests\MiLogicaTests.csproj", "{CCDBC807-1AF1-45E1-93FF-312A1E3F7307}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{789D1F0D-5E0D-4243-A40F-939470747DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{789D1F0D-5E0D-4243-A40F-939470747DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{789D1F0D-5E0D-4243-A40F-939470747DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCDBC807-1AF1-45E1-93FF-312A1E3F7307}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCDBC807-1AF1-45E1-93FF-312A1E3F7307}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCDBC807-1AF1-45E1-93FF-312A1E3F7307}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCDBC807-1AF1-45E1-93FF-312A1E3F7307}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
