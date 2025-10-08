@@ -95,8 +95,6 @@ namespace Datos
             /// <returns>Retorna el objeto con la infromación del conponente buscado o NULL si no se localiza.</returns>
             Actividad LeeActividad(int idElemento);
 
-            List<Actividad>  LeeActividades(int idUsuario);
-
             /// <summary>
             /// RF13: Obtiene el listado completo de actividades de un usuario.
             /// </summary>

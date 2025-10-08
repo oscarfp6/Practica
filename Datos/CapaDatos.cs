@@ -102,11 +102,6 @@ namespace Datos
             return tblActividades.FirstOrDefault(act => act.Id == idElemento);
         }
 
-        List<Actividad> ICapaDatos.LeeActividades(int idUsuario)
-        {
-            return tblActividades.Where(act => act.IdUsuario == idUsuario).ToList();
-        }
-
         int ICapaDatos.NumActividades(int idUsuario)
         {
             return tblActividades.Count(act => act.IdUsuario == idUsuario);
