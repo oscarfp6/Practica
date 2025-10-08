@@ -60,12 +60,13 @@ namespace MiLogica.ModeloDatos
 
 
         // Constructor para ser usado por la lógica de negocio
-        public Actividad(int idUsuario, double kms, int metrosDesnivel, TimeSpan duracion, DateTime fecha, TipoActividad tipo, string descripcion = "", int? fcMedia=null)
+        public Actividad(int idUsuario, string titulo, double kms, int metrosDesnivel, TimeSpan duracion, DateTime fecha, TipoActividad tipo, string descripcion = "", int? fcMedia=null)
         {
             // Validación de datos en el constructor para asegurar la integridad del objeto
             ValidarMetricas(kms, duracion);
 
             this.IdUsuario = idUsuario;
+            this.Titulo = titulo;
             this.Kms = kms;
             this.MetrosDesnivel = metrosDesnivel;
             this.Duracion = duracion;
@@ -75,10 +76,11 @@ namespace MiLogica.ModeloDatos
             this.FCMedia = fcMedia;
         }
 
-        public void ActualizarMetricas(double kms, int metrosDesnivel, TipoActividad tipo, TimeSpan duracion, string descripcion = "", int? fcMedia = null)
+        public void ActualizarMetricas(string titulo, double kms, int metrosDesnivel, TipoActividad tipo, TimeSpan duracion, string descripcion = "", int? fcMedia = null)
         {
             ValidarMetricas(kms, duracion);
             
+            Titulo = titulo;
             Kms = kms;
             MetrosDesnivel = metrosDesnivel;
             Duracion = duracion;
