@@ -26,11 +26,15 @@ namespace Datos
             }
         }
 
-
         bool ICapaDatos.GuardaActividad(Actividad e)
         {
-            e.Id = _nextActividadId++;
+            if (e.Id > 0 && tblActividades.Any(act => act.Id == e.Id))
+            {
+                return ((ICapaDatos)this).ActualizaActividad(e);
+            }
 
+            // 2. Caso de Inserción: Actividad nueva (o ID inválido)
+            e.Id = _nextActividadId++;
             tblActividades.Add(e);
             return true;
         }
@@ -45,6 +49,8 @@ namespace Datos
                 actividadExistente.Kms = e.Kms;
                 actividadExistente.MetrosDesnivel = e.MetrosDesnivel;
                 actividadExistente.Duracion = e.Duracion;
+                actividadExistente.Tipo = e.Tipo;
+                actividadExistente.FCMedia = e.FCMedia;
                 return true;
             }
             return false;
@@ -63,13 +69,19 @@ namespace Datos
 
         bool ICapaDatos.GuardaUsuario(Usuario u)
         {
-            if(!tblUsuarios.Any(user => user.Email == u.Email))
+            if (u.Id > 0 && tblUsuarios.Any(user => user.Id == u.Id))
+            {
+                return ((ICapaDatos)this).ActualizaUsuario(u);
+            }
+
+            // Si es un usuario nuevo, comprobamos que el Email no exista antes de insertar
+            if (!tblUsuarios.Any(user => user.Email.Equals(u.Email, StringComparison.OrdinalIgnoreCase)))
             {
                 u.Id = _nextUserId++;
-
                 tblUsuarios.Add(u);
                 return true;
             }
+
             return false;
         }
 
@@ -82,6 +94,7 @@ namespace Datos
                 usuarioExistente.Apellidos = u.Apellidos;
                 usuarioExistente.Estado = u.Estado;
                 usuarioExistente._passwordHash = u._passwordHash;
+                usuarioExistente.Suscripcion = u.Suscripcion;
                 return true;
             }
             return false;
@@ -126,7 +139,7 @@ namespace Datos
 
         public List<Actividad> ObtenerActividadesUsuario(int idUsuario)
         {
-            throw new NotImplementedException();
+            return tblActividades.Where(act => act.IdUsuario == idUsuario).ToList();
         }
     }
 }
