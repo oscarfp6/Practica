@@ -34,8 +34,7 @@ namespace Datos
             }
 
             // 2. Caso de Inserción: Actividad nueva (o ID inválido)
-            e.Id = _nextActividadId++;
-            tblActividades.Add(e);
+            e.AsignarIdParaPersistencia(_nextActividadId++); tblActividades.Add(e);
             return true;
         }
 
@@ -141,5 +140,7 @@ namespace Datos
         {
             return tblActividades.Where(act => act.IdUsuario == idUsuario).ToList();
         }
+
+
     }
 }

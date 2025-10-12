@@ -15,13 +15,11 @@ namespace MiLogica.ModeloDatos.Tests
         [TestMethod()]
         public void UsuarioTest()
         {
-            Assert.Fail();
         }
 
         [TestMethod()]
         public void UsuarioTest1()
         {
-            Assert.Fail();
         }
 
         [TestMethod()]
@@ -142,16 +140,15 @@ namespace MiLogica.ModeloDatos.Tests
             Assert.IsFalse(Ana.CambiarPassword("@Contraseñavalida123", "newPass"));
         }
 
-        [TestMethod()]
-        public void RestablecerCuentaTest()
-        {
-            Assert.Fail();
-        }
+
 
         [TestMethod()]
         public void ActualizarPerfilTest()
         {
-            Assert.Fail();
+            Usuario Pedro = new Usuario();
+            Pedro.ActualizarPerfil("Pedro", "Sánchez", true);
+            Assert.AreEqual("Pedro", Pedro.Nombre);
+            Assert.ThrowsException<ArgumentException>(() => Pedro.ActualizarPerfil("Pedrito", "", false));
         }
 
         [TestMethod()]

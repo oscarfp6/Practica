@@ -13,6 +13,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright ©  2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+// Permite que el proyecto "Datos" pueda ver los miembros internos de "MiLogica"
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Datos")]
 
 // Si establece ComVisible en false, los tipos de este ensamblado no estarán visibles 
 // para los componentes COM.  Si es necesario obtener acceso a un tipo en este ensamblado desde 

@@ -21,8 +21,8 @@ namespace MiLogica.ModeloDatos
         // --- Propiedades Públicas ---
 
         // Renombramos a "Id" para seguir la convención de EF Core para Primary Key
-        public int Id { get; set; }
-        public int IdUsuario { get; set; }
+        public int Id { get; private set; }
+        public int IdUsuario { get; private set; }
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
 
@@ -183,6 +183,15 @@ namespace MiLogica.ModeloDatos
             else
             {
                 return $"{Tipo}: {Kms:F2} km en {Duracion:hh\\:mm\\:ss} el {Fecha:dd/MM/yyyy}. Ritmo: {RitmoMinPorKm:F2} min/km.";
+            }
+        }
+
+        internal void AsignarIdParaPersistencia(int id)
+        {
+            // Podríamos añadir una validación para asegurar que el ID solo se asigna una vez.
+            if (this.Id == 0)
+            {
+                this.Id = id;
             }
         }
     }

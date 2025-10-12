@@ -13,15 +13,51 @@ namespace MiLogica.ModeloDatos
 
     public class Usuario
     {
+
+        public string _nombre;
+        public string _apellidos;
+        public string _email;
+        public string _passwordHash;
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Apellidos { get; set; }
+        public string Nombre
+        {
+            get => _nombre;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("El nombre no puede estar vacío.");
+                }
+                _nombre = value;
+            }
+        }
+        public string Apellidos
+        {
+            get => _apellidos;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Los apellidos no pueden estar vacíos.");
+                }
+                _apellidos = value;
+            }
+        }
         public bool Suscripcion { get; set; }
 
-        public string Email { get; 
-           set; }
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                if (!Utils.Email.ValidarEmail(value))
+                {
+                    throw new ArgumentException("El formato del email no es válido.");
+                }
+                _email = value;
+            }
+        }
 
-        public string _passwordHash;
 
         public DateTime LastLogin { get;  set; }
 
@@ -33,9 +69,9 @@ namespace MiLogica.ModeloDatos
 
         public Usuario() 
         {
-            this.Email = string.Empty;
-            this.Nombre = string.Empty;
-            this.Apellidos = string.Empty;
+            this.Email = "example@gmail.com";
+            this.Nombre = "nameToChange";
+            this.Apellidos = "surnamesToChange";
             this._passwordHash = string.Empty;
             this.intentosFallidosTimestamps = new List<DateTime>();
         }
@@ -151,7 +187,7 @@ namespace MiLogica.ModeloDatos
             return true;
         }
 
-        public void RestablecerCuenta()
+        private void RestablecerCuenta()
         {
             this.Estado = EstadoUsuario.Activo;
             this.intentosFallidosTimestamps.Clear();

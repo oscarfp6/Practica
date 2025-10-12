@@ -14,7 +14,14 @@ namespace MiLogica.Utils.Tests
         [TestMethod()]
         public void ValidarPasswordTest()
         {
-            Assert.Fail();
+            Assert.IsTrue(Password.ValidarPassword("@Contraseñavalida123"));
+            Assert.IsFalse(Password.ValidarPassword("short1A@"));
+            Assert.IsFalse(Password.ValidarPassword("nouppercase123@"));
+            Assert.IsFalse(Password.ValidarPassword("NOLOWERCASE123@"));
+            Assert.IsFalse(Password.ValidarPassword("NoDigitsHere!"));
+            Assert.IsFalse(Password.ValidarPassword("NoSpecialChar123"));
+            Assert.IsFalse(Password.ValidarPassword("     "));
+            Assert.IsFalse(Password.ValidarPassword(""));
         }
     }
 }
