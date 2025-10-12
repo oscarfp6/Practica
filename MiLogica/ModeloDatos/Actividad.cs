@@ -8,30 +8,107 @@ namespace MiLogica.ModeloDatos
 {
     public class Actividad
     {
+        // --- Backing Fields ---
+        // Campos privados para almacenar el valor de las propiedades.
+        // La validación se hará antes de asignar un valor a estos campos.
+        private double _kms;
+        private int _metrosDesnivel;
+        private TimeSpan _duracion;
+        private DateTime _fecha;
+        private TipoActividad _tipo;
+        private int? _fcMedia;
+
+        // --- Propiedades Públicas ---
+
         // Renombramos a "Id" para seguir la convención de EF Core para Primary Key
-        public int Id { get;  set; }
-
-        // --- Clave Foránea ---
-        public int IdUsuario { get;  set; }
-
+        public int Id { get; set; }
+        public int IdUsuario { get; set; }
         public string Titulo { get; set; }
+        public string Descripcion { get; set; }
 
-        public double Kms { get; set; }
-        public int MetrosDesnivel { get; set; }
-        public TimeSpan Duracion { get; set; }
-        public DateTime Fecha { get; set; }
-        public TipoActividad Tipo { get; set; }
-        public String Descripcion { get; set; }
-        public int? FCMedia { get; set; }
+
+        public double Kms
+        {
+            get => _kms;
+            set
+            {
+                if (!ValidarKms(value))
+                {
+                    throw new ArgumentException("Los kilómetros no pueden ser negativos.");
+                }
+                _kms = value;
+            }
+        }
+
+        public int MetrosDesnivel
+        {
+            get => _metrosDesnivel;
+            set
+            {
+                if (!ValidarMetrosDesnivel(value))
+                {
+                    throw new ArgumentException("El desnivel no puede ser negativo.");
+                }
+                _metrosDesnivel = value;
+            }
+        }
+
+        public TimeSpan Duracion
+        {
+            get => _duracion;
+            set
+            {
+                if (!ValidarDuracion(value))
+                {
+                    throw new ArgumentException("La duración debe ser mayor que cero.");
+                }
+                _duracion = value;
+            }
+        }
+
+        public DateTime Fecha
+        {
+            get => _fecha;
+            set
+            {
+                if (!ValidarFecha(value))
+                {
+                    throw new ArgumentException("La fecha no puede ser en el futuro.");
+                }
+                _fecha = value;
+            }
+        }
+
+        public TipoActividad Tipo
+        {
+            get => _tipo;
+            set
+            {
+                if (!ValidarTipoActividad(value))
+                {
+                    throw new ArgumentException("El tipo de actividad no es válido.");
+                }
+                _tipo = value;
+            }
+        }
+
+        public int? FCMedia
+        {
+            get => _fcMedia;
+            set
+            {
+                if (!ValidarFCMedia(value))
+                {
+                    throw new ArgumentException("La frecuencia cardíaca media debe estar entre 30 y 220 bpm si se proporciona.");
+                }
+                _fcMedia = value;
+            }
+        }
 
         // --- Propiedad de Navegación ---
-        // Esto le dice a EF Core que cada Actividad pertenece a un Usuario.
         public virtual Usuario Usuario { get; set; }
 
-        /// <summary>
-        /// Propiedad calculada. Devuelve el ritmo en minutos por kilómetro.
-        /// Útil para actividades como Running o Caminata.
-        /// </summary>
+        // --- Propiedades Calculadas ---
         public double RitmoMinPorKm
         {
             get
@@ -56,44 +133,46 @@ namespace MiLogica.ModeloDatos
             }
         }
 
+        // Constructor para Entity Framework
         private Actividad() { }
 
-
-        // Constructor para ser usado por la lógica de negocio
-        public Actividad(int idUsuario, string titulo, double kms, int metrosDesnivel, TimeSpan duracion, DateTime fecha, TipoActividad tipo, string descripcion = "", int? fcMedia=null)
+        // Constructor para ser usado por la lógica de negocio.
+        // Ahora es mucho más limpio. Las asignaciones llaman a los 'setters' que ya contienen la validación.
+        public Actividad(int idUsuario, string titulo, double kms, int metrosDesnivel, TimeSpan duracion, DateTime fecha, TipoActividad tipo, string descripcion = "", int? fcMedia = null)
         {
-            // Validación de datos en el constructor para asegurar la integridad del objeto
-            ValidarMetricas(kms, duracion);
-
             this.IdUsuario = idUsuario;
             this.Titulo = titulo;
-            this.Kms = kms;
-            this.MetrosDesnivel = metrosDesnivel;
-            this.Duracion = duracion;
-            this.Fecha = fecha;
-            this.Tipo = tipo;
+            this.Kms = kms; // Llama al set de Kms, que ejecuta la validación
+            this.MetrosDesnivel = metrosDesnivel; // Llama al set de MetrosDesnivel
+            this.Duracion = duracion; // Llama al set de Duracion
+            this.Fecha = fecha; // Llama al set de Fecha
+            this.Tipo = tipo; // Llama al set de Tipo
             this.Descripcion = descripcion;
-            this.FCMedia = fcMedia;
+            this.FCMedia = fcMedia; // Llama al set de FCMedia
         }
 
-        public void ActualizarMetricas(string titulo, double kms, int metrosDesnivel, TipoActividad tipo, TimeSpan duracion, string descripcion = "", int? fcMedia = null)
+        // Este método ahora es inherentemente seguro. Cada asignación dispara la validación correspondiente.
+        public bool ActualizarMetricas( string titulo, double kms, int metrosDesnivel, TimeSpan duracion, TipoActividad tipo, string descripcion = "", int? fcMedia = null)
         {
-            ValidarMetricas(kms, duracion);
-            
             Titulo = titulo;
             Kms = kms;
             MetrosDesnivel = metrosDesnivel;
             Duracion = duracion;
+            Tipo = tipo;
             Descripcion = descripcion;
             FCMedia = fcMedia;
-            Tipo = tipo;
+
+            return true;
         }
 
-        private static void ValidarMetricas(double kms, TimeSpan duracion) 
-        {
-            if (kms < 0) throw new ArgumentException("Los kilómetros no pueden ser negativos.");
-            if (duracion.TotalSeconds <= 0) throw new ArgumentException("La duración debe ser positiva.");
-        }
+        // --- Métodos de Validación Privados ---
+        // Estos métodos se mantienen igual, ya que contienen la lógica pura de validación.
+        private static bool ValidarKms(double kms) => kms >= 0;
+        private static bool ValidarDuracion(TimeSpan duracion) => duracion.TotalSeconds > 0;
+        private static bool ValidarFCMedia(int? fcMedia) => !fcMedia.HasValue || (fcMedia.Value >= 30 && fcMedia.Value <= 220);
+        private static bool ValidarMetrosDesnivel(int metrosDesnivel) => metrosDesnivel >= 0;
+        private static bool ValidarTipoActividad(TipoActividad tipo) => Enum.IsDefined(typeof(TipoActividad), tipo);
+        private static bool ValidarFecha(DateTime fecha) => fecha <= DateTime.Now;
 
         public override string ToString()
         {
