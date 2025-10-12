@@ -12,15 +12,39 @@ namespace MiLogica.ModeloDatos.Tests
     public class UsuarioTests
     {
 
+ 
         [TestMethod()]
-        public void UsuarioTest()
+        public void Constructor_ConEmailInvalido_LanzaArgumentException()
         {
+            Assert.ThrowsException<ArgumentException>(() =>
+                new Usuario(1, "Test", "@PasswordValida123", "User", "email-invalido", false)
+            );
         }
 
         [TestMethod()]
-        public void UsuarioTest1()
+        public void Constructor_ConPasswordInvalida_LanzaArgumentException()
         {
+            Assert.ThrowsException<ArgumentException>(() =>
+                new Usuario(1, "Test", "corta", "User", "test@gmail.com", false)
+            );
         }
+
+
+        [TestMethod()]
+        public void SetNombre_ConValorNuloOEspacios_LanzaArgumentException()
+        {
+            Usuario usuario = new Usuario(1, "Test", "@PasswordValida123", "User", "test@gmail.com", false);
+            Assert.ThrowsException<ArgumentException>(() => usuario.Nombre = "   ");
+        }
+
+
+        [TestMethod()]
+        public void SetApellidos_ConValorNuloOEspacios_LanzaArgumentException()
+        {
+            Usuario usuario = new Usuario(1, "Test", "@PasswordValida123", "User", "test@gmail.com", false);
+            Assert.ThrowsException<ArgumentException>(() => usuario.Apellidos = "");
+        }
+
 
         [TestMethod()]
         public void PermitirLoginTest()

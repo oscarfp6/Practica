@@ -13,6 +13,10 @@ namespace MiLogica.ModeloDatos
 
     public class Usuario
     {
+        // Ejemplo de mejora
+        private const int MAX_INTENTOS_FALLIDOS = 3;
+        private const int MINUTOS_VENTANA_INTENTOS = 5;
+        private const int DIAS_PARA_INACTIVIDAD = 182;
 
         public string _nombre;
         public string _apellidos;
@@ -130,10 +134,10 @@ namespace MiLogica.ModeloDatos
 
                 var now = DateTime.Now;
                 this.intentosFallidosTimestamps = this.intentosFallidosTimestamps
-                    .Where(t => (now - t).TotalMinutes <= 15)
+                    .Where(t => (now - t).TotalMinutes <= MINUTOS_VENTANA_INTENTOS)
                     .ToList();
 
-                if (this.intentosFallidosTimestamps.Count >= 3) 
+                if (this.intentosFallidosTimestamps.Count >= MAX_INTENTOS_FALLIDOS) 
                 {
                     this.Estado = EstadoUsuario.Bloqueado;
                 }
@@ -165,7 +169,7 @@ namespace MiLogica.ModeloDatos
             if (this.Estado == EstadoUsuario.Activo)
             {
                 TimeSpan tiempoSinAcceder = DateTime.Now - this.LastLogin;
-                if(tiempoSinAcceder > TimeSpan.FromDays(182)) // Aproximadamente 6 meses
+                if(tiempoSinAcceder > TimeSpan.FromDays(DIAS_PARA_INACTIVIDAD)) // Aproximadamente 6 meses
                 {
                     this.Estado = EstadoUsuario.Inactivo;
                 }
