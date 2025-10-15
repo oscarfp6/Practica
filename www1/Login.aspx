@@ -115,7 +115,8 @@
                         <asp:Button ID="btnCambiarContraseña" runat="server" Text="Cambiar Contraseña" Width="200px" />
                     </td>
                     <td class="auto-style10">
-                        <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" Width="200px" />
+                        <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" Width="200px" OnClick="btnAceptar_Click" />
+
                     </td>
                     <td class="auto-style11">&nbsp;</td>
                 </tr>
