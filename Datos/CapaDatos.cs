@@ -19,6 +19,7 @@ namespace Datos
         {
             tblUsuarios = new List<Usuario>();
             tblActividades = new List<Actividad>();
+            Usuario u = new Usuario(1, "Oscar", "@Contraseñaseguraa123","Fuentes Paniego", "oscar@gmail.com", true);
         }
 
         public bool GuardaUsuario(Usuario usuario)
@@ -223,15 +224,9 @@ namespace Datos
             return tblUsuarios.FirstOrDefault(user => user.Id == idUsuario);
         }
 
-        Actividad ICapaDatos.LeeActividad(int idElemento)
-        {
-            return tblActividades.FirstOrDefault(act => act.Id == idElemento);
-        }
 
-        int ICapaDatos.NumActividades(int idUsuario)
-        {
-            return tblActividades.Count(act => act.IdUsuario == idUsuario);
-        }
+
+
 
         int ICapaDatos.NumUsuarios()
         {
