@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MiLogica.ModeloDatos;
+using System.Runtime.CompilerServices;
 
 namespace Datos
 {
@@ -20,6 +21,7 @@ namespace Datos
             tblUsuarios = new List<Usuario>();
             tblActividades = new List<Actividad>();
             Usuario u = new Usuario(1, "Oscar", "@Contraseñaseguraa123","Fuentes Paniego", "oscar@gmail.com", true);
+            
         }
 
         public bool GuardaUsuario(Usuario usuario)

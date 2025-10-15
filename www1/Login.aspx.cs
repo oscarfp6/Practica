@@ -13,43 +13,46 @@ namespace www1
     {
         private CapaDatos conexionDB;
         private Usuario usuarioAutenticado;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 if (conexionDB == null)
                 {
-                    conexionDB = (CapaDatos)Application["conexionDB"];
-                    conexionDB = new CapaDatos();
-                    Application["conexionDB"] = conexionDB;
-
+                    // Esta línea parece un error, creas dos veces el objeto.
+                    // Lo corrijo para que solo cree el objeto si no existe.
+                    if (Application["conexionDB"] == null)
+                    {
+                        conexionDB = new CapaDatos();
+                        Application["conexionDB"] = conexionDB;
+                    }
+                    else
+                    {
+                        conexionDB = (CapaDatos)Application["conexionDB"];
+                    }
                 }
 
                 usuarioAutenticado = null;
                 lblIncorrecto.Text = string.Empty;
                 lblIncorrecto.Visible = false;
-
-
-
-
             }
             else
             {
                 conexionDB = (CapaDatos)Application["conexionDB"];
-                
             }
         }
 
-        protected void btnAceptar(object sender, EventArgs e)
+        protected void btnAceptar_Click(object sender, EventArgs e)
         {
-            if(conexionDB != null)
+            if (conexionDB != null)
             {
                 usuarioAutenticado = conexionDB.LeeUsuario(tbxUsuario.Text);
-                if(usuarioAutenticado != null && usuarioAutenticado.ComprobarPassWord(tbxContraseña.Text))
+                if (usuarioAutenticado != null && usuarioAutenticado.ComprobarPassWord(tbxContraseña.Text))
                 {
                     Session["usuarioautenticado"] = usuarioAutenticado;
                     lblIncorrecto.Text = string.Empty;
-                    Server.Transfer("Menu.aspx",true);
+                    Server.Transfer("Menu.aspx", true);
                 }
                 else
                 {
@@ -59,7 +62,5 @@ namespace www1
                 }
             }
         }
-        }
-
-
+    }
 }

@@ -118,7 +118,9 @@
                         <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" Width="200px" OnClick="btnAceptar_Click" />
 
                     </td>
-                    <td class="auto-style11">&nbsp;</td>
+                    <td class="auto-style11">
+                        <asp:Button ID="Button1" runat="server" Text="Button" />
+                    </td>
                 </tr>
                 <tr>
                     <td class="auto-style12"></td>
