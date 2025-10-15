@@ -148,14 +148,15 @@ namespace MiLogica.ModeloDatos
 
         public bool ComprobarPassWord(string passwordAComprobar)
         {
-            return ComprobarHash(passwordAComprobar);
+            string passwordEncriptada = Encriptar.EncriptarPasswordSHA256(passwordAComprobar);
+            return this._passwordHash == passwordEncriptada;
         }
 
 
         
         public bool DesbloquearUsuario (string email, string passwordDado )
         {
-            if (this.Email.Equals(email, StringComparison.OrdinalIgnoreCase) && (this.Estado == EstadoUsuario.Bloqueado || this.Estado == EstadoUsuario.Inactivo) && ComprobarHash(passwordDado)) 
+            if (this.Email.Equals(email, StringComparison.OrdinalIgnoreCase) && (this.Estado == EstadoUsuario.Bloqueado || this.Estado == EstadoUsuario.Inactivo) && ComprobarPassWord(passwordDado)) 
             { 
                 RestablecerCuenta();
                 return true;
@@ -182,7 +183,7 @@ namespace MiLogica.ModeloDatos
             {
                 return false;
             }
-            if (!ComprobarHash(passwordActual) || !Utils.Password.ValidarPassword(nuevoPassword))
+            if (!ComprobarPassWord(passwordActual) || !Utils.Password.ValidarPassword(nuevoPassword))
             {
                 return false;
             }
@@ -205,11 +206,7 @@ namespace MiLogica.ModeloDatos
             this.Suscripcion = suscripcion;
         }
 
-        private bool ComprobarHash(string passwordAComprobar)
-        {
-            string passwordEncriptada = Encriptar.EncriptarPasswordSHA256(passwordAComprobar);
-            return this._passwordHash == passwordEncriptada;
-        }
+
 
         public override string ToString()
         {

@@ -21,7 +21,7 @@ namespace MiLogica.ModeloDatos
         // --- Propiedades Públicas ---
 
         // Renombramos a "Id" para seguir la convención de EF Core para Primary Key
-        public int Id { get; private set; }
+        public int Id { get; /*cambiar a privado con referencias*/ set; }
         public int IdUsuario { get; private set; }
         public string Titulo { get; set; }
         public string Descripcion { get; set; }
@@ -151,6 +151,10 @@ namespace MiLogica.ModeloDatos
             this.FCMedia = fcMedia; // Llama al set de FCMedia
         }
 
+
+        /* En principio este método es redundante, porque es en la capa de datos donde se actualizan las actividades.
+
+         * Por ahora, lo comento para evitar confusión.
         // Este método ahora es inherentemente seguro. Cada asignación dispara la validación correspondiente.
         public bool ActualizarMetricas( string titulo, double kms, int metrosDesnivel, TimeSpan duracion, TipoActividad tipo, string descripcion = "", int? fcMedia = null)
         {
@@ -164,6 +168,8 @@ namespace MiLogica.ModeloDatos
 
             return true;
         }
+
+        */
 
         // --- Métodos de Validación Privados ---
         // Estos métodos se mantienen igual, ya que contienen la lógica pura de validación.

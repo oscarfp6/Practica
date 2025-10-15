@@ -118,6 +118,7 @@ namespace MiLogica.ModeloDatos.Tests
 
         #region Pruebas de Actualización
 
+        /*
         /// <summary>
         /// Verifica que el método ActualizarMetricas actualiza correctamente los valores de una actividad.
         /// </summary>
@@ -142,6 +143,7 @@ namespace MiLogica.ModeloDatos.Tests
             Assert.AreEqual(nuevoTipo, actividad.Tipo);
             Assert.AreEqual(nuevaFc, actividad.FCMedia);
         }
+        */
 
         #endregion
 
