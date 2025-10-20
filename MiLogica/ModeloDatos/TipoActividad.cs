@@ -12,6 +12,7 @@ namespace MiLogica.ModeloDatos
         Caminata,
         Running,
         Natacion,
-        Gimnasio
+        Gimnasio,
+        Otro
     }
 }

@@ -133,8 +133,20 @@ namespace MiLogica.ModeloDatos
             }
         }
 
-        // Constructor para Entity Framework
-        private Actividad() { }
+        public Actividad(int idUsuario, string titulo)
+        {
+            if (idUsuario > 0)
+            {
+                this.IdUsuario = idUsuario;
+
+                this.Titulo = titulo;
+                this.Descripcion = "";
+                this.Tipo = TipoActividad.Otro;
+                this.Fecha = DateTime.Now;
+            }
+            // Aquí asignamos la propiedad de solo lectura
+
+        }
 
         // Constructor para ser usado por la lógica de negocio.
         // Ahora es mucho más limpio. Las asignaciones llaman a los 'setters' que ya contienen la validación.

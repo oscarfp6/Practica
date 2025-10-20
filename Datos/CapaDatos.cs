@@ -9,19 +9,19 @@ namespace Datos
 {
     public class CapaDatos : ICapaDatos
     {
-        private static List<Usuario> tblUsuarios;
-        private static List<Actividad> tblActividades;
+        private List<Usuario> tblUsuarios;
+        private List<Actividad> tblActividades;
+        private int _nextUserId = 1;
+        private int _nextActividadId = 1;
 
-        private static int _nextUserId = 1;
-        private static int _nextActividadId = 1;
 
 
-        static CapaDatos()
+        public CapaDatos()
         {
             tblUsuarios = new List<Usuario>();
             tblActividades = new List<Actividad>();
             Usuario u = new Usuario(1, "Oscar", "@Contraseñaseguraa123","Fuentes Paniego", "oscar@gmail.com", true);
-            
+            tblUsuarios.Add(u);
         }
 
         public bool GuardaUsuario(Usuario usuario)
@@ -95,7 +95,7 @@ namespace Datos
         public bool GuardaActividad (Actividad actividad)
         {
             var existente = tblActividades.FirstOrDefault(a => a.Id == actividad.Id);
-            if (existente != null)
+            if (existente != null || actividad.Id<=0)
             {
                 // Si encontramos una actividad con el mismo ID, no la añadimos y devolvemos false.
                 return false;
