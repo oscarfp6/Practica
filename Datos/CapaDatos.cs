@@ -11,7 +11,7 @@ namespace Datos
     {
         private List<Usuario> tblUsuarios;
         private List<Actividad> tblActividades;
-        private int _nextUserId = 1;
+        public int _nextUserId = 1;
         private int _nextActividadId = 1;
 
 

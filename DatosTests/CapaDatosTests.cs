@@ -298,12 +298,12 @@ namespace Datos.Tests
         [TestMethod()]
         public void NumUsuariosTest()
         {
-            Usuario segundo = new Usuario(0, "Ana", "@Contraseñaseguraa123", "Gomez", "ana@gmail.com", false);
+            Usuario segundo = new Usuario(capa._nextUserId, "Ana", "@Contraseñaseguraa123", "Gomez", "ana@gmail.com", false);
             capa.GuardaUsuario(segundo);
-            Usuario tercero = new Usuario(0, "Luis", "@Contraseñaseguraa123", "Martinez", "luis@gmail.com", false);
+            Usuario tercero = new Usuario(capa._nextUserId, "Luis", "@Contraseñaseguraa123", "Martinez", "luis@gmail.com", false);
             capa.GuardaUsuario(tercero);
             int numUsuarios = capa.NumUsuarios();
-            Assert.AreEqual(4, numUsuarios); // Debería haber 4 usuarios ahora (admin creado)
+            Assert.AreEqual(5, numUsuarios); // Debería haber 5 usuarios ahora (admin creado)
         }
 
 
