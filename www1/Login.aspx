@@ -89,7 +89,7 @@
                 <tr>
                     <td class="auto-style3">&nbsp;</td>
                     <td class="auto-style5" colspan="3">
-                        <asp:Label ID="lblInicioSesion" runat="server" Text="Inicio Sesion"></asp:Label>
+                        <asp:Label ID="lblInicioSesion" runat="server" Text="Inicio Sesion" style="text-align: left"></asp:Label>
                     </td>
                     <td class="auto-style5">
                         <asp:Label ID="lblNoTienesCuenta" runat="server" Text="¿No tienes cuenta?"></asp:Label>
@@ -102,7 +102,7 @@
                     <td class="auto-style16"></td>
                     <td class="auto-style15"></td>
                     <td class="auto-style11">
-                        <asp:Button ID="btnRegistrarse" runat="server" OnClick="Button1_Click" style="text-align: right" Text="Regístrate" Width="300px" />
+                        <asp:Button ID="btnRegistrarse" runat="server" OnClick="btnRegistrarse_Click" style="text-align: right" Text="Regístrate" Width="300px"  />
                     </td>
                     <td class="auto-style11"></td>
                 </tr>
@@ -142,7 +142,7 @@
                     <td class="auto-style7"></td>
                     <td class="auto-style8"></td>
                     <td class="auto-style9">
-                        <asp:Button ID="btnCambiarContraseña" runat="server" Text="Cambiar Contraseña" Width="200px" />
+                        <asp:Button ID="btnCambiarContraseña" runat="server" onClick="btnCambiarPassword_Click" Text="Cambiar Contraseña" Width="200px " />
                     </td>
                     <td class="auto-style10">
                         <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" Width="200px" OnClick="btnAceptar_Click" />

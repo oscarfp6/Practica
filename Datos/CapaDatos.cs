@@ -20,10 +20,11 @@ namespace Datos
         {
             tblUsuarios = new List<Usuario>();
             tblActividades = new List<Actividad>();
-            Usuario u = new Usuario(_nextUserId++, "Oscar", "@Contraseñaseguraa123","Fuentes Paniego", "oscar@gmail.com", true);
-            tblUsuarios.Add(u);
-            Usuario admin = new Usuario(0, "Admin", "@AdminPassword1234", "Admin Apellidos", "admin@gmail.com", true);
+            Usuario admin = new Usuario(_nextUserId++, "Admin", "@AdminPassword1234", "Admin Apellidos", "admin@gmail.com", true);
             tblUsuarios.Add(admin);
+            Usuario u = new Usuario(_nextUserId++, "Oscar", "@Contraseñasegura123","Fuentes Paniego", "oscar@gmail.com", true);
+            tblUsuarios.Add(u);
+
         }
 
         public bool GuardaUsuario(Usuario usuario)

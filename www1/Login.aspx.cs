@@ -63,9 +63,15 @@ namespace www1
             }
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void btnRegistrarse_Click(object sender, EventArgs e)
         {
+            Server.Transfer("SignUp.aspx", true);
 
+        }
+
+        protected void btnCambiarPassword_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("CambiarPassword.aspx", true);
         }
     }
 }
