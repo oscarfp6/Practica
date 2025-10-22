@@ -143,6 +143,7 @@ namespace MiLogica.ModeloDatos
                 this.Descripcion = "";
                 this.Tipo = TipoActividad.Otro;
                 this.Fecha = DateTime.Now;
+                this.Duracion = TimeSpan.FromMinutes(1);
             }
             // Aquí asignamos la propiedad de solo lectura
 

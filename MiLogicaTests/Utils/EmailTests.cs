@@ -19,6 +19,7 @@ namespace MiLogica.Utils.Tests
             Assert.IsFalse(Email.ValidarEmail("oscar@.com")); // No tiene texto antes del '.'
             Assert.IsFalse(Email.ValidarEmail("oscar@gmail.")); // No tiene texto después del '.'
             Assert.IsTrue(Email.ValidarEmail("gepeto@gmail.com"));
+            Assert.IsFalse(Email.ValidarEmail("oscar@gmail..com")); // Tiene dos puntos seguidos))
         }
     }
 }

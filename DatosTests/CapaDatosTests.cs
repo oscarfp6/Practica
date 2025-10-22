@@ -24,6 +24,21 @@ namespace Datos.Tests
         }
 
         [TestMethod()]
+        public void ActualizarActividadTest()
+        {
+            // Arrange
+            int idUsuarioOscar = capa.LeeUsuario("oscar@gmail.com").Id;
+            Actividad act = new Actividad(idUsuarioOscar, "Actividad a actualizar");
+            capa.GuardaActividad(act);
+            int idActividadGuardada = act.Id;
+            // Act
+            act.Titulo = "Actividad actualizada";
+            bool resultado = capa.ActualizaActividad(act);
+            // Assert
+            Assert.IsTrue(resultado);
+
+        }
+        [TestMethod()]
         public void CapaDatosTestConstructor()
         {
             Assert.IsNotNull(capa);

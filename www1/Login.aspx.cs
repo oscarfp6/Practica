@@ -48,7 +48,7 @@ namespace www1
             if (conexionDB != null)
             {
                 usuarioAutenticado = conexionDB.LeeUsuario(tbxUsuario.Text);
-                if (usuarioAutenticado != null && usuarioAutenticado.ComprobarPassWord(tbxContraseña.Text))
+                if (usuarioAutenticado != null && usuarioAutenticado.PermitirLogin(tbxContraseña.Text))
                 {
                     Session["usuarioautenticado"] = usuarioAutenticado;
                     lblIncorrecto.Text = string.Empty;

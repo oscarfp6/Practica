@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace MiLogica.Utils
 {
@@ -79,6 +80,10 @@ namespace MiLogica.Utils
             return true;
 
         }
+
+        //El resto de métodos de validación están en Password.cs y Email.cs
+
+
 
 
     }
