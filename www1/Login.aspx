@@ -102,7 +102,7 @@
                     <td class="auto-style16"></td>
                     <td class="auto-style15"></td>
                     <td class="auto-style11">
-                        <asp:Button ID="btnRegistrarse" runat="server" OnClick="btnRegistrarse_Click" style="text-align: right" Text="Regístrate" Width="300px"  />
+                        <asp:Button ID="btnRegistrarse" runat="server" OnClick="btnRegistrarse_Click" style="text-align: right" Text="Regístrate" Width="350px"  />
                     </td>
                     <td class="auto-style11"></td>
                 </tr>

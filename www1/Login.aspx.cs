@@ -56,6 +56,12 @@ namespace www1
                 }
                 else
                 {
+                    if(usuarioAutenticado.Estado == EstadoUsuario.Bloqueado)
+                    {
+                        lblIncorrecto.Text = "Usuario bloqueado. Contacte con el administrador.";
+                        lblIncorrecto.Visible = true;
+                        return;
+                    }
                     usuarioAutenticado = null;
                     lblIncorrecto.Text = "Usuario o contraseña incorrectos";
                     lblIncorrecto.Visible = true;
