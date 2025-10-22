@@ -27,10 +27,11 @@
         }
         .auto-style7 {
             height: 53px;
+            text-align: center;
         }
         .auto-style8 {
             height: 58px;
-            width: 418px;
+            width: 276px;
         }
         .auto-style9 {
             height: 58px;
@@ -84,7 +85,7 @@
                         <asp:Label ID="lblPasswordRegistro" runat="server" Text="Contraseña"></asp:Label>
                     </td>
                     <td class="auto-style9">
-                        <asp:TextBox ID="tbxPasswordRegistro" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="tbxPasswordRegistro" runat="server" TextMode="Password"></asp:TextBox>
                     </td>
                     <td class="auto-style11">
                         <asp:Label ID="lblContraseñaNoSegura" runat="server" Text="Prueba con una contraseña más segura"></asp:Label>
@@ -94,9 +95,20 @@
                 <tr>
                     <td class="auto-style7"></td>
                     <td class="auto-style4"></td>
-                    <td class="auto-style7" colspan="2">&nbsp;</td>
+                    <td class="auto-style7" colspan="2">
+                        <asp:Button ID="btnConfirmar" runat="server" Text="Confirmar" Width="193px" OnClick="btnRegistrarse_Click" />
+                    </td>
                     <td class="auto-style12">&nbsp;</td>
                     <td class="auto-style7"></td>
+                </tr>
+                <tr>
+                    <td class="auto-style7">&nbsp;</td>
+                    <td class="auto-style4">&nbsp;</td>
+                    <td class="auto-style7" colspan="2">
+                        <asp:Label ID="lblRegistroCorrecto" runat="server" style="color: #009933" Text="Registro completado satisfactoriamente"></asp:Label>
+                    </td>
+                    <td class="auto-style12">&nbsp;</td>
+                    <td class="auto-style7">&nbsp;</td>
                 </tr>
             </table>
         </div>
