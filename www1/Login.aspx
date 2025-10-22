@@ -14,7 +14,7 @@
             width: 178px;
         }
         .auto-style4 {
-            width: 329px;
+            width: 275px;
         }
         .auto-style5 {
             text-align: center;
@@ -35,7 +35,7 @@
             height: 33px;
         }
         .auto-style10 {
-            width: 329px;
+            width: 275px;
             height: 33px;
         }
         .auto-style11 {
@@ -52,6 +52,26 @@
             width: 178px;
             text-align: center;
         }
+        .auto-style15 {
+            width: 275px;
+            text-align: center;
+            height: 33px;
+        }
+        .auto-style16 {
+            width: 144px;
+            text-align: center;
+            height: 33px;
+        }
+        .auto-style17 {
+            width: 105px;
+            text-align: center;
+            height: 33px;
+        }
+        .auto-style18 {
+            width: 178px;
+            text-align: center;
+            height: 33px;
+        }
     </style>
 </head>
 <body>
@@ -63,6 +83,7 @@
                     <td class="auto-style6">&nbsp;</td>
                     <td class="auto-style2">&nbsp;</td>
                     <td class="auto-style4">&nbsp;</td>
+                    <td class="auto-style5">&nbsp;</td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
@@ -70,14 +91,20 @@
                     <td class="auto-style5" colspan="3">
                         <asp:Label ID="lblInicioSesion" runat="server" Text="Inicio Sesion"></asp:Label>
                     </td>
-                    <td>&nbsp;</td>
+                    <td class="auto-style5">
+                        <asp:Label ID="lblNoTienesCuenta" runat="server" Text="¿No tienes cuenta?"></asp:Label>
+                    </td>
+                    <td class="auto-style5">&nbsp;</td>
                 </tr>
                 <tr>
-                    <td class="auto-style3">&nbsp;</td>
-                    <td class="auto-style6">&nbsp;</td>
-                    <td class="auto-style2">&nbsp;</td>
-                    <td class="auto-style4">&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td class="auto-style18"></td>
+                    <td class="auto-style17"></td>
+                    <td class="auto-style16"></td>
+                    <td class="auto-style15"></td>
+                    <td class="auto-style11">
+                        <asp:Button ID="btnRegistrarse" runat="server" OnClick="Button1_Click" style="text-align: right" Text="Regístrate" Width="300px" />
+                    </td>
+                    <td class="auto-style11"></td>
                 </tr>
                 <tr>
                     <td class="auto-style3">&nbsp;</td>
@@ -88,6 +115,7 @@
                     <td class="auto-style4">
                         <asp:TextBox ID="tbxUsuario" runat="server"></asp:TextBox>
                     </td>
+                    <td>&nbsp;</td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
@@ -100,12 +128,14 @@
                         <asp:TextBox ID="tbxContraseña" runat="server" TextMode="Password"></asp:TextBox>
                     </td>
                     <td>&nbsp;</td>
+                    <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td class="auto-style3">&nbsp;</td>
                     <td class="auto-style6">&nbsp;</td>
                     <td class="auto-style2">&nbsp;</td>
                     <td class="auto-style4">&nbsp;</td>
+                    <td>&nbsp;</td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
@@ -119,12 +149,15 @@
 
                     </td>
                     <td class="auto-style11">
-                        <asp:Button ID="Button1" runat="server" Text="Button" />
-                    </td>
+                        &nbsp;</td>
+                    <td class="auto-style11">
+                        &nbsp;</td>
                 </tr>
                 <tr>
                     <td class="auto-style12"></td>
+                    <td></td>
                     <td class="auto-style13" colspan="3"></td>
+                    <td class="auto-style13">&nbsp;</td>
                     <td class="auto-style13"></td>
                 </tr>
                 <tr>
@@ -133,12 +166,14 @@
                         <asp:Label ID="lblIncorrecto" runat="server" Text="Usuario o contraseña incorrectos"></asp:Label>
                     </td>
                     <td>&nbsp;</td>
+                    <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td class="auto-style3">&nbsp;</td>
                     <td class="auto-style6">&nbsp;</td>
                     <td class="auto-style2">&nbsp;</td>
                     <td class="auto-style4">&nbsp;</td>
+                    <td>&nbsp;</td>
                     <td>&nbsp;</td>
                 </tr>
             </table>

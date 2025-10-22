@@ -20,8 +20,10 @@ namespace Datos
         {
             tblUsuarios = new List<Usuario>();
             tblActividades = new List<Actividad>();
-            Usuario u = new Usuario(1, "Oscar", "@Contraseñaseguraa123","Fuentes Paniego", "oscar@gmail.com", true);
+            Usuario u = new Usuario(_nextUserId++, "Oscar", "@Contraseñaseguraa123","Fuentes Paniego", "oscar@gmail.com", true);
             tblUsuarios.Add(u);
+            Usuario admin = new Usuario(0, "Admin", "@AdminPassword1234", "Admin Apellidos", "admin@gmail.com", true);
+            tblUsuarios.Add(admin);
         }
 
         public bool GuardaUsuario(Usuario usuario)
@@ -92,17 +94,29 @@ namespace Datos
             return tblUsuarios.Count(u => u.Estado == EstadoUsuario.Activo);
         }
 
-        public bool GuardaActividad (Actividad actividad)
+        public bool GuardaActividad(Actividad actividad)
         {
-            var existente = tblActividades.FirstOrDefault(a => a.Id == actividad.Id);
-            if (existente != null || actividad.Id<=0)
+            // 1. Validar que el IdUsuario exista
+            var usuario = tblUsuarios.FirstOrDefault(u => u.Id == actividad.IdUsuario);
+            if (usuario == null)
             {
-                // Si encontramos una actividad con el mismo ID, no la añadimos y devolvemos false.
-                return false;
+                return false; // El usuario al que pertenece la actividad no existe
             }
-            // Asignamos un nuevo ID a la actividad y lo incrementamos para la siguiente.
+
+            // 2. Validar que no sea una actividad duplicada (si ya tiene un ID)
+            // (Esta lógica asume que 0 es una actividad nueva)
+            if (actividad.Id != 0)
+            {
+                var existente = tblActividades.FirstOrDefault(a => a.Id == actividad.Id);
+                if (existente != null)
+                {
+                    // Ya existe un registro con ese ID, usar ActualizaActividad en su lugar
+                    return false;
+                }
+            }
+
+            // 3. Asignar nuevo ID y guardar
             actividad.Id = _nextActividadId++;
-            // Añadimos la actividad a nuestra "tabla".
             tblActividades.Add(actividad);
             return true;
         }
@@ -146,6 +160,7 @@ namespace Datos
 
         public List<Actividad> ObtenerActividadesUsuario (int idUsuario)
         {
+            //Si el usuario no tiene actividades, devuelve una lista vacía
             return tblActividades.Where(a => a.IdUsuario == idUsuario).ToList();
         }
 

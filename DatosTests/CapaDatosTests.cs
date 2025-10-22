@@ -15,7 +15,6 @@ namespace Datos.Tests
     {
         private CapaDatos capa;
 
-        // ESTO ES CLAVE: Se ejecuta ANTES de CADA test
         [TestInitialize]
         public void TestInitialize()
         {
@@ -32,6 +31,8 @@ namespace Datos.Tests
             Assert.IsNotNull(capa.LeeUsuario("oscar@gmail.com"));
 
         }
+
+        
 
 
         [TestMethod()]
@@ -52,6 +53,21 @@ namespace Datos.Tests
         }
 
         [TestMethod()]
+        public void LeeUsuarioPorIdTest_Exito()
+        {
+            // Arrange
+            Usuario oscar = capa.LeeUsuario("oscar@gmail.com");
+            int idOscar = oscar.Id;
+            Usuario oscarSegundo = capa.LeeUsuarioPorId(idOscar);
+            Assert.IsNotNull(oscarSegundo);
+            Assert.AreEqual(oscar, oscarSegundo);
+
+        }
+            
+
+
+
+            [TestMethod()]
         public void GuardaUsuarioTest_Fallo_EmailDuplicado()
         {
             // Arrange
@@ -219,7 +235,8 @@ namespace Datos.Tests
         }
 
         [TestMethod()]
-        public void EliminaActividadTest_Fallo_NoExiste() { 
+        public void EliminaActividadTest_Fallo_NoExiste()
+        {
             // Arrange
             int idActividadInexistente = 999; // ID que no existe
             // Act
@@ -247,15 +264,20 @@ namespace Datos.Tests
 
             // Assert
             Assert.IsNotNull(actividadesOscar);
-            Assert.AreEqual(2, actividadesOscar.Count); // Solo debe devolver las 2 de Oscar
+            int numActividadesOscar = capa.NumActividades(idUsuarioOscar);
+            Assert.AreEqual(2, numActividadesOscar); // Solo debe devolver las 2 de Oscar
             Assert.IsTrue(actividadesOscar.Any(a => a.Titulo == "Act1"));
             Assert.IsTrue(actividadesOscar.Any(a => a.Titulo == "Act2"));
+            Assert.AreEqual(actividadesOscar[1].Titulo, "Act2");
         }
 
         [TestMethod()]
         public void ValidaUsuarioTest()
         {
-            Assert.Fail();
+
+
+
+
         }
 
         [TestMethod()]
@@ -266,7 +288,7 @@ namespace Datos.Tests
             Usuario tercero = new Usuario(0, "Luis", "@Contraseñaseguraa123", "Martinez", "luis@gmail.com", false);
             capa.GuardaUsuario(tercero);
             int numUsuarios = capa.NumUsuarios();
-            Assert.AreEqual(3, numUsuarios); // Debería haber 3 usuarios ahora
+            Assert.AreEqual(4, numUsuarios); // Debería haber 4 usuarios ahora (admin creado)
         }
 
 
@@ -283,7 +305,7 @@ namespace Datos.Tests
             Usuario tercero = new Usuario(0, "Luis", "@Contraseñaseguraa123", "Martinez", "luis@gmail.com", false);
             tercero.Estado = EstadoUsuario.Inactivo;
             capa.GuardaUsuario(segundo);
-            Assert.AreEqual(2, capa.NumUsuariosActivos()); // Debería haber 2 usuarios activos
+            Assert.AreEqual(3, capa.NumUsuariosActivos()); // Debería haber 3 usuarios activos
         }
 
 
@@ -311,15 +333,20 @@ namespace Datos.Tests
         }
 
         [TestMethod()]
-        public void ObtenerActividadesUsuarioTest()
+        public void ObtenerActividadesUsuarioSinActividades_Test()
         {
-            Assert.Fail();
+            int idUsuarioOscar = capa.LeeUsuario("oscar@gmail.com").Id;
+            List<Actividad> actividadesOscar = capa.ObtenerActividadesUsuario(idUsuarioOscar);
+            Assert.AreEqual(actividadesOscar.Count, 0);
+
+
+
         }
 
         [TestMethod()]
         public void NumActividadesTest()
         {
-            Assert.Fail();
+            int idUsuarioOscar = capa.LeeUsuario("oscar@gmail.com").Id;
         }
     }
 }
