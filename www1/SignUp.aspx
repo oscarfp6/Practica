@@ -105,7 +105,7 @@
                     <td class="auto-style7">&nbsp;</td>
                     <td class="auto-style4">&nbsp;</td>
                     <td class="auto-style7" colspan="2">
-                        <asp:Label ID="lblRegistroCorrecto" runat="server" style="color: #009933" Text="Registro completado satisfactoriamente"></asp:Label>
+                        <asp:Label ID="lblRegistroCorrecto" runat="server" EnableViewState="False" style="color: #009933" Text="Registro completado satisfactoriamente"></asp:Label>
                     </td>
                     <td class="auto-style12">&nbsp;</td>
                     <td class="auto-style7">&nbsp;</td>
