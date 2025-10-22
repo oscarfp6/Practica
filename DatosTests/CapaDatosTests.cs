@@ -152,7 +152,7 @@ namespace Datos.Tests
         {
             // Arrange
             string email = "oscar@gmail.com";
-            string pass = "@Contraseñaseguraa123";
+            string pass = "@Contraseñasegura123";
 
             // Act
             bool resultado = capa.ValidaUsuario(email, pass);
