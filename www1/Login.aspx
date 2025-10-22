@@ -14,7 +14,7 @@
             width: 178px;
         }
         .auto-style4 {
-            width: 278px;
+            width: 399px;
         }
         .auto-style5 {
             text-align: center;
@@ -35,7 +35,7 @@
             height: 33px;
         }
         .auto-style10 {
-            width: 278px;
+            width: 399px;
             height: 33px;
         }
         .auto-style11 {
@@ -54,7 +54,7 @@
             text-align: center;
         }
         .auto-style15 {
-            width: 278px;
+            width: 399px;
             text-align: center;
             height: 33px;
         }
@@ -103,7 +103,7 @@
                     <td class="auto-style16"></td>
                     <td class="auto-style15"></td>
                     <td class="auto-style11">
-                        <asp:Button ID="btnRegistrarse" runat="server" OnClick="btnRegistrarse_Click" style="text-align: center" Text="Regístrate" Width="350px"  />
+                        <asp:Button ID="btnRegistrarse" runat="server" OnClick="btnRegistrarse_Click" style="text-align: right" Text="Regístrate" Width="350px"  />
                     </td>
                     <td class="auto-style11"></td>
                 </tr>
