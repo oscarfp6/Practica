@@ -30,8 +30,8 @@
             width: 305px;
         }
         .auto-style13 {
-            width: 305px;
             height: 42px;
+            text-align: center;
         }
         .auto-style14 {
             width: 214px;
@@ -50,7 +50,9 @@
                     <asp:Label ID="lblCambiaTuPassword" runat="server" BorderStyle="Groove" style="text-align: center" Text="Cambia tu contraseña" Width="462px"></asp:Label>
                 </td>
                 <td class="auto-style6">&nbsp;</td>
-                <td class="auto-style1"></td>
+                <td class="auto-style1">
+                    <asp:Label ID="lblErrorGeneral" runat="server" Text="Label"></asp:Label>
+                </td>
             </tr>
             <tr>
                 <td class="auto-style8"></td>
@@ -87,6 +89,22 @@
                 <td class="auto-style11">
                     <asp:Label ID="lblConfirmarPasswordNoCoincide" runat="server" Text="No coincide con la nueva contraseña"></asp:Label>
                 </td>
+            </tr>
+            <tr>
+                <td class="auto-style8">&nbsp;</td>
+                <td class="auto-style13" colspan="2">
+                    <asp:Button ID="btnConfirmarCambioPassword" runat="server" style="text-align: center" Text="Confirmar" Width="484px" />
+                </td>
+                <td class="auto-style11">
+                    &nbsp;</td>
+            </tr>
+            <tr>
+                <td class="auto-style8">&nbsp;</td>
+                <td class="auto-style13" colspan="2">
+                    <asp:Label ID="lblResultado" runat="server" Text="Label"></asp:Label>
+                </td>
+                <td class="auto-style11">
+                    &nbsp;</td>
             </tr>
         </table>
     </form>

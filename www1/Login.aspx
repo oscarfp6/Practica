@@ -142,8 +142,7 @@
                     <td class="auto-style7"></td>
                     <td class="auto-style8"></td>
                     <td class="auto-style9">
-                        <asp:Button ID="btnCambiarContraseña" runat="server" onClick="btnCambiarPassword_Click" Text="Cambiar Contraseña" Width="200px " />
-                    </td>
+                        &nbsp;</td>
                     <td class="auto-style10">
                         <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" Width="200px" OnClick="btnAceptar_Click" />
 

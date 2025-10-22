@@ -18,13 +18,16 @@ namespace Datos
 
         public CapaDatos()
         {
+
             tblUsuarios = new List<Usuario>();
             tblActividades = new List<Actividad>();
             Usuario admin = new Usuario(_nextUserId++, "Admin", "@AdminPassword1234", "Admin Apellidos", "admin@gmail.com", true);
             tblUsuarios.Add(admin);
             Usuario u = new Usuario(_nextUserId++, "Oscar", "@Contraseñasegura123", "Fuentes Paniego", "oscar@gmail.com", true);
-            u.LastLogin = DateTime.Now.AddDays(-200);
             tblUsuarios.Add(u);
+            Usuario usuarioInactivo = new Usuario(_nextUserId++, "Inactivo", "@InactivoPassword1234", "Usuario Inactivo", "inactivo@gmail.com", false);
+            usuarioInactivo.Estado = EstadoUsuario.Inactivo;
+            tblUsuarios.Add(usuarioInactivo);
 
         }
 
