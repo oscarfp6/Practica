@@ -34,6 +34,7 @@ namespace www1
                 usuarioARegistrar = null;
                 lblContraseñaNoSegura.Visible = false;
                 lblEmailEnUsoRegistro.Visible = false;
+                lblRegistroCorrecto.Visible = false;
             }
             else
             {
@@ -72,10 +73,15 @@ namespace www1
                     lblRegistroCorrecto.Visible = true;
                 }
             }
+            string script = "setTimeout(function(){ window.location = 'Login.aspx'; }, 2500);";
+            ScriptManager.RegisterStartupScript(this, GetType(), "RedirigirLogin", script, true);
+
             // Por ejemplo, validar los datos ingresados y guardarlos en la base de datos
             // Después de registrar, redirigir al usuario a la página de inicio de sesión
+            /*
             System.Threading.Thread.Sleep(1500); // Simula un retardo para ver el mensaje antes de la transferencia
             Server.Transfer("Login.aspx", true);
+            */
         }
     }
 }

@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Estilos\Login.css" />
     <Content Include="Web.config" />
     <Content Include="Login.aspx" />
     <Content Include="Menu.aspx" />
@@ -113,9 +114,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Estilos\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Datos\Datos.csproj">
       <Project>{789d1f0d-5e0d-4243-a40f-939470747dda}</Project>
