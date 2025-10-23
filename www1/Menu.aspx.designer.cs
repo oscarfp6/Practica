@@ -33,7 +33,7 @@ namespace www1
         protected global::System.Web.UI.WebControls.Label lblNombreApellidos;
 
         /// <summary>
-        /// Control lblPerfil.
+        /// Control btnPerfil.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
@@ -42,7 +42,7 @@ namespace www1
         protected global::System.Web.UI.WebControls.Button btnPerfil;
 
         /// <summary>
-        /// Control lblLogOut.
+        /// Control btnLogOut.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.

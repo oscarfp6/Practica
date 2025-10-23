@@ -44,10 +44,10 @@
                 </td>
                 <td class="auto-style6">&nbsp;</td>
                 <td class="auto-style4">
-                    <asp:Button ID="lblPerfil" runat="server" style="text-align: center" Text="Perfil" Width="122px" />
+                    <asp:Button ID="btnPerfil" runat="server" OnClick="btnPerfil_Click" style="text-align: center" Text="Perfil" Width="122px" />
                 </td>
                 <td class="auto-style2">
-                    <asp:Button ID="lblLogOut" runat="server" Text="Log Out" Width="95px" />
+                    <asp:Button ID="btnLogOut" runat="server" Text="Log Out" Width="95px" />
                 </td>
             </tr>
             <tr>
