@@ -23,6 +23,7 @@
         .auto-style6 {
             height: 33px;
             width: 2720px;
+            text-align: right;
         }
         /* Estilo para el GridView (opcional, pero recomendado) */
         .gridview-header {
@@ -39,6 +40,11 @@
         #form1 {
             text-align: center;
         }
+        .auto-style7 {
+            height: 33px;
+            width: 2190px;
+            text-align: right;
+        }
     </style>
 </head>
 <body style="width: 1553px; height: 128px; margin-bottom: 10px">
@@ -50,9 +56,9 @@
                     <%-- (Req 1) Nombre y Apellidos --%>
                     <asp:Label ID="lblNombreApellidos" runat="server" Text="Label" Font-Bold="True" Font-Size="Large"></asp:Label>
                 </td>
-                 <td class="auto-style6">&nbsp;</td>
+                 <td class="auto-style7">&nbsp;</td>
                  <td class="auto-style6">
-                     <asp:Button ID="btnRegistrarActividad" runat="server" Text="Registrar Actividad" />
+                     <asp:Button ID="btnRegistrarActividad" runat="server" Text="Registrar Actividad" OnClick="btnRegistrarActividad_Click" Width="288px" />
                 </td>
                  <td class="auto-style6">&nbsp;</td>
                 <td class="auto-style4">
