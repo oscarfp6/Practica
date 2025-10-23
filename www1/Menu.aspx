@@ -15,9 +15,6 @@
             width: 373px;
             text-align: left;
         }
-        .auto-style3 {
-            width: 373px;
-        }
         .auto-style4 {
             height: 33px;
             width: 398px;
@@ -26,12 +23,6 @@
         .auto-style6 {
             height: 33px;
             width: 3179px;
-        }
-        .auto-style7 {
-            width: 3179px;
-        }
-        .auto-style8 {
-            width: 398px;
         }
         /* Estilo para el GridView (opcional, pero recomendado) */
         .gridview-header {
@@ -44,6 +35,9 @@
         }
         .gridview-altrow {
             background-color: White;
+        }
+        #form1 {
+            text-align: center;
         }
     </style>
 </head>
@@ -72,34 +66,85 @@
 
         <%-- (Req 3 y 4) Listado central de actividades --%>
         <div style="margin-top: 20px ; width: 100%; text-align: center;">
-            <h2 style="text-align: center;">Mis Actividades Recientes</h2>
             
-            <asp:GridView ID="gvActividades" runat="server" 
-                AutoGenerateColumns="False" 
-                CellPadding="4" 
-                ForeColor="#333333" 
-                GridLines="None" 
-                Width="90%" 
-                HorizontalAlign="Center" 
-                EmptyDataText="Aún no has registrado ninguna actividad.">
-                
-                <AlternatingRowStyle CssClass="gridview-altrow" />
-                <HeaderStyle CssClass="gridview-header" />
-                <RowStyle CssClass="gridview-row" />
-                
-                <Columns>
-                    <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
-                    <asp:BoundField DataField="Titulo" HeaderText="Titulo" />
-                    <asp:BoundField DataField="Tipo" HeaderText="Tipo de Actividad" />
-                    <asp:BoundField DataField="Kms" HeaderText="Kms" DataFormatString="{0:N2} km" />
-                    <asp:BoundField DataField="Duracion" HeaderText="Duración" DataFormatString="{0:hh\\:mm\\:ss}" />
-                    <asp:BoundField DataField="RitmoMinPorKm" HeaderText="Ritmo (min/km)" DataFormatString="{0:N2}" />
-                    <asp:BoundField DataField="Descripcion" HeaderText="Descripción" />
-                    <asp:BoundField DataField="FCMedia" HeaderText="FC Media" DataFormatString="{0} bpm" />
-                </Columns>
+<div style="margin-top: 20px; width: 90%; margin-left: auto; margin-right: auto; text-align: left;">
+    <h2 style="text-align: center;">Mis Actividades Recientes</h2>
 
-            </asp:GridView>
+    <asp:Repeater ID="rptActividades" runat="server" OnItemCommand="rptActividades_ItemCommand">
+        
+        <HeaderTemplate>
+            <div style="background-color: #507CD1; color: white; font-weight: bold; padding: 10px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 3fr; gap: 10px;">
+                <div>Título</div>
+                <div>Fecha</div>
+                <div>Tipo</div>
+                <div>Distancia</div>
+                <div>Descripción</div>
+            </div>
+        </HeaderTemplate>
+
+        <ItemTemplate>
+            <div style="background-color: #EFF3FB; padding: 10px; border-bottom: 1px solid #CCC; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 3fr; gap: 10px;">
+                
+                <div>
+                    <strong><%# Eval("Titulo") %></strong>
+                </div>
+                
+                <div>
+                    <%# ((DateTime)Eval("Fecha")).ToString("dd/MM/yyyy") %>
+                </div>
+                
+                <div>
+                    <%# Eval("Tipo") %>
+                </div>
+
+                <div>
+                    <span Visible='<%# ((double)Eval("Kms")) > 0 %>'>
+                        <%# Eval("Kms", "{0:N2} km") %>
+                    </span>
+                </div>
+                
+                <div>
+                    <%# Eval("Descripcion") %>
+                </div>
+
+                </div>
+        </ItemTemplate>
+
+        <AlternatingItemTemplate>
+            <div style="background-color: White; padding: 10px; border-bottom: 1px solid #CCC; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 3fr; gap: 10px;">
+                
+                <div>
+                    <strong><%# Eval("Titulo") %></strong>
+                </div>
+                
+                <div>
+                    <%# ((DateTime)Eval("Fecha")).ToString("dd/MM/yyyy") %>
+                </div>
+                
+                <div>
+                    <%# Eval("Tipo") %>
+                </div>
+                
+                <div>
+                    <span Visible='<%# ((double)Eval("Kms")) > 0 %>'>
+                        <%# (double)Eval("Kms") > 0 ? Eval("Kms", "{0:N2} km") : "" %>
+                    </span>
+                </div>
+                
+                <div>
+                    <%# Eval("Descripcion") %>
+                </div>
+                
+            </div>
+        </AlternatingItemTemplate>
+
+
+
+    </asp:Repeater>
+</div>
         </div>
+
+        <asp:Label ID="lblNingunaActividad" runat="server" style="text-align: center" Text="Label"></asp:Label>
 
     </form>
 </body>

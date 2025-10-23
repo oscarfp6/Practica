@@ -13,10 +13,13 @@ namespace www1
     {
         private CapaDatos conexionDB;
         private Usuario usuarioAutenticado;
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
             // 1. Recuperar la conexión DB desde el estado de Aplicación
+            lblNingunaActividad.Visible = false;
+
             if (Application["conexionDB"] == null)
             {
                 conexionDB = new CapaDatos();
@@ -53,14 +56,20 @@ namespace www1
         {
             // Obtenemos las actividades para este usuario
             List<Actividad> actividades = conexionDB.ObtenerActividadesUsuario(usuarioAutenticado.Id);
-
+            if (actividades.Count == 0)
+            {
+                lblNingunaActividad.Visible = true;
+                lblNingunaActividad.Text = "No tienes actividades registradas.";
+                rptActividades.Visible = false;
+                return;
+            }
             // (Requisito 4) Ordenamos por fecha, de más reciente a más antigua
             var actividadesOrdenadas = actividades.OrderByDescending(a => a.Fecha).ToList();
-            
+
             // (Requisito 3) Enlazamos los datos al GridView
-            gvActividades.DataSource = actividadesOrdenadas;
-            gvActividades.DataBind();
-            
+            rptActividades.DataSource = actividadesOrdenadas;
+            rptActividades.DataBind();
+
         }
 
         // (Requisito 2) Evento para el botón de Log Out
@@ -86,6 +95,11 @@ namespace www1
         protected void btnPerfil_Click(object sender, EventArgs e)
         {
             Server.Transfer("Perfil.aspx", true);
+        }
+
+        protected void rptActividades_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+
         }
     }
 }

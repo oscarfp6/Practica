@@ -30,6 +30,8 @@ namespace Datos
             tblUsuarios.Add(usuarioInactivo);
             Actividad a1 = new Actividad( u.Id, "Ruta por la montaña", 15.5,  800, TimeSpan.FromHours(1.5),DateTime.Now, TipoActividad.Ciclismo, "Una ruta espectacular por las montañas.", 130);
             tblActividades.Add(a1);
+            Actividad incompleta = new Actividad(u.Id, "Actividad Incompleta");
+            tblActividades.Add(incompleta);
         }
 
         public bool GuardaUsuario(Usuario usuario)
