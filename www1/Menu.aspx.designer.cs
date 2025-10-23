@@ -39,7 +39,7 @@ namespace www1
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button lblPerfil;
+        protected global::System.Web.UI.WebControls.Button btnPerfil;
 
         /// <summary>
         /// Control lblLogOut.
@@ -48,6 +48,6 @@ namespace www1
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button lblLogOut;
+        protected global::System.Web.UI.WebControls.Button btnLogOut;
     }
 }
