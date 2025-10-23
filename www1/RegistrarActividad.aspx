@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm5.aspx.cs" Inherits="www1.WebForm5" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RegistrarActividad.aspx.cs" Inherits="www1.WebForm5" %>
 
 <!DOCTYPE html>
 
@@ -27,7 +27,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <table style="width:100%;">
+            <table style="width: 100%;">
                 <tr>
                     <td class="auto-style6">&nbsp;</td>
                     <td class="auto-style3" colspan="4">

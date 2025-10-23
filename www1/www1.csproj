@@ -73,7 +73,7 @@
     <Content Include="Menu.aspx" />
     <Content Include="SignUp.aspx" />
     <Content Include="CambiarPassword.aspx" />
-    <Content Include="WebForm5.aspx" />
+    <Content Include="RegistrarActividad.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Perfil.aspx.cs">
@@ -112,12 +112,12 @@
     <Compile Include="CambiarPassword.aspx.designer.cs">
       <DependentUpon>CambiarPassword.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebForm5.aspx.cs">
-      <DependentUpon>WebForm5.aspx</DependentUpon>
+    <Compile Include="RegistrarActividad.aspx.cs">
+      <DependentUpon>RegistrarActividad.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebForm5.aspx.designer.cs">
-      <DependentUpon>WebForm5.aspx</DependentUpon>
+    <Compile Include="RegistrarActividad.aspx.designer.cs">
+      <DependentUpon>RegistrarActividad.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
