@@ -56,10 +56,11 @@ namespace www1
 
             // (Requisito 4) Ordenamos por fecha, de más reciente a más antigua
             var actividadesOrdenadas = actividades.OrderByDescending(a => a.Fecha).ToList();
-
+            
             // (Requisito 3) Enlazamos los datos al GridView
             gvActividades.DataSource = actividadesOrdenadas;
             gvActividades.DataBind();
+            
         }
 
         // (Requisito 2) Evento para el botón de Log Out

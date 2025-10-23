@@ -63,7 +63,7 @@
                 </td>
                 <td class="auto-style2">
                     <%-- (Req 2) Botón Log Out con evento OnClick --%>
-                    <asp:Button ID="lblLogOut" runat="server" Text="Log Out" Width="95px" OnClick="lblLogOut_Click" />
+                    <asp:Button ID="lblLogOut" runat="server" Text="Log Out" Width="95px"  OnClick="lblLogOut_Click" />
                 </td>
             </tr>
         </table>
@@ -71,7 +71,7 @@
         <hr />
 
         <%-- (Req 3 y 4) Listado central de actividades --%>
-        <div style="margin-top: 20px; width: 100%; text-align: center;">
+        <div style="margin-top: 20px ; width: 100%; text-align: center;">
             <h2 style="text-align: center;">Mis Actividades Recientes</h2>
             
             <asp:GridView ID="gvActividades" runat="server" 
@@ -89,7 +89,7 @@
                 
                 <Columns>
                     <asp:BoundField DataField="Fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy HH:mm}" />
-                    <asp:BoundField DataField="Titulo" HeaderText="Título" />
+                    <asp:BoundField DataField="Titulo" HeaderText="Titulo" />
                     <asp:BoundField DataField="Tipo" HeaderText="Tipo de Actividad" />
                     <asp:BoundField DataField="Kms" HeaderText="Kms" DataFormatString="{0:N2} km" />
                     <asp:BoundField DataField="Duracion" HeaderText="Duración" DataFormatString="{0:hh\\:mm\\:ss}" />

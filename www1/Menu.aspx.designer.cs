@@ -42,12 +42,21 @@ namespace www1
         protected global::System.Web.UI.WebControls.Button btnPerfil;
 
         /// <summary>
-        /// Control btnLogOut.
+        /// Control lblLogOut.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogOut;
+        protected global::System.Web.UI.WebControls.Button lblLogOut;
+
+        /// <summary>
+        /// Control gvActividades.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvActividades;
     }
 }
