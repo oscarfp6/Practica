@@ -28,7 +28,8 @@ namespace Datos
             Usuario usuarioInactivo = new Usuario(_nextUserId++, "Inactivo", "@InactivoPassword1234", "Usuario Inactivo", "inactivo@gmail.com", false);
             usuarioInactivo.Estado = EstadoUsuario.Inactivo;
             tblUsuarios.Add(usuarioInactivo);
-
+            Actividad a1 = new Actividad( u.Id, "Ruta por la montaña", 15.5,  800, TimeSpan.FromHours(1.5),DateTime.Now, TipoActividad.Ciclismo, "Una ruta espectacular por las montañas.", 130);
+            tblActividades.Add(a1);
         }
 
         public bool GuardaUsuario(Usuario usuario)
