@@ -97,6 +97,11 @@ namespace www1
             Server.Transfer("Perfil.aspx", true);
         }
 
+        protected void btnRegistrarActividad_Click(object sender, EventArgs e)
+        {
+            Server.Transfer("RegistrarActividad.aspx", true);
+        }
+
         protected void rptActividades_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
 

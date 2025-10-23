@@ -32,6 +32,18 @@ namespace Datos
             tblActividades.Add(a1);
             Actividad incompleta = new Actividad(u.Id, "Actividad Incompleta");
             tblActividades.Add(incompleta);
+            Actividad a2 = new Actividad(u.Id, "Carrera urbana", 10.0, 100, TimeSpan.FromHours(0.8), DateTime.Now, TipoActividad.Running, "Carrera rápida por la ciudad.", 160);
+            tblActividades.Add(a2);
+            Actividad a3 = new Actividad(u.Id, "Caminata relajada", 5.0, 50, TimeSpan.FromHours(1.0), DateTime.Now, TipoActividad.Caminata, "Paseo tranquilo por el parque.", 110);
+            tblActividades.Add(a3);
+            Actividad a4 = new Actividad(u.Id, "Entrenamiento de intervalos", 8.0, 200, TimeSpan.FromHours(1.2), DateTime.Now, TipoActividad.Running, "Sesión intensa de intervalos en la pista.", 170);
+            tblActividades.Add(a4);
+            Actividad a5 = new Actividad(u.Id, "Ruta en bicicleta de montaña", 20.0, 600, TimeSpan.FromHours(2.0), DateTime.Now, TipoActividad.Ciclismo, "Desafiante ruta de montaña con vistas increíbles.", 140);
+            tblActividades.Add(a5);
+            Actividad a6 = new Actividad(u.Id, "Caminata por la naturaleza", 12.0, 300, TimeSpan.FromHours(2.5), DateTime.Now, TipoActividad.Caminata, "Explorando senderos naturales y disfrutando del paisaje.", 120);
+            tblActividades.Add(a6);
+            Actividad a7 = new Actividad(u.Id, "Maratón de la ciudad", 42.195, 500, TimeSpan.FromHours(4.0), DateTime.Now, TipoActividad.Running, "Participación en el maratón anual de la ciudad.", 155);
+            tblActividades.Add(a7);
         }
 
         public bool GuardaUsuario(Usuario usuario)
