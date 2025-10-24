@@ -73,7 +73,7 @@ namespace www1
         }
 
         // (Requisito 2) Evento para el botón de Log Out
-        protected void lblLogOut_Click(object sender, EventArgs e)
+        protected void btnLogOut_Click(object sender, EventArgs e)
         {
             // Limpiamos la sesión y redirigimos a Login
             Session.Clear();

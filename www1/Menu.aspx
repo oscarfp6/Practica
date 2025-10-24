@@ -67,7 +67,7 @@
                 </td>
                 <td class="auto-style2">
                     <%-- (Req 2) Botón Log Out con evento OnClick --%>
-                    <asp:Button ID="lblLogOut" runat="server" Text="Log Out" Width="95px"  OnClick="lblLogOut_Click" />
+                    <asp:Button ID="btnLogOut" runat="server" Text="Log Out" Width="95px"  OnClick="btnLogOut_Click" />
                 </td>
             </tr>
         </table>
@@ -136,7 +136,7 @@
                 </div>
                 
                 <div>
-                    <span Visible='<%# ((double)Eval("Kms")) > 0 %>'>
+                    <span visible='<%# ((double)Eval("Kms")) > 0 %>'>
                         <%# (double)Eval("Kms") > 0 ? Eval("Kms", "{0:N2} km") : "" %>
                     </span>
                 </div>
