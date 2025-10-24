@@ -22,29 +22,29 @@ namespace Datos
             tblUsuarios = new List<Usuario>();
             tblActividades = new List<Actividad>();
             Usuario admin = new Usuario(_nextUserId++, "Admin", "@AdminPassword1234", "Admin Apellidos", "admin@gmail.com", true);
-            tblUsuarios.Add(admin);
+            GuardaUsuario(admin);
             Usuario u = new Usuario(_nextUserId++, "Oscar", "@Contraseñasegura123", "Fuentes Paniego", "oscar@gmail.com", true);
-            tblUsuarios.Add(u);
+            GuardaUsuario(u);
             Usuario usuarioInactivo = new Usuario(_nextUserId++, "Inactivo", "@InactivoPassword1234", "Usuario Inactivo", "inactivo@gmail.com", false);
             usuarioInactivo.Estado = EstadoUsuario.Inactivo;
-            tblUsuarios.Add(usuarioInactivo);
+            GuardaUsuario(usuarioInactivo);
             
             Actividad a1 = new Actividad( u.Id, "Ruta por la montaña", 15.5,  800, TimeSpan.FromHours(1.5),DateTime.Now, TipoActividad.Ciclismo, "Una ruta espectacular por las montañas.", 130);
-            tblActividades.Add(a1);
+            GuardaActividad(a1);
             Actividad incompleta = new Actividad(u.Id, "Actividad Incompleta");
-            tblActividades.Add(incompleta);
+            GuardaActividad(incompleta);
             Actividad a2 = new Actividad(u.Id, "Carrera urbana", 10.0, 100, TimeSpan.FromHours(0.8), DateTime.Now, TipoActividad.Running, "Carrera rápida por la ciudad.", 160);
-            tblActividades.Add(a2);
+            GuardaActividad(a2);
             Actividad a3 = new Actividad(u.Id, "Caminata relajada", 5.0, 50, TimeSpan.FromHours(1.0), DateTime.Now, TipoActividad.Caminata, "Paseo tranquilo por el parque.", 110);
-            tblActividades.Add(a3);
+            GuardaActividad(a3);
             Actividad a4 = new Actividad(u.Id, "Entrenamiento de intervalos", 8.0, 200, TimeSpan.FromHours(1.2), DateTime.Now, TipoActividad.Running, "Sesión intensa de intervalos en la pista.", 170);
-            tblActividades.Add(a4);
+            GuardaActividad(a4);
             Actividad a5 = new Actividad(u.Id, "Ruta en bicicleta de montaña", 20.0, 600, TimeSpan.FromHours(2.0), DateTime.Now, TipoActividad.Ciclismo, "Desafiante ruta de montaña con vistas increíbles.", 140);
-            tblActividades.Add(a5);
+            GuardaActividad(a5);
             Actividad a6 = new Actividad(u.Id, "Caminata por la naturaleza", 12.0, 300, TimeSpan.FromHours(2.5), DateTime.Now, TipoActividad.Caminata, "Explorando senderos naturales y disfrutando del paisaje.", 120);
-            tblActividades.Add(a6);
+            GuardaActividad(a6);
             Actividad a7 = new Actividad(u.Id, "Maratón de la ciudad", 42.195, 500, TimeSpan.FromHours(4.0), DateTime.Now, TipoActividad.Running, "Participación en el maratón anual de la ciudad.", 155);
-            tblActividades.Add(a7);
+            GuardaActividad(a7);
             
         }
 

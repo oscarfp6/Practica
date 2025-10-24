@@ -32,6 +32,7 @@ namespace www1
                 lblNombreApellidos.Text = $"{usuarioAutenticado.Nombre} {usuarioAutenticado.Apellidos}";
                 CargarActividades();
             }
+
         }
 
         private void CargarActividades()
@@ -52,6 +53,10 @@ namespace www1
 
             var actividadesOrdenadas = actividades.OrderByDescending(a => a.Fecha).ToList();
             rptActividades.DataSource = actividadesOrdenadas;
+            foreach (var act in actividades)
+            {
+                System.Diagnostics.Debug.WriteLine($"[DEBUG] Actividad en DataSource -> Id: {act.Id}, Título: {act.Titulo}");
+            }
             rptActividades.DataBind();
         }
 
@@ -59,14 +64,20 @@ namespace www1
         // --- EVENTO ItemCommand ACTUALIZADO ---
         protected void rptActividades_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
+
+            System.Diagnostics.Debug.WriteLine($"[DEBUG] CommandName: {e.CommandName} | CommandArgument (raw): '{e.CommandArgument}'");
+
             lblMenuMessage.Visible = false; // Ocultar mensaje previo
 
             // Intentar convertir el ID (CommandArgument)
             if (!int.TryParse(e.CommandArgument?.ToString(), out int actividadId))
             {
                 MostrarMensaje("Error: ID de actividad inválido.", "error");
+                System.Diagnostics.Debug.WriteLine("[DEBUG] TryParse falló sobre CommandArgument.");
                 return;
             }
+
+            System.Diagnostics.Debug.WriteLine($"[DEBUG] ActividadId parseado: {actividadId}");
 
             // --- Lógica para EDITAR ---
             if (e.CommandName == "EditActivity")
@@ -74,8 +85,11 @@ namespace www1
                 // Verificar suscripción
                 if (usuarioAutenticado.Suscripcion)
                 {
-                    // Redirigir a la página de edición (asegúrate de crear EditarActividad.aspx)
+                    
+                    // 3. Redirige a EditarActividad.aspx, pasando el ID en la QueryString
+                    // ESTO ES LO QUE SOLUCIONA QUE SIEMPRE TE LLEVE A LA PRIMERA ACTIVIDAD.
                     Response.Redirect($"EditarActividad.aspx?id={actividadId}");
+                    
                 }
                 else
                 {
