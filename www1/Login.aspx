@@ -5,178 +5,137 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
+    <title>Inicio de Sesión</title>
     <style type="text/css">
-        .auto-style2 {
-            width: 144px;
+        body {
+            font-family: Arial, sans-serif; /* Fuente más estándar */
+            background-color: #f4f4f4; /* Fondo gris claro */
+            margin: 0;
+            padding: 0;
+            display: flex; /* Para centrar el contenedor */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Asegura altura completa */
         }
-        .auto-style3 {
-            width: 178px;
-        }
-        .auto-style4 {
-            width: 399px;
-        }
-        .auto-style5 {
+        .login-container {
+            background-color: #fff; /* Fondo blanco */
+            padding: 30px;
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            width: 400px; /* Ancho fijo */
             text-align: center;
         }
-        .auto-style6 {
-            width: 105px;
+        .login-container h2 {
+            margin-bottom: 25px;
+            color: #333;
         }
-        .auto-style7 {
-            width: 178px;
-            height: 33px;
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left; /* Alinea etiquetas a la izquierda */
         }
-        .auto-style8 {
-            width: 105px;
-            height: 33px;
+        .form-group label {
+            display: block; /* Etiqueta en línea separada */
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
         }
-        .auto-style9 {
-            width: 144px;
-            height: 33px;
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            width: calc(100% - 22px); /* Ancho completo menos padding y borde */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
         }
-        .auto-style10 {
-            width: 399px;
-            height: 33px;
+        /* Estilo para los controles ASP.NET TextBox */
+        .aspNetDisabled, .aspNetDisabled::-webkit-input-placeholder { /*Placeholders*/
+            cursor: text;
         }
-        .auto-style11 {
-            height: 33px;
-            text-align: center;
+        .aspNetDisabled, .aspNetDisabled::-moz-placeholder { /*Placeholders*/
+            cursor: text;
         }
-        .auto-style12 {
-            width: 178px;
-            height: 58px;
+        .aspNetDisabled, .aspNetDisabled:-ms-input-placeholder { /*Placeholders*/
+            cursor: text;
         }
-        .auto-style13 {
-            height: 58px;
+         .aspTextBox {
+            width: calc(100% - 22px); /* Ajusta como los input normales */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
         }
-        .auto-style14 {
-            width: 178px;
-            text-align: center;
+        .login-button, .register-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 10px;
         }
-        .auto-style15 {
-            width: 399px;
-            text-align: center;
-            height: 33px;
+        .login-button {
+            background-color: #5cb85c; /* Verde */
+            color: white;
         }
-        .auto-style16 {
-            width: 144px;
-            text-align: center;
-            height: 33px;
+        .login-button:hover {
+            background-color: #4cae4c;
         }
-        .auto-style17 {
-            width: 105px;
-            text-align: center;
-            height: 33px;
+         .register-button {
+            background-color: #f0ad4e; /* Naranja */
+            color: white;
         }
-        .auto-style18 {
-            width: 178px;
-            text-align: center;
-            height: 33px;
+        .register-button:hover {
+            background-color: #ec971f;
+        }
+        .error-message {
+            color: #d9534f; /* Rojo */
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        .register-link {
+            margin-top: 20px;
+            color: #777;
+        }
+        .register-link span { /* Para el texto "¿No tienes cuenta?" */
+             margin-right: 10px;
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-            <table style="width: 100%;">
-                <tr>
-                    <td class="auto-style3">&nbsp;</td>
-                    <td class="auto-style6">&nbsp;</td>
-                    <td class="auto-style2">&nbsp;</td>
-                    <td class="auto-style4">&nbsp;</td>
-                    <td class="auto-style5">&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="auto-style3">&nbsp;</td>
-                    <td class="auto-style5" colspan="3">
-                        <asp:Label ID="lblInicioSesion" runat="server" Text="Inicio Sesion" style="text-align: left"></asp:Label>
-                    </td>
-                    <td class="auto-style5">
-                        <asp:Label ID="lblNoTienesCuenta" runat="server" Text="¿No tienes cuenta?"></asp:Label>
-                    </td>
-                    <td class="auto-style5">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="auto-style18"></td>
-                    <td class="auto-style17"></td>
-                    <td class="auto-style16"></td>
-                    <td class="auto-style15"></td>
-                    <td class="auto-style11">
-                        <asp:Button ID="btnRegistrarse" runat="server" OnClick="btnRegistrarse_Click" style="text-align: center" Text="Regístrate" Width="350px"  />
-                    </td>
-                    <td class="auto-style11"></td>
-                </tr>
-                <tr>
-                    <td class="auto-style3">&nbsp;</td>
-                    <td class="auto-style6">&nbsp;</td>
-                    <td class="auto-style2">
-                        <asp:Label ID="lblUsuario" runat="server" Text="Usuario"></asp:Label>
-                    </td>
-                    <td class="auto-style4">
-                        <asp:TextBox ID="tbxUsuario" runat="server"></asp:TextBox>
-                    </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="auto-style3">&nbsp;</td>
-                    <td class="auto-style6">&nbsp;</td>
-                    <td class="auto-style2">
-                        <asp:Label ID="lblContraseña" runat="server" Text="Contraseña: "></asp:Label>
-                    </td>
-                    <td class="auto-style4">
-                        <asp:TextBox ID="tbxContraseña" runat="server" TextMode="Password"></asp:TextBox>
-                    </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="auto-style3">&nbsp;</td>
-                    <td class="auto-style6">&nbsp;</td>
-                    <td class="auto-style2">&nbsp;</td>
-                    <td class="auto-style4">&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="auto-style7"></td>
-                    <td class="auto-style8"></td>
-                    <td class="auto-style9">
-                        &nbsp;</td>
-                    <td class="auto-style10">
-                        <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" Width="200px" OnClick="btnAceptar_Click" />
+        <div class="login-container">
 
-                    </td>
-                    <td class="auto-style11">
-                        &nbsp;</td>
-                    <td class="auto-style11">
-                        &nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="auto-style12"></td>
-                    <td></td>
-                    <td class="auto-style13" colspan="3"></td>
-                    <td class="auto-style13">&nbsp;</td>
-                    <td class="auto-style13"></td>
-                </tr>
-                <tr>
-                    <td class="auto-style14">&nbsp;</td>
-                    <td class="auto-style5" colspan="3">
-                        <asp:Label ID="lblIncorrecto" runat="server" Text="Usuario o contraseña incorrectos"></asp:Label>
-                    </td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="auto-style3">&nbsp;</td>
-                    <td class="auto-style6">&nbsp;</td>
-                    <td class="auto-style2">&nbsp;</td>
-                    <td class="auto-style4">&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
-                </tr>
-            </table>
+            <%-- Título del formulario --%>
+            <h2><asp:Label ID="lblInicioSesion" runat="server" Text="Inicio de Sesión"></asp:Label></h2>
+
+            <%-- Campo Usuario --%>
+            <div class="form-group">
+                <asp:Label ID="lblUsuario" runat="server" Text="Usuario (Email):" AssociatedControlID="tbxUsuario"></asp:Label>
+                <asp:TextBox ID="tbxUsuario" runat="server" CssClass="aspTextBox"></asp:TextBox>
+                <%-- Podrías añadir validadores aquí si quisieras --%>
+            </div>
+
+            <%-- Campo Contraseña --%>
+            <div class="form-group">
+                <asp:Label ID="lblContraseña" runat="server" Text="Contraseña:" AssociatedControlID="tbxContraseña"></asp:Label>
+                <asp:TextBox ID="tbxContraseña" runat="server" TextMode="Password" CssClass="aspTextBox"></asp:TextBox>
+                 <%-- Podrías añadir validadores aquí si quisieras --%>
+            </div>
+
+            <%-- Botón de Aceptar --%>
+            <div class="form-group">
+                <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="login-button" OnClick="btnAceptar_Click" />
+            </div>
+
+            <%-- Mensaje de Error --%>
+            <asp:Label ID="lblIncorrecto" runat="server" CssClass="error-message" Visible="false" Text="Usuario o contraseña incorrectos"></asp:Label>
+
+             <%-- Sección de Registro --%>
+             <div class="register-link">
+                 <asp:Label ID="lblNoTienesCuenta" runat="server" Text="¿No tienes cuenta?"></asp:Label>
+                 <asp:Button ID="btnRegistrarse" runat="server" OnClick="btnRegistrarse_Click" Text="Regístrate" CssClass="register-button" CausesValidation="false" />
+             </div>
+
         </div>
     </form>
 </body>
