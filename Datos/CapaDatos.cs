@@ -21,11 +21,11 @@ namespace Datos
 
             tblUsuarios = new List<Usuario>();
             tblActividades = new List<Actividad>();
-            Usuario admin = new Usuario(_nextUserId++, "Admin", "@AdminPassword1234", "Admin Apellidos", "admin@gmail.com", true);
+            Usuario admin = new Usuario(1, "Admin", "@AdminPassword1234", "Admin Apellidos", "admin@gmail.com", true);
             GuardaUsuario(admin);
-            Usuario u = new Usuario(_nextUserId++, "Oscar", "@Contraseñasegura123", "Fuentes Paniego", "oscar@gmail.com", true);
+            Usuario u = new Usuario(_nextUserId, "Oscar", "@Contraseñasegura123", "Fuentes Paniego", "oscar@gmail.com", true);
             GuardaUsuario(u);
-            Usuario usuarioInactivo = new Usuario(_nextUserId++, "Inactivo", "@InactivoPassword1234", "Usuario Inactivo", "inactivo@gmail.com", false);
+            Usuario usuarioInactivo = new Usuario(_nextUserId, "Inactivo", "@InactivoPassword1234", "Usuario Inactivo", "inactivo@gmail.com", false);
             usuarioInactivo.Estado = EstadoUsuario.Inactivo;
             GuardaUsuario(usuarioInactivo);
             
