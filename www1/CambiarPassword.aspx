@@ -5,108 +5,90 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
+    <title>Cambiar Contraseña</title>
     <style type="text/css">
-        .auto-style1 {
-            height: 52px;
+        /* --- Estilos base similares a Login/SignUp --- */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container-box { background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); width: 450px; text-align: center; }
+        .container-box h2 { margin-bottom: 25px; color: #333; }
+        .form-group { margin-bottom: 15px; text-align: left; position: relative; } /* Added position relative */
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        .aspTextBox { width: calc(100% - 22px); padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1em; }
+        .btn { width: 100%; padding: 12px; border: none; border-radius: 4px; font-size: 1.1em; cursor: pointer; margin-top: 10px; }
+        .btn-primary { background-color: #007bff; color: white; }
+        .btn-primary:hover { background-color: #0056b3; }
+        .btn-secondary { background-color: #6c757d; color: white; margin-top: 5px; /* Less margin for cancel */}
+        .btn-secondary:hover { background-color: #5a6268; }
+        .message-label { /* General messages */
+            display: block; /* Make it take full width below button */
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 1.2em; /* Reserve space */
         }
-        .auto-style2 {
-            height: 52px;
-            width: 130px;
+        .error-message { color: #d9534f; /* Red */}
+        .success-message { color: #5cb85c; /* Green */}
+        .validation-error { /* Specific validator messages */
+            color: red;
+            font-size: 0.9em;
+            display: block; /* Below the textbox */
+            margin-top: 3px;
         }
-        .auto-style6 {
-            height: 52px;
-            width: 214px;
-        }
-        .auto-style8 {
-            width: 130px;
-            height: 42px;
-        }
-        .auto-style11 {
-            height: 42px;
-        }
-        .auto-style12 {
-            height: 52px;
-            width: 305px;
-        }
-        .auto-style13 {
-            height: 42px;
-            text-align: center;
-        }
-        .auto-style14 {
-            width: 214px;
-            height: 42px;
-        }
+
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <div class="container-box">
+
+            <h2><asp:Label ID="lblCambiaTuPassword" runat="server" Text="Cambiar Contraseña"></asp:Label></h2>
+
+            <%-- Contraseña Actual --%>
+            <div class="form-group">
+                <asp:Label ID="lblIntroducePasswordActual" runat="server" Text="Contraseña Actual:" AssociatedControlID="tbxPasswordActual"></asp:Label>
+                <asp:TextBox ID="tbxPasswordActual" runat="server" TextMode="Password" CssClass="aspTextBox"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvPasswordActual" runat="server" ControlToValidate="tbxPasswordActual"
+                    ErrorMessage="La contraseña actual es obligatoria." CssClass="validation-error" Display="Dynamic">* Obligatorio</asp:RequiredFieldValidator>
+                <%-- Mensaje de error específico para contraseña actual incorrecta --%>
+                <asp:Label ID="lblErrorPasswordActual" runat="server" CssClass="validation-error" Visible="false" Text="La contraseña actual no es correcta."></asp:Label>
+            </div>
+
+            <%-- Nueva Contraseña --%>
+            <div class="form-group">
+                <asp:Label ID="lblIntroduceLaNuevaContraseña" runat="server" Text="Nueva Contraseña:" AssociatedControlID="tbxNuevoPassword"></asp:Label>
+                <asp:TextBox ID="tbxNuevoPassword" runat="server" TextMode="Password" CssClass="aspTextBox"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvNuevoPassword" runat="server" ControlToValidate="tbxNuevoPassword"
+                    ErrorMessage="La nueva contraseña es obligatoria." CssClass="validation-error" Display="Dynamic">* Obligatorio</asp:RequiredFieldValidator>
+                 <%-- Mensaje de error específico para contraseña no segura --%>
+                <asp:Label ID="lblErrorNuevoPassword" runat="server" CssClass="validation-error" Visible="false" Text="La contraseña no cumple los requisitos de seguridad."></asp:Label>
+            </div>
+
+            <%-- Confirmar Nueva Contraseña --%>
+            <div class="form-group">
+                <asp:Label ID="lblConfirmaNuevoPassword" runat="server" Text="Confirmar Nueva Contraseña:" AssociatedControlID="tbxConfirmarPassword"></asp:Label>
+                <asp:TextBox ID="tbxConfirmarPassword" runat="server" TextMode="Password" CssClass="aspTextBox"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvConfirmarPassword" runat="server" ControlToValidate="tbxConfirmarPassword"
+                    ErrorMessage="La confirmación es obligatoria." CssClass="validation-error" Display="Dynamic">* Obligatorio</asp:RequiredFieldValidator>
+                <asp:CompareValidator ID="cvConfirmarPassword" runat="server" ControlToValidate="tbxConfirmarPassword" ControlToCompare="tbxNuevoPassword" Operator="Equal" Type="String"
+                    ErrorMessage="Las contraseñas nuevas no coinciden." CssClass="validation-error" Display="Dynamic">* No coincide</asp:CompareValidator>
+            </div>
+
+            <%-- Botón Confirmar --%>
+            <div class="form-group" style="text-align: center;">
+                 <asp:Button ID="btnConfirmarCambioPassword" runat="server" Text="Confirmar Cambio" CssClass="btn btn-primary" OnClick="btnConfirmarCambioPassword_Click" />
+            </div>
+
+            <%-- Mensaje General (Resultado Éxito/Error General) --%>
+            <asp:Label ID="lblResultado" runat="server" CssClass="message-label" Visible="false"></asp:Label>
+
+            <%-- Botón Cancelar/Volver --%>
+             <div class="form-group" style="text-align: center;">
+                 <asp:Button ID="btnCancelar" runat="server" Text="Cancelar y Volver al Perfil" CssClass="btn btn-secondary" OnClick="btnCancelar_Click" CausesValidation="false" />
+            </div>
+
+             <%-- Resumen de Validación --%>
+            <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="error-message" HeaderText="Por favor, corrige los siguientes errores:" ShowMessageBox="false" ShowSummary="true"/>
+
         </div>
-        <table style="width: 100%;">
-            <tr>
-                <td class="auto-style2"></td>
-                <td class="auto-style12">
-                    <asp:Label ID="lblCambiaTuPassword" runat="server" BorderStyle="Groove" style="text-align: center" Text="Cambia tu contraseña" Width="462px"></asp:Label>
-                </td>
-                <td class="auto-style6">&nbsp;</td>
-                <td class="auto-style1">
-                    <asp:Label ID="lblErrorGeneral" runat="server" Text="Label"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style8"></td>
-                <td class="auto-style13">
-                    <asp:Label ID="lblIntroducePasswordActual" runat="server" Text="Introduce la contraseña actual:"></asp:Label>
-                </td>
-                <td class="auto-style14">
-                    <asp:TextBox ID="tbxPasswordActual" runat="server"></asp:TextBox>
-                </td>
-                <td class="auto-style11">
-                    <asp:Label ID="lblErrorPasswordActualCambiarPassword" runat="server" Text="Esta contraseña no coincide con la actual"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style8"></td>
-                <td class="auto-style13">
-                    <asp:Label ID="lblIntroduceLaNuevaContraseña" runat="server" Text="Introduce la nueva contraseña:"></asp:Label>
-                </td>
-                <td class="auto-style14">
-                    <asp:TextBox ID="tbxNuevoPassword" runat="server"></asp:TextBox>
-                </td>
-                <td class="auto-style11">
-                    <asp:Label ID="lblNuevoPasswordCambiarContraseña" runat="server" Text="Prueba con una contraseña más segura"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style8"></td>
-                <td class="auto-style13">
-                    <asp:Label ID="lblConfirmaNuevoPassword" runat="server" Text="Confirma la nueva contraseña:"></asp:Label>
-                </td>
-                <td class="auto-style14">
-                    <asp:TextBox ID="tbxConfirmarPassword" runat="server"></asp:TextBox>
-                </td>
-                <td class="auto-style11">
-                    <asp:Label ID="lblConfirmarPasswordNoCoincide" runat="server" Text="No coincide con la nueva contraseña"></asp:Label>
-                </td>
-            </tr>
-            <tr>
-                <td class="auto-style8">&nbsp;</td>
-                <td class="auto-style13" colspan="2">
-                    <asp:Button ID="btnConfirmarCambioPassword" runat="server" style="text-align: center" Text="Confirmar" Width="484px" />
-                </td>
-                <td class="auto-style11">
-                    &nbsp;</td>
-            </tr>
-            <tr>
-                <td class="auto-style8">&nbsp;</td>
-                <td class="auto-style13" colspan="2">
-                    <asp:Label ID="lblResultado" runat="server" Text="Label"></asp:Label>
-                </td>
-                <td class="auto-style11">
-                    &nbsp;</td>
-            </tr>
-        </table>
     </form>
 </body>
 </html>

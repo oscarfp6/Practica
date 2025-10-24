@@ -33,15 +33,6 @@ namespace www1
         protected global::System.Web.UI.WebControls.Label lblCambiaTuPassword;
 
         /// <summary>
-        /// Control lblErrorGeneral.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorGeneral;
-
-        /// <summary>
         /// Control lblIntroducePasswordActual.
         /// </summary>
         /// <remarks>
@@ -60,13 +51,22 @@ namespace www1
         protected global::System.Web.UI.WebControls.TextBox tbxPasswordActual;
 
         /// <summary>
-        /// Control lblErrorPasswordActualCambiarPassword.
+        /// Control rfvPasswordActual.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorPasswordActualCambiarPassword;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPasswordActual;
+
+        /// <summary>
+        /// Control lblErrorPasswordActual.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorPasswordActual;
 
         /// <summary>
         /// Control lblIntroduceLaNuevaContraseña.
@@ -87,13 +87,22 @@ namespace www1
         protected global::System.Web.UI.WebControls.TextBox tbxNuevoPassword;
 
         /// <summary>
-        /// Control lblNuevoPasswordCambiarContraseña.
+        /// Control rfvNuevoPassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNuevoPasswordCambiarContraseña;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNuevoPassword;
+
+        /// <summary>
+        /// Control lblErrorNuevoPassword.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorNuevoPassword;
 
         /// <summary>
         /// Control lblConfirmaNuevoPassword.
@@ -114,13 +123,22 @@ namespace www1
         protected global::System.Web.UI.WebControls.TextBox tbxConfirmarPassword;
 
         /// <summary>
-        /// Control lblConfirmarPasswordNoCoincide.
+        /// Control rfvConfirmarPassword.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblConfirmarPasswordNoCoincide;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvConfirmarPassword;
+
+        /// <summary>
+        /// Control cvConfirmarPassword.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cvConfirmarPassword;
 
         /// <summary>
         /// Control btnConfirmarCambioPassword.
@@ -139,5 +157,23 @@ namespace www1
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblResultado;
+
+        /// <summary>
+        /// Control btnCancelar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelar;
+
+        /// <summary>
+        /// Control ValidationSummary1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
     }
 }

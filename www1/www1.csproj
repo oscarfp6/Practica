@@ -74,6 +74,7 @@
     <Content Include="SignUp.aspx" />
     <Content Include="CambiarPassword.aspx" />
     <Content Include="RegistrarActividad.aspx" />
+    <Content Include="EditarActividad.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Perfil.aspx.cs">
@@ -118,6 +119,13 @@
     </Compile>
     <Compile Include="RegistrarActividad.aspx.designer.cs">
       <DependentUpon>RegistrarActividad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditarActividad.aspx.cs">
+      <DependentUpon>EditarActividad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditarActividad.aspx.designer.cs">
+      <DependentUpon>EditarActividad.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
