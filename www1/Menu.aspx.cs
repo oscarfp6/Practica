@@ -81,16 +81,6 @@ namespace www1
             Response.Redirect("Login.aspx");
         }
 
-        // (Requisito 2) Evento para el botón de Perfil
-        protected void lblPerfil_Click(object sender, EventArgs e)
-        {
-            // De momento no tenemos página de perfil, pero dejamos el evento listo.
-            // Podrías redirigir a una futura "Perfil.aspx"
-            // Response.Redirect("Perfil.aspx");
-
-            // Temporalmente, solo mostramos un mensaje
-            lblNombreApellidos.Text = "Página de perfil aún no implementada.";
-        }
 
         protected void btnPerfil_Click(object sender, EventArgs e)
         {

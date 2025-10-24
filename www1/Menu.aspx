@@ -60,10 +60,11 @@
                  <td class="auto-style6">
                      <asp:Button ID="btnRegistrarActividad" runat="server" Text="Registrar Actividad" OnClick="btnRegistrarActividad_Click" Width="288px" />
                 </td>
-                 <td class="auto-style6">&nbsp;</td>
+                 <td class="auto-style6">
+                    <asp:Button ID="btnPerfil" runat="server" style="text-align: center" Text="Perfil" Width="122px" OnClick="btnPerfil_Click" />
+                </td>
                 <td class="auto-style4">
                     <%-- (Req 2) Botón Perfil con evento OnClick --%>
-                    <asp:Button ID="btnPerfil" runat="server" style="text-align: center" Text="Perfil" Width="122px" OnClick="btnPerfil_Click" />
                 </td>
                 <td class="auto-style2">
                     <%-- (Req 2) Botón Log Out con evento OnClick --%>
