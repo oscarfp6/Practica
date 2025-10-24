@@ -170,9 +170,11 @@ namespace MiLogica.ModeloDatos.Tests
         public void ActualizarPerfilTest()
         {
             Usuario Pedro = new Usuario();
-            Pedro.ActualizarPerfil("Pedro", "Sánchez", true);
+            Pedro.ActualizarPerfil("Pedro", "Sánchez", null,null);
             Assert.AreEqual("Pedro", Pedro.Nombre);
-            Assert.ThrowsException<ArgumentException>(() => Pedro.ActualizarPerfil("Pedrito", "", false));
+            Assert.AreEqual("Sánchez", Pedro.Apellidos);
+            Pedro.ActualizarPerfil("Pedro", "Sánchez", 30, 80.5);
+            Assert.AreEqual(30, Pedro.Edad);
         }
 
         [TestMethod()]

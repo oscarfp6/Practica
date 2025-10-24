@@ -1,12 +1,13 @@
-﻿using System;
+﻿using MiLogica.Utils;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
-using MiLogica.Utils;
 
 namespace MiLogica.ModeloDatos
 {
@@ -22,7 +23,38 @@ namespace MiLogica.ModeloDatos
         public string _apellidos;
         public string _email;
         public string _passwordHash;
+        public int? _edad;
+        public double? _peso;
         public int Id { get; set; }
+
+        public double? Peso // Cambiado a double?
+        {
+            get => _peso;
+            set
+            {
+                // Validar solo si se proporciona un valor
+                if (value.HasValue && (value < 0 || value > 500))
+                {
+                    throw new ArgumentException("El peso debe estar entre 0 y 500 kg.");
+                }
+                _peso = value; // Asignar el valor (puede ser null)
+            }
+        }
+
+        // --- PROPIEDAD EDAD (AHORA int?) ---
+        public int? Edad // Cambiado a int?
+        {
+            get => _edad;
+            set
+            {
+                // Validar solo si se proporciona un valor
+                if (value.HasValue && (value < 0 || value > 120))
+                {
+                    throw new ArgumentException("La edad debe estar entre 0 y 120 años.");
+                }
+                _edad = value; // Asignar el valor (puede ser null)
+            }
+        }
         public string Nombre
         {
             get => _nombre;
@@ -77,6 +109,8 @@ namespace MiLogica.ModeloDatos
             this.Nombre = "nameToChange";
             this.Apellidos = "surnamesToChange";
             this._passwordHash = string.Empty;
+            _edad = null; 
+            _peso = null; 
             this.intentosFallidosTimestamps = new List<DateTime>();
         }
 
@@ -96,6 +130,8 @@ namespace MiLogica.ModeloDatos
             this.Apellidos = apellidos;
             this.Email = email;
             this.Suscripcion = suscripcion;
+            _edad = null; 
+            _peso = null; 
 
             this._passwordHash = Encriptar.EncriptarPasswordSHA256(password);
 
@@ -199,18 +235,27 @@ namespace MiLogica.ModeloDatos
             this.LastLogin = DateTime.Now;
         }
 
-        public void ActualizarPerfil(string nombre, string apellidos, bool suscripcion)
+        public void ActualizarPerfil(string nombre, string apellidos, int? edad, double? peso)
         {
             this.Nombre = nombre;
             this.Apellidos = apellidos;
-            this.Suscripcion = suscripcion;
+
+            this.Edad = edad;
+            this.Peso = peso;
+
+
         }
+
 
 
 
         public override string ToString()
         {
-            return $"ID: {Id}, Nombre: {Nombre}, Apellidos: {Apellidos}, Email: {Email}, Suscripción: {Suscripcion}, Estado: {Estado}, Último Login: {LastLogin}";
+            string infoExtra = "";
+            if (Edad.HasValue) infoExtra += $", Edad: {Edad.Value}";
+            if (Peso.HasValue) infoExtra += $", Peso: {Peso.Value.ToString(CultureInfo.InvariantCulture)} kg"; // Mostrar con punto decimal
+
+            return $"ID: {Id}, Nombre: {Nombre}, Apellidos: {Apellidos}, Email: {Email}, Estado: {Estado}{infoExtra}, Último Login: {LastLogin:dd/MM/yyyy HH:mm}"; // Ejemplo sin Suscripcion
         }
 
     }
