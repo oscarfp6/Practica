@@ -264,9 +264,11 @@ namespace Datos.Tests
         public void ObtenerActividadesUsuarioTest_Exito()
         {
             // Arrange
-            int idUsuarioOscar = capa.LeeUsuario("oscar@gmail.com").Id;
-            capa.GuardaActividad(new Actividad(idUsuarioOscar, "Act1"));
-            capa.GuardaActividad(new Actividad(idUsuarioOscar, "Act2"));
+            Usuario alberto = new Usuario(0, "Alberto", "@Contraseñaseguraa123", "Lopez", "alberto@gmail.com", false);
+            capa.GuardaUsuario(alberto);
+            int idAlberto = capa.LeeUsuario("alberto@gmail.com").Id;
+            capa.GuardaActividad(new Actividad(idAlberto, "Act1"));
+            capa.GuardaActividad(new Actividad(idAlberto, "Act2"));
 
             // Guardamos una actividad de OTRO usuario para asegurar que no se mezcla
             Usuario ana = new Usuario(0, "Ana", "@Contraseñaseguraa123", "Gomez", "ana@gmail.com", false);
@@ -275,15 +277,15 @@ namespace Datos.Tests
 
 
             // Act
-            List<Actividad> actividadesOscar = capa.ObtenerActividadesUsuario(idUsuarioOscar);
+            List<Actividad> actividadesAlberto = capa.ObtenerActividadesUsuario(idAlberto);
 
             // Assert
-            Assert.IsNotNull(actividadesOscar);
-            int numActividadesOscar = capa.NumActividades(idUsuarioOscar);
+            Assert.IsNotNull(actividadesAlberto);
+            int numActividadesOscar = capa.NumActividades(idAlberto);
             Assert.AreEqual(2, numActividadesOscar); // Solo debe devolver las 2 de Oscar
-            Assert.IsTrue(actividadesOscar.Any(a => a.Titulo == "Act1"));
-            Assert.IsTrue(actividadesOscar.Any(a => a.Titulo == "Act2"));
-            Assert.AreEqual(actividadesOscar[1].Titulo, "Act2");
+            Assert.IsTrue(actividadesAlberto.Any(a => a.Titulo == "Act1"));
+            Assert.IsTrue(actividadesAlberto.Any(a => a.Titulo == "Act2"));
+            Assert.AreEqual(actividadesAlberto[1].Titulo, "Act2");
         }
 
         [TestMethod()]
@@ -350,9 +352,10 @@ namespace Datos.Tests
         [TestMethod()]
         public void ObtenerActividadesUsuarioSinActividades_Test()
         {
-            int idUsuarioOscar = capa.LeeUsuario("oscar@gmail.com").Id;
-            List<Actividad> actividadesOscar = capa.ObtenerActividadesUsuario(idUsuarioOscar);
-            Assert.AreEqual(actividadesOscar.Count, 0);
+            Usuario alberto = new Usuario(0, "Alberto", "@Contraseñaseguraa123", "Lopez", "alberto@gmail.com", false);
+            capa.GuardaUsuario(alberto);
+            List <Actividad> actividadesAlberto = capa.ObtenerActividadesUsuario(alberto.Id);
+            Assert.AreEqual(actividadesAlberto.Count, 0);
 
 
 
