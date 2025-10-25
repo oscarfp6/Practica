@@ -138,5 +138,45 @@ namespace www1
             Response.Redirect("RegistrarActividad.aspx");
             // Server.Transfer("RegistrarActividad.aspx", true);
         }
+
+        // Esta función será llamada desde el Repeater en el archivo .aspx
+        /// <summary>
+        /// Devuelve el texto formateado para el ritmo, según el tipo de actividad.
+        /// </summary>
+        protected string FormatearRitmo(object tipoActividad, object velocidad, object ritmo)
+        {
+            try
+            {
+                // 1. Convertimos los objetos 'evaluados' a sus tipos correctos
+                TipoActividad tipo = (TipoActividad)tipoActividad;
+                double velKmh = (double)velocidad;
+                double ritMinKm = (double)ritmo;
+
+                // 2. Aplicamos la lógica que pediste
+                switch (tipo)
+                {
+                    case TipoActividad.Ciclismo:
+                        // Devolvemos km/h si el valor es válido
+                        return (velKmh > 0) ? $"{velKmh:N2} km/h" : "N/A";
+
+                    case TipoActividad.Running:
+                    case TipoActividad.Caminata:
+                        // Devolvemos min/km si el valor es válido
+                        return (ritMinKm > 0) ? $"{ritMinKm:N2} min/km" : "N/A";
+
+                    case TipoActividad.Natacion:
+                    case TipoActividad.Gimnasio:
+                    case TipoActividad.Otro:
+                    default:
+                        // Para los demás tipos, no mostramos nada
+                        return string.Empty;
+                }
+            }
+            catch
+            {
+                // En caso de cualquier error (ej. casting), devolvemos vacío
+                return string.Empty;
+            }
+        }
     }
 }

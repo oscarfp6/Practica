@@ -22,8 +22,10 @@
             padding: 10px;
             border-bottom: 1px solid #CCC;
             display: grid;
-            /* Columnas: Título(3fr), Fecha(1fr), Tipo(1fr), Distancia(1fr), Desc(4fr), Acciones(2fr) */
-            grid-template-columns: 3fr 1fr 1fr 1fr 4fr 2fr;
+            
+            /* Columnas: Título(3), Fecha(1), Tipo(1), Distancia(1), Ritmo(1.5), Desc(4), Acciones(2) */
+            grid-template-columns: 3fr 1fr 1fr 1fr 1.5fr 4fr 2fr;
+            
             gap: 10px;
             align-items: center; /* Centrar verticalmente */
         }
@@ -73,7 +75,7 @@
                  <%-- Celdas flexibles para botones a la derecha --%>
                  <td style="width:100%;">&nbsp;</td> <%-- Espaciador flexible --%>
                  <td class="auto-style6">
-                     <asp:Button ID="btnRegistrarActividad" runat="server" Text="Registrar Actividad" OnClick="btnRegistrarActividad_Click" Width="180px" /> <%-- Ancho ajustado --%>
+                      <asp:Button ID="btnRegistrarActividad" runat="server" Text="Registrar Actividad" OnClick="btnRegistrarActividad_Click" Width="180px" /> <%-- Ancho ajustado --%>
                 </td>
                  <td class="auto-style6">
                     <asp:Button ID="btnPerfil" runat="server" Text="Perfil" Width="100px" OnClick="btnPerfil_Click" /> <%-- Ancho ajustado --%>
@@ -86,7 +88,7 @@
 
         <hr />
 
-         <%-- Label para Mensajes (Suscripción, Éxito/Error Borrado) --%>
+          <%-- Label para Mensajes (Suscripción, Éxito/Error Borrado) --%>
         <asp:Label ID="lblMenuMessage" runat="server" CssClass="menu-message" Visible="false"></asp:Label>
 
 
@@ -97,13 +99,14 @@
             <asp:Repeater ID="rptActividades" runat="server" OnItemCommand="rptActividades_ItemCommand">
 
                 <HeaderTemplate>
-                    <div class="repeater-header">
+                     <div class="repeater-header">
                         <div>Título</div>
                         <div>Fecha</div>
                         <div>Tipo</div>
                         <div>Distancia</div>
+                        <div>Ritmo</div> <%-- !! NUEVA CABECERA AÑADIDA !! --%>
                         <div>Descripción</div>
-                        <div>Acciones</div> <%-- Nueva cabecera --%>
+                        <div>Acciones</div>
                     </div>
                 </HeaderTemplate>
 
@@ -113,31 +116,39 @@
                         <div><%# ((DateTime)Eval("Fecha")).ToString("dd/MM/yyyy") %></div>
                         <div><%# Eval("Tipo") %></div>
                         <div><%# (double)Eval("Kms") > 0 ? Eval("Kms", "{0:N2} km") : "" %></div>
+                        
+                        <%-- !! NUEVA CELDA AÑADIDA (Llama a la función del C#) !! --%>
+                        <div><%# FormatearRitmo(Eval("Tipo"), Eval("VelocidadMediaKmh"), Eval("RitmoMinPorKm")) %></div>
+
                         <div><%# Eval("Descripcion") %></div>
                         <%-- Nueva celda para botones --%>
                         <div class="action-buttons">
                             <asp:LinkButton ID="btnEditar" runat="server" Text="Editar" CssClass="btn-edit"
                                 CommandName="EditActivity" CommandArgument='<%# Eval("Id") %>' />
                             <asp:LinkButton ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn-delete"
-                                CommandName="DeleteActivity" CommandArgument='<%# Eval("Id") %>'
+                                 CommandName="DeleteActivity" CommandArgument='<%# Eval("Id") %>'
                                 OnClientClick="return confirm('¿Estás seguro de que quieres eliminar esta actividad?');" /> <%-- Confirmación JS --%>
                         </div>
                     </div>
                 </ItemTemplate>
 
                 <AlternatingItemTemplate>
-                     <div class="repeater-alt-item">
+                      <div class="repeater-alt-item">
                         <div><strong><%# Eval("Titulo") %></strong></div>
                         <div><%# ((DateTime)Eval("Fecha")).ToString("dd/MM/yyyy") %></div>
                         <div><%# Eval("Tipo") %></div>
                         <div><%# (double)Eval("Kms") > 0 ? Eval("Kms", "{0:N2} km") : "" %></div>
+
+                        <%-- !! NUEVA CELDA AÑADIDA (Llama a la función del C#) !! --%>
+                        <div><%# FormatearRitmo(Eval("Tipo"), Eval("VelocidadMediaKmh"), Eval("RitmoMinPorKm")) %></div>
+
                         <div><%# Eval("Descripcion") %></div>
                          <%-- Nueva celda para botones --%>
                         <div class="action-buttons">
-                            <asp:LinkButton ID="btnEditarAlt" runat="server" Text="Editar" CssClass="btn-edit"
+                             <asp:LinkButton ID="btnEditarAlt" runat="server" Text="Editar" CssClass="btn-edit"
                                 CommandName="EditActivity" CommandArgument='<%# Eval("Id") %>' />
                             <asp:LinkButton ID="btnEliminarAlt" runat="server" Text="Eliminar" CssClass="btn-delete"
-                                CommandName="DeleteActivity" CommandArgument='<%# Eval("Id") %>'
+                                 CommandName="DeleteActivity" CommandArgument='<%# Eval("Id") %>'
                                 OnClientClick="return confirm('¿Estás seguro de que quieres eliminar esta actividad?');" /> <%-- Confirmación JS --%>
                         </div>
                     </div>
