@@ -21,7 +21,7 @@ namespace Datos
 
             tblUsuarios = new List<Usuario>();
             tblActividades = new List<Actividad>();
-            Usuario admin = new Usuario(1, "Admin", "@AdminPassword1234", "Admin Apellidos", "admin@gmail.com", true);
+            Usuario admin = new Usuario(_nextUserId, "Admin", "@AdminPassword1234", "Admin Apellidos", "admin@gmail.com", true);
             GuardaUsuario(admin);
             Usuario u = new Usuario(_nextUserId, "Oscar", "@Contraseñasegura123", "Fuentes Paniego", "oscar@gmail.com", true);
             GuardaUsuario(u);
@@ -67,6 +67,8 @@ namespace Datos
 
             return true;
         }
+
+
 
         public bool ActualizaUsuario(Usuario usuario)
         {
@@ -116,6 +118,13 @@ namespace Datos
         public int NumUsuariosActivos()
         {
             return tblUsuarios.Count(u => u.Estado == EstadoUsuario.Activo);
+        }
+
+
+        public List<Usuario> ObtenerTodosLosUsuarios()
+        {
+            // Devolvemos una nueva lista para que el original (tblUsuarios) no se modifique desde fuera
+            return tblUsuarios.ToList();
         }
 
         public bool GuardaActividad(Actividad actividad)

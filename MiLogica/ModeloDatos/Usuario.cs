@@ -228,6 +228,29 @@ namespace MiLogica.ModeloDatos
             return true;
         }
 
+        /// <summary>
+        /// Permite a un administrador establecer una nueva contraseña para un usuario.
+        /// Omite la comprobación de la contraseña actual, pero SÍ valida la seguridad de la nueva.
+        /// También restablece la cuenta del usuario a Activo.
+        /// </summary>
+        /// <param name="nuevoPassword">La nueva contraseña segura.</param>
+        /// <returns>True si la contraseña era segura y se estableció; false en caso contrario.</returns>
+        public bool AdminEstablecerPassword(string nuevoPassword)
+        {
+            // Un admin SIEMPRE puede cambiar la pass, sin importar el estado (Bloqueado, etc.)
+            // PERO la nueva password DEBE ser segura.
+            if (!Utils.Password.ValidarPassword(nuevoPassword))
+            {
+                return false; // La nueva password no es segura
+            }
+
+            this._passwordHash = Encriptar.EncriptarPasswordSHA256(nuevoPassword);
+
+            // Al resetear la password, es lógico también restablecer la cuenta a 'Activo'.
+            this.RestablecerCuenta(); // Esto ya pone Estado=Activo, limpia intentos, etc.
+            return true;
+        }
+
         private void RestablecerCuenta()
         {
             this.Estado = EstadoUsuario.Activo;

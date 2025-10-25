@@ -287,6 +287,13 @@ namespace Datos.Tests
             Assert.IsTrue(actividadesAlberto.Any(a => a.Titulo == "Act2"));
             Assert.AreEqual(actividadesAlberto[1].Titulo, "Act2");
         }
+        [TestMethod()]
+        public void VerificaAdminId1Test()
+        {
+            Usuario admin = capa.LeeUsuarioPorId(1);
+            Assert.IsNotNull(admin);
+            Assert.AreEqual("Admin", admin.Nombre);
+        }
 
         [TestMethod()]
         public void ValidaUsuarioTest()

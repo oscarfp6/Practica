@@ -31,6 +31,14 @@ namespace Datos
             /// <returns>True o False en función de si ha conseguido actualizar la información</returns>
             bool ActualizaUsuario(Usuario u);
 
+            // ... (Debajo de NumUsuariosActivos())
+
+            /// <summary>
+            /// RF-ADMIN: Obtiene el listado completo de todos los usuarios.
+            /// </summary>
+            /// <returns>Retorna una lista con todos los usuarios registrados.</returns>
+            List<Usuario> ObtenerTodosLosUsuarios();
+
 
             /// <summary>
             /// RF02: Lee los datos del usuario que se corresponde con la clave Email que se recibe como parámetro.

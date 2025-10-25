@@ -52,7 +52,13 @@ namespace www1
                 {
                     Session["usuarioautenticado"] = usuarioAutenticado;
                     lblIncorrecto.Text = string.Empty;
-                    Server.Transfer("Menu.aspx", true);
+                    if (usuarioAutenticado.Id==1)
+                    {
+                        Server.Transfer("MenuAdmin.aspx", true);
+                    } else
+                    {
+                        Server.Transfer("Menu.aspx", true);
+                    }
                 }
                 else
                 {
