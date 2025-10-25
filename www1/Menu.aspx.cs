@@ -58,7 +58,7 @@ namespace www1
 
 
         // --- EVENTO ItemCommand ACTUALIZADO ---
-        protected void rptActividades_ItemCommand(object source, RepeaterCommandEventArgs e)
+        protected void RptActividades_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
 
             lblMenuMessage.Visible = false; // Ocultar mensaje previo
@@ -123,17 +123,17 @@ namespace www1
 
 
         // --- Otros Handlers (btnLogOut, btnPerfil, btnRegistrarActividad sin cambios) ---
-        protected void btnLogOut_Click(object sender, EventArgs e)
+        protected void BtnLogOut_Click(object sender, EventArgs e)
         {
             Session.Clear(); Session.Abandon(); Response.Redirect("Login.aspx");
         }
-        protected void btnPerfil_Click(object sender, EventArgs e)
+        protected void BtnPerfil_Click(object sender, EventArgs e)
         {
             // Usar Response.Redirect es generalmente mejor que Server.Transfer si no necesitas mantener el estado de la request
             Response.Redirect("Perfil.aspx");
             // Server.Transfer("Perfil.aspx", true);
         }
-        protected void btnRegistrarActividad_Click(object sender, EventArgs e)
+        protected void BtnRegistrarActividad_Click(object sender, EventArgs e)
         {
             Response.Redirect("RegistrarActividad.aspx");
             // Server.Transfer("RegistrarActividad.aspx", true);
