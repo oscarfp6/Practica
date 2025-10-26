@@ -49,7 +49,7 @@ namespace MiLogica.ModeloDatos.Tests
         [TestMethod()]
         public void PermitirLoginTest()
         {
-            Usuario Jose = new Usuario(1, "usuario1", "@Contraseñavalida123", "Pérez", "jose@gmail.com", false);
+            Usuario Jose = new Usuario(1, "usuario_jose", "@Contraseñavalida123", "Pérez", "jose@gmail.com", false);
             Assert.IsTrue(Jose.PermitirLogin("@Contraseñavalida123"));
             Console.WriteLine($"Estado tras login exitoso: {Jose.Estado}");
             Assert.AreEqual(EstadoUsuario.Activo, Jose.Estado);
@@ -102,6 +102,7 @@ namespace MiLogica.ModeloDatos.Tests
             Luis.PermitirLogin("wrongpass");
             Console.WriteLine(Luis.Estado);
             Assert.IsFalse(Luis.PermitirLogin("@Contraseñavalida123"));
+            Luis.BloqueadoHasta = DateTime.Now.AddMinutes(-1); // Establece BloqueadoHasta a 1 minuto en el pasado.
             Assert.IsTrue(Luis.DesbloquearUsuario("luis@gmail.com", "@Contraseñavalida123"));
             Console.WriteLine(Luis.Estado);
             Assert.IsTrue(Luis.PermitirLogin("@Contraseñavalida123"));
