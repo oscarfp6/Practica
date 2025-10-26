@@ -46,9 +46,23 @@ namespace www1
         {
             // ... (Código existente para guardar Nombre, Apellidos, Edad, Peso) ...
             // ¡IMPORTANTE! Asegúrate de que este método YA NO actualiza la propiedad Suscripcion.
-            if (!Page.IsValid) {/*...*/}
-            if (usuarioautenticado == null) {/*...*/}
-            lblMensaje.Text = string.Empty; lblMensaje.Visible = false;
+            if (!Page.IsValid) 
+            {
+                lblMensaje.Text = "Por favor, corrige los errores del formulario.";
+                lblMensaje.CssClass = "message-error";
+                lblMensaje.Visible = true;
+                return;
+            }
+
+            if (usuarioautenticado == null) 
+            {
+                Response.Redirect("Login.aspx");
+                return;
+            }
+
+            lblMensaje.Text = string.Empty; 
+            lblMensaje.Visible = false;
+
             try
             {
                 string nuevoNombre = tbxNombre.Text.Trim();
@@ -68,9 +82,31 @@ namespace www1
                     lblMensaje.Visible = true;
                     // Podrías recargar los datos por si acaso: CargarDatosPerfil();
                 }
-                else {/*...*/}
+                else 
+                {
+                    lblMensaje.Text = "Error al guardar los cambios en la base de datos.";
+                    lblMensaje.CssClass = "message-error";
+                    lblMensaje.Visible = true;
+                }
             }
-            catch (Exception ex) {/*...*/}
+            catch (ArgumentException ex) 
+            {
+                lblMensaje.Text = $"Error de validación: {ex.Message}";
+                lblMensaje.CssClass = "message-error";
+                lblMensaje.Visible = true;
+            }
+            catch (FormatException ex)
+            {
+                lblMensaje.Text = $"Error en el formato de los datos: Verifique los campos numéricos (Edad y Peso).";
+                lblMensaje.CssClass = "message-error";
+                lblMensaje.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                lblMensaje.Text = "Error inesperado al intentar actualizar el perfil.";
+                lblMensaje.CssClass = "message-error";
+                lblMensaje.Visible = true;
+            }
             // --- Fin código existente ---
         }
 
