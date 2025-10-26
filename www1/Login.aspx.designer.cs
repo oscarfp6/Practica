@@ -78,6 +78,15 @@ namespace www1
         protected global::System.Web.UI.WebControls.Button btnAceptar;
 
         /// <summary>
+        /// Control btnDesbloquear.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDesbloquear;
+
+        /// <summary>
         /// Control lblIncorrecto.
         /// </summary>
         /// <remarks>

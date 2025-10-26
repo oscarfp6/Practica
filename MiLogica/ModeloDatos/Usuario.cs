@@ -25,6 +25,7 @@ namespace MiLogica.ModeloDatos
         public string _passwordHash;
         public int? _edad;
         public double? _peso;
+        public DateTime? BloqueadoHasta { get; set; }
         public int Id { get; set; }
 
         public double? Peso // Cambiado a double?
@@ -145,7 +146,7 @@ namespace MiLogica.ModeloDatos
         {
 
             VerificarInactividad();
-            if (this.Estado == EstadoUsuario.Bloqueado) return false;
+            if (this.Estado == EstadoUsuario.Bloqueado && DateTime.Now < this.BloqueadoHasta) return false;
 
             string passwordEncriptada = Encriptar.EncriptarPasswordSHA256(passwordDado);
             bool esPasswordCorrecta = this._passwordHash.Equals(passwordEncriptada);
@@ -176,6 +177,7 @@ namespace MiLogica.ModeloDatos
                 if (this.intentosFallidosTimestamps.Count >= MAX_INTENTOS_FALLIDOS) 
                 {
                     this.Estado = EstadoUsuario.Bloqueado;
+                    this.BloqueadoHasta = DateTime.Now.AddMinutes(2);
                 }
             }
             return false;
@@ -192,6 +194,7 @@ namespace MiLogica.ModeloDatos
         
         public bool DesbloquearUsuario (string email, string passwordDado )
         {
+            if (this.Estado == EstadoUsuario.Bloqueado && DateTime.Now < this.BloqueadoHasta) return false;
             if (this.Email.Equals(email, StringComparison.OrdinalIgnoreCase) && (this.Estado == EstadoUsuario.Bloqueado || this.Estado == EstadoUsuario.Inactivo) && ComprobarPassWord(passwordDado)) 
             { 
                 RestablecerCuenta();
@@ -256,6 +259,7 @@ namespace MiLogica.ModeloDatos
             this.Estado = EstadoUsuario.Activo;
             this.intentosFallidosTimestamps.Clear();
             this.LastLogin = DateTime.Now;
+            this.BloqueadoHasta = null;
         }
 
         public void ActualizarPerfil(string nombre, string apellidos, int? edad, double? peso)

@@ -92,6 +92,14 @@
             margin-top: 15px;
             font-weight: bold;
         }
+        
+        /* --- NUEVO ESTILO AÑADIDO --- */
+        .success-message {
+            color: #5cb85c; /* Verde */
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
         .register-link {
             margin-top: 20px;
             color: #777;
@@ -127,12 +135,17 @@
                 <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" CssClass="login-button" OnClick="btnAceptar_Click" />
             </div>
 
-            <%-- Mensaje de Error --%>
+            <%-- --- NUEVO BOTÓN DE DESBLOQUEO AÑADIDO --- --%>
+            <div class="form-group">
+                 <asp:Button ID="btnDesbloquear" runat="server" Text="Desbloquear Cuenta" CssClass="register-button" OnClick="btnDesbloquear_Click" Visible="false" CausesValidation="false" />
+            </div>
+
+            <%-- Mensaje de Error (Ahora también de éxito) --%>
             <asp:Label ID="lblIncorrecto" runat="server" CssClass="error-message" Visible="false" Text="Usuario o contraseña incorrectos"></asp:Label>
 
              <%-- Sección de Registro --%>
              <div class="register-link">
-                 <asp:Label ID="lblNoTienesCuenta" runat="server" Text="¿No tienes cuenta?"></asp:Label>
+                  <asp:Label ID="lblNoTienesCuenta" runat="server" Text="¿No tienes cuenta?"></asp:Label>
                  <asp:Button ID="btnRegistrarse" runat="server" OnClick="btnRegistrarse_Click" Text="Regístrate" CssClass="register-button" CausesValidation="false" />
              </div>
 
