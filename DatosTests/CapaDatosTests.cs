@@ -87,7 +87,7 @@ namespace Datos.Tests
         {
             // Arrange
             // Intentamos guardar un usuario con el email de "Oscar", que ya existe
-            Usuario duplicado = new Usuario(0, "Oscar2", "@Contraseñaseguraa123", "Repetido", "oscar@gmail.com", false);
+            Usuario duplicado = new Usuario(0, "Oscar_Fuentes", "@Contraseñaseguraa123", "Repetido", "oscar@gmail.com", false);
             int usuariosAntes = capa.NumUsuarios(); // Debería ser 1
 
             // Act
