@@ -143,16 +143,16 @@ namespace www1
                 // B. Actualizar Contraseña (si se escribió algo)
                 string nuevaPassword = tbxNuevaPassword.Text;
                 if (!string.IsNullOrWhiteSpace(nuevaPassword))
-                {
-                    // Usamos el nuevo método que añadimos a Usuario.cs
-                    bool passCambiada = usuarioAActualizar.AdminEstablecerPassword(nuevaPassword);
+                {              
 
-                    if (passCambiada)
+                    if (usuarioAActualizar.AdminEstablecerPassword(nuevaPassword))
                     {
                         cambiosHechos = true;
                         // Nota: AdminEstablecerPassword ya pone al usuario como "Activo"
                         // Así que actualizamos el DDL para reflejarlo
-                        ddlNuevoEstado.SelectedValue = EstadoUsuario.Activo.ToString();
+                        usuarioAActualizar.Estado = EstadoUsuario.Activo;
+                        //ddlNuevoEstado.SelectedValue = EstadoUsuario.Activo.ToString();
+                        //usuarioAActualizar.Estado = estadoSeleccionado;
                     }
                     else
                     {

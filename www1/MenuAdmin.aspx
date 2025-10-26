@@ -8,9 +8,40 @@
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; background-color: #f9f9f9; }
         h2 { text-align: center; color: #333; }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; background-color: #333; color: white; padding: 10px 20px; border-radius: 5px; }
+        .admin-header { 
+        /* Estilos existentes */
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background-color: #333; /* Fondo oscuro */
+            color: white; 
+            padding: 10px 20px; 
+            border-radius: 5px; 
+        }
         .admin-header h3 { margin: 0; }
         .admin-header a { color: #ffc107; text-decoration: none; font-weight: bold; }
+        .btn-logout-admin { 
+        /* Base de diseño */
+            padding: 8px 10px; 
+            font-size: 1.05em; 
+            font-weight: bold;
+            border: none;
+            border-radius: 4px; 
+            cursor: pointer;
+            width: 200px; /* Hacemos el botón más ancho */
+            transition: background-color 0.3s ease, transform 0.1s ease;
+    
+            /* Colores primarios (Rojo/Salida) */
+            background-color: #dc3545; /* Rojo Bootstrap de peligro */
+            color: white; 
+    
+            /* Pequeño ajuste visual */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+        }
+        .btn-logout-admin:hover {
+            background-color: #c82333; /* Rojo más oscuro al pasar el ratón */
+            transform: translateY(-1px); /* Efecto 3D sutil */
+        }
         
         /* Estilos del Repeater como Grid */
         .user-grid { margin-top: 20px; width: 100%; text-align: left; border-collapse: collapse; }
@@ -62,7 +93,7 @@
         
         <div class="admin-header">
             <asp:Label ID="lblAdminNombre" runat="server" Font-Bold="True" Font-Size="Large" Text="Panel de Administración"></asp:Label>
-            <asp:Button ID="btnLogOut" runat="server" Text="Cerrar Sesión (Admin)" OnClick="btnLogOut_Click" CssClass="btn-logout" BackColor="#d9534f" ForeColor="White" BorderStyle="None" Padding="8px 12px" Font-Bold="true" Cursor="pointer" />
+            <asp:Button ID="btnLogOut" runat="server" Text="Cerrar Sesión (Admin)" OnClick="btnLogOut_Click" CssClass="btn-logout-admin" />
         </div>
 
         <h2>Gestión de Usuarios</h2>

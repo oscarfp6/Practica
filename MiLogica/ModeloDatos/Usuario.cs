@@ -154,7 +154,7 @@ namespace MiLogica.ModeloDatos
         {
 
             VerificarInactividad();
-            if (this.Estado == EstadoUsuario.Bloqueado && DateTime.Now < this.BloqueadoHasta) return false;
+            if (this.Estado == EstadoUsuario.Bloqueado && this.BloqueadoHasta.HasValue && DateTime.Now < this.BloqueadoHasta) return false;
 
             string passwordEncriptada = Encriptar.EncriptarPasswordSHA256(passwordDado);
             bool esPasswordCorrecta = this._passwordHash.Equals(passwordEncriptada);
@@ -162,6 +162,11 @@ namespace MiLogica.ModeloDatos
 
             if (esPasswordCorrecta)
             {
+                if (this.Estado == EstadoUsuario.Bloqueado)
+                {
+                    return false;
+                }
+
                 this.intentosFallidosTimestamps.Clear();
                 Estado = EstadoUsuario.Activo;
                 this.LastLogin = DateTime.Now;
