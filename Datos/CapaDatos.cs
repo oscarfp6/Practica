@@ -168,6 +168,9 @@ namespace Datos
             existente.Kms = actividad.Kms;
             existente.Tipo = actividad.Tipo;
             existente.Fecha = actividad.Fecha;
+            existente.MetrosDesnivel = actividad.MetrosDesnivel;
+            existente.Duracion = actividad.Duracion;
+            existente.FCMedia = actividad.FCMedia;
             return true;
         }
 

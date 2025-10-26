@@ -60,7 +60,11 @@ namespace MiLogica.ModeloDatos
         {
             get => _nombre;
             set
-            {  
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("El nombre no puede estar vacío.");
+                }
                 if (!Utils.Valid.Nombre(value))
                 {
                     throw new ArgumentException("El nombre no puede contener números u otros caracteres no válidos.");
@@ -73,6 +77,10 @@ namespace MiLogica.ModeloDatos
             get => _apellidos;
             set
             {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("El apellido no puede estar vacío.");
+                }
                 if (!Utils.Valid.Nombre(value))
                 {
                     throw new ArgumentException("El apellido no puede contener números u otros caracteres no válidos.");
