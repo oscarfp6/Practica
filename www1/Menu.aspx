@@ -75,13 +75,13 @@
                  <%-- Celdas flexibles para botones a la derecha --%>
                  <td style="width:100%;">&nbsp;</td> <%-- Espaciador flexible --%>
                  <td class="auto-style6">
-                      <asp:Button ID="btnRegistrarActividad" runat="server" Text="Registrar Actividad" OnClick="btnRegistrarActividad_Click" Width="180px" /> <%-- Ancho ajustado --%>
+                      <asp:Button ID="btnRegistrarActividad" runat="server" Text="Registrar Actividad" OnClick="BtnRegistrarActividad_Click" Width="180px" /> <%-- Ancho ajustado --%>
                 </td>
                  <td class="auto-style6">
-                    <asp:Button ID="btnPerfil" runat="server" Text="Perfil" Width="100px" OnClick="btnPerfil_Click" /> <%-- Ancho ajustado --%>
+                    <asp:Button ID="btnPerfil" runat="server" Text="Perfil" Width="100px" OnClick="BtnPerfil_Click" /> <%-- Ancho ajustado --%>
                 </td>
                 <td class="auto-style6">
-                     <asp:Button ID="btnLogOut" runat="server" Text="Log Out" Width="100px" OnClick="btnLogOut_Click" /> <%-- Ancho ajustado --%>
+                     <asp:Button ID="btnLogOut" runat="server" Text="Log Out" Width="100px" OnClick="BtnLogOut_Click" /> <%-- Ancho ajustado --%>
                 </td>
             </tr>
         </table>
@@ -96,7 +96,7 @@
         <div class="repeater-grid-container">
             <h2 style="text-align: center;">Mis Actividades Recientes</h2>
 
-            <asp:Repeater ID="rptActividades" runat="server" OnItemCommand="rptActividades_ItemCommand">
+            <asp:Repeater ID="rptActividades" runat="server" OnItemCommand="RptActividades_ItemCommand">
 
                 <HeaderTemplate>
                      <div class="repeater-header">
