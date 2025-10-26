@@ -29,7 +29,7 @@ namespace Datos
             usuarioInactivo.Estado = EstadoUsuario.Inactivo;
             GuardaUsuario(usuarioInactivo);
             
-            Actividad a1 = new Actividad( u.Id, "Ruta por la montaña", 15.5,  800, TimeSpan.FromHours(1.5),DateTime.Now, TipoActividad.Ciclismo, "Una ruta espectacular por las montañas.", 130);
+            Actividad a1 = new Actividad(u.Id, "Ruta por la montaña", 15.5,  800, TimeSpan.FromHours(1.5),DateTime.Now, TipoActividad.Ciclismo, "Una ruta espectacular por las montañas.", 130);
             GuardaActividad(a1);
             Actividad incompleta = new Actividad(u.Id, "Actividad Incompleta");
             GuardaActividad(incompleta);
@@ -166,10 +166,8 @@ namespace Datos
             existente.Titulo = actividad.Titulo;
             existente.Descripcion = actividad.Descripcion;
             existente.Kms = actividad.Kms;
-            existente.MetrosDesnivel = actividad.MetrosDesnivel;
             existente.Tipo = actividad.Tipo;
-            existente.FCMedia = actividad.FCMedia;
-            existente.Duracion = actividad.Duracion;
+            existente.Fecha = actividad.Fecha;
             return true;
         }
 
