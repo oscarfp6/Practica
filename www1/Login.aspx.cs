@@ -200,7 +200,7 @@ namespace www1
 
         protected void btnRegistrarse_Click(object sender, EventArgs e)
         {
-            Server.Transfer("SignUp.aspx", true);
+            Response.Redirect("SignUp.aspx");
 
         }
 

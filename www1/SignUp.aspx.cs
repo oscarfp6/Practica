@@ -44,44 +44,38 @@ namespace www1
 
         protected void btnRegistrarse_Click(object sender, EventArgs e)
         {
-            // Lógica para registrar un nuevo usuario
             if (conexionDB != null)
             {
-
                 lblRegistroCorrecto.Visible = false;
-
                 usuarioARegistrar = conexionDB.LeeUsuario(tbxEmailRegistro.Text);
+
                 if (usuarioARegistrar != null)
                 {
                     lblEmailEnUsoRegistro.Text = "El correo electrónico ya está en uso.";
                     lblEmailEnUsoRegistro.Visible = true;
-                    return;
                 }
                 else if (MiLogica.Utils.Password.ValidarPassword(tbxPasswordRegistro.Text) == false)
                 {
                     lblContraseñaNoSegura.Text = "La contraseña no cumple los requisitos de seguridad.";
                     lblContraseñaNoSegura.Visible = true;
-                    return;
-
                 }
+                else // <-- AÑADIR ESTE ELSE
                 {
+                    // Solo si el email NO existe Y la contraseña ES válida
                     Usuario user = new Usuario();
                     user.Email = tbxEmailRegistro.Text;
                     user._passwordHash = MiLogica.Utils.Encriptar.EncriptarPasswordSHA256(tbxPasswordRegistro.Text);
                     conexionDB.GuardaUsuario(user);
-                    lblRegistroCorrecto.Text = "Registro completado con éxito. Redirigiendo al inicio de sesión...";
+
+                    // Esta línea ya no es visible para el usuario,
+                    // pero la dejamos por si la necesitas en el futuro.
+                    lblRegistroCorrecto.Text = "Registro completado con éxito. Redirigiendo...";
                     lblRegistroCorrecto.Visible = true;
+
+                    // Redirección inmediata del lado del servidor
+                    Response.Redirect("Login.aspx");
                 }
             }
-            string script = "setTimeout(function(){ window.location = 'Login.aspx'; }, 2500);";
-            ScriptManager.RegisterStartupScript(this, GetType(), "RedirigirLogin", script, true);
-
-            // Por ejemplo, validar los datos ingresados y guardarlos en la base de datos
-            // Después de registrar, redirigir al usuario a la página de inicio de sesión
-            /*
-            System.Threading.Thread.Sleep(1500); // Simula un retardo para ver el mensaje antes de la transferencia
-            Server.Transfer("Login.aspx", true);
-            */
         }
     }
 }
