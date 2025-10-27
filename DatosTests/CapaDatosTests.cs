@@ -38,6 +38,47 @@ namespace Datos.Tests
             Assert.IsTrue(resultado);
 
         }
+
+        [TestMethod()]
+        public void ActualizarActividadTest_ConservarCamposNoEditados()
+        {
+
+            int idUsuario = capa.LeeUsuario("oscar@gmail.com").Id;
+
+            TimeSpan duracionOriginal = TimeSpan.FromMinutes(90);
+            int desnivelOriginal = 500;
+            int fcMediaOriginal = 150;
+
+            Actividad original = new Actividad(
+                idUsuario, "Carrera Larga", 15.0, desnivelOriginal, duracionOriginal,
+                DateTime.Now.AddDays(-1), TipoActividad.Running, "Test", fcMediaOriginal
+            );
+            capa.GuardaActividad(original);
+            int idActividad = original.Id;
+
+            Actividad actividadModificada = capa.LeeActividad(idActividad);
+
+            // Modificar SOLO el título (simulando la edición en EditarActividad.aspx)
+            string nuevoTitulo = "Título Editado y Conservado";
+            actividadModificada.Titulo = nuevoTitulo;
+
+            // Act: Guardar la actividad. Si CapaDatos.ActualizaActividad no transfiere 
+            // Duracion/Desnivel/FCMedia, se perderán.
+            bool resultado = capa.ActualizaActividad(actividadModificada);
+
+            // Assert
+            Assert.IsTrue(resultado, "La actualización debería ser exitosa.");
+
+            Actividad final = capa.LeeActividad(idActividad);
+
+            Assert.AreEqual(nuevoTitulo, final.Titulo, "El título debe haberse actualizado.");
+
+            // Verificar que los campos NO EDITADOS SE MANTIENEN (Crucial para el FIX)
+            Assert.AreEqual(duracionOriginal, final.Duracion, "La Duración no debería perderse.");
+            Assert.AreEqual(desnivelOriginal, final.MetrosDesnivel, "El Desnivel no debería perderse.");
+            Assert.AreEqual(fcMediaOriginal, final.FCMedia, "La FCMedia no debería perderse.");
+        }
+
         [TestMethod()]
         public void CapaDatosTestConstructor()
         {
@@ -46,9 +87,6 @@ namespace Datos.Tests
             Assert.IsNotNull(capa.LeeUsuario("oscar@gmail.com"));
 
         }
-
-        
-
 
         [TestMethod()]
         public void GuardaUsuarioTest_Exito()
@@ -78,11 +116,8 @@ namespace Datos.Tests
             Assert.AreEqual(oscar, oscarSegundo);
 
         }
-            
 
-
-
-            [TestMethod()]
+        [TestMethod()]
         public void GuardaUsuarioTest_Fallo_EmailDuplicado()
         {
             // Arrange
@@ -275,7 +310,6 @@ namespace Datos.Tests
             capa.GuardaUsuario(ana);
             capa.GuardaActividad(new Actividad(ana.Id, "Act Ana"));
 
-
             // Act
             List<Actividad> actividadesAlberto = capa.ObtenerActividadesUsuario(idAlberto);
 
@@ -287,6 +321,7 @@ namespace Datos.Tests
             Assert.IsTrue(actividadesAlberto.Any(a => a.Titulo == "Act2"));
             Assert.AreEqual(actividadesAlberto[1].Titulo, "Act2");
         }
+
         [TestMethod()]
         public void VerificaAdminId1Test()
         {
@@ -315,9 +350,6 @@ namespace Datos.Tests
             Assert.AreEqual(5, numUsuarios); // Debería haber 5 usuarios ahora (admin creado)
         }
 
-
-
-
         [TestMethod()]
         public void NumUsuariosActivosTest()
         {
@@ -331,12 +363,6 @@ namespace Datos.Tests
             capa.GuardaUsuario(segundo);
             Assert.AreEqual(3, capa.NumUsuariosActivos()); // Debería haber 3 usuarios activos
         }
-
-
-
-
-
-
 
         [TestMethod()]
         public void LeeActividadTestExito()
@@ -363,9 +389,6 @@ namespace Datos.Tests
             capa.GuardaUsuario(alberto);
             List <Actividad> actividadesAlberto = capa.ObtenerActividadesUsuario(alberto.Id);
             Assert.AreEqual(actividadesAlberto.Count, 0);
-
-
-
         }
 
         [TestMethod()]

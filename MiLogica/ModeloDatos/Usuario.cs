@@ -152,7 +152,6 @@ namespace MiLogica.ModeloDatos
 
         public bool PermitirLogin(string passwordDado)
         {
-            Console.WriteLine($"[DEBUG-LOGIN] Intento para {this.Email}. Estado en DB: {this.Estado}");
             VerificarInactividad();
             if (this.Estado == EstadoUsuario.Bloqueado && this.BloqueadoHasta.HasValue && DateTime.Now < this.BloqueadoHasta) return false;
 
@@ -162,24 +161,19 @@ namespace MiLogica.ModeloDatos
 
             if (esPasswordCorrecta)
             {
-                Console.WriteLine($"[DEBUG-LOGIN] Contraseña CORRECTA. Estado antes del acceso: {this.Estado}");
 
                 if (this.Estado == EstadoUsuario.Bloqueado)
                 {
-                    Console.WriteLine($"[DEBUG-LOGIN] ACCESO DENEGADO. Motivo: Estado no es Activo ({this.Estado})");
                     return false;
                 }
 
                 this.intentosFallidosTimestamps.Clear();
                 Estado = EstadoUsuario.Activo;
                 this.LastLogin = DateTime.Now;
-                Console.WriteLine($"[DEBUG-LOGIN] ACCESO CONCEDIDO. Estado final: {this.Estado}");
                 return true;
             }
             else
             {
-                Console.WriteLine($"[DEBUG-LOGIN] Contraseña INCORRECTA. Estado final después del fallo: {this.Estado}");
-
                 if (estabaInactivo)
                 {
                     this.Estado = EstadoUsuario.Bloqueado; // Bloqueo inmediato

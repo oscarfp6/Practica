@@ -45,6 +45,20 @@ namespace MiLogica.ModeloDatos.Tests
             Assert.ThrowsException<ArgumentException>(() => usuario.Apellidos = "");
         }
 
+        [TestMethod()]
+        public void SetNombre_ConDigitos_LanzaArgumentException()
+        {
+            Usuario usuario = new Usuario(1, "Test", "@PasswordValida123", "User", "test@gmail.com", false);
+            Assert.ThrowsException<ArgumentException>(() => usuario.Nombre = "Oscar456");
+        }
+
+        [TestMethod()]
+        public void SetApellidos_ConDigitos_LanzaArgumentException()
+        {
+            Usuario usuario = new Usuario(1, "Test", "@PasswordValida123", "User", "test@gmail.com", false);
+            Assert.ThrowsException<ArgumentException>(() => usuario.Apellidos = "Martínez5");
+        }
+
 
         [TestMethod()]
         public void PermitirLoginTest()
@@ -86,6 +100,24 @@ namespace MiLogica.ModeloDatos.Tests
         }
 
         [TestMethod()]
+        public void PermitirLogin_UsuarioInactivo_SeReactivaExitosamente()
+        {
+            // Arrange
+            Usuario Inactivo = new Usuario(9, "Iñigo", "@Contraseñavalida123", "Lopez", "inigo@gmail.com", false);
+            // Simular inactividad de 6 meses
+            Inactivo.LastLogin = DateTime.Now.AddDays(-200);
+            Inactivo.VerificarInactividad();
+            Assert.AreEqual(EstadoUsuario.Inactivo, Inactivo.Estado);
+
+            // Act
+            bool resultado = Inactivo.PermitirLogin("@Contraseñavalida123");
+
+            // Assert (Debe ser Activo y conceder acceso)
+            Assert.IsTrue(resultado, "El login con pass correcta debería reactivar la cuenta Inactiva.");
+            Assert.AreEqual(EstadoUsuario.Activo, Inactivo.Estado, "El estado debe cambiar a Activo tras el login exitoso.");
+        }
+
+        [TestMethod()]
         public void ComprobarPassWordTest()
         {
             Usuario juan = new Usuario(2, "juan", "@Contraseñavalida123", "fernandez", "juan@gmail.com", false);
@@ -113,6 +145,24 @@ namespace MiLogica.ModeloDatos.Tests
         {
             Usuario Ana = new Usuario(2, "Ana", "@Contraseñavalida123", "García", "ana@gmail.com", false);
             Assert.IsFalse(Ana.DesbloquearUsuario("ana@gmail.com", "@@Contraseñavalida123"));
+        }
+
+        [TestMethod()]
+        public void DesbloquearUsuarioTest_FalloPorCooldownActivo()
+        {
+            // Arrange: Bloquear para activar el cooldown de 2 minutos
+            Usuario usuario = new Usuario(10, "Test", "@Contraseñavalida123", "User", "test2@gmail.com", false);
+            usuario.PermitirLogin("wrong1");
+            usuario.PermitirLogin("wrong2");
+            usuario.PermitirLogin("wrong3");
+            Assert.AreEqual(EstadoUsuario.Bloqueado, usuario.Estado);
+
+            // Act: Intentar desbloquear INMEDIATAMENTE
+            bool resultado = usuario.DesbloquearUsuario("test2@gmail.com", "@Contraseñavalida123");
+
+            // Assert
+            Assert.IsFalse(resultado, "El desbloqueo debe fallar porque el cooldown está activo.");
+            Assert.AreEqual(EstadoUsuario.Bloqueado, usuario.Estado, "El estado debe permanecer Bloqueado.");
         }
 
         [TestMethod()]

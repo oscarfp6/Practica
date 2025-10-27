@@ -166,7 +166,6 @@ namespace www1
                 {
                     if (conexionDB.ActualizaUsuario(usuarioAActualizar))
                     {
-                        Console.WriteLine($"[DEBUG-ADMIN] Email: {usuarioAActualizar.Email} actualizado a estado: {usuarioAActualizar.Estado}");
                         lblMensajeFila.CssClass = "message message-success";
                         lblMensajeFila.Text = "¡Actualizado!";
                         tbxNuevaPassword.Text = ""; // Limpiar el campo de contraseña

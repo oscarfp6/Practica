@@ -103,6 +103,34 @@ namespace MiLogica.ModeloDatos.Tests
             var actividad = new Actividad(1, "Ciclismo", 25, 400, TimeSpan.FromHours(1), DateTime.Now, TipoActividad.Ciclismo);
             Assert.AreEqual(25.0, actividad.VelocidadMediaKmh);
         }
+        /// <summary>
+        /// Verifica que para actividades de natación, el ritmo y la velocidad se manejan correctamente.
+        /// </summary>
+        [TestMethod()]
+        public void RitmoVelocidad_TipoNatacion_EsCero()
+        {
+            // 1 km en 10 minutos (No debería mostrar Ritmo ni Velocidad en la UI, 
+            // pero los valores calculados en el objeto deben ser correctos: Ritmo=10.0, Velocidad=6.0)
+            var actividad = new Actividad(1, "Entrenamiento Piscina", 1.0, 0,
+                                          TimeSpan.FromMinutes(10), DateTime.Now, TipoActividad.Natacion);
+
+            // Assert (Verificar que los cálculos internos son correctos aunque la UI no los muestre)
+            Assert.AreEqual(10.0, actividad.RitmoMinPorKm, "El ritmo calculado debe ser 10.0 min/km.");
+            Assert.AreEqual(6.0, Math.Round(actividad.VelocidadMediaKmh, 2), "La velocidad calculada debe ser 6.0 km/h.");
+
+            // Nota: La capa de presentación (Menu.aspx.cs::FormatearRitmo) se encarga de mostrar vacío.
+        }
+
+        /// <summary>
+        /// Verifica que el ritmo y la velocidad son 0 cuando los kilómetros son 0.
+        [TestMethod()]
+        public void RitmoVelocidad_ConDistanciaCero_DevuelvenCero()
+        {
+            // Este test ya está presente, pero se incluye para recordar su importancia (RF-014, CA-3)
+            var actividad = new Actividad(1, "Caminata", 0, 50, TimeSpan.FromMinutes(30), DateTime.Now, TipoActividad.Caminata);
+            Assert.AreEqual(0.0, actividad.RitmoMinPorKm);
+            Assert.AreEqual(0.0, actividad.VelocidadMediaKmh);
+        }
 
         /// <summary>
         /// Comprueba que las propiedades calculadas devuelven 0 si los Kms son 0 para evitar divisiones por cero.

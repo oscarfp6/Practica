@@ -83,7 +83,6 @@ namespace www1
                 }
                 else
                 {
-                    Console.WriteLine($"[DEBUG-UI] Login FALLIDO. UI detecta estado final: {usuarioAutenticado.Estado}");
                     // --- FALLO DE LOGIN ---
                     // Comprobar por qué falló
                     if (usuarioAutenticado.Estado == EstadoUsuario.Bloqueado)
