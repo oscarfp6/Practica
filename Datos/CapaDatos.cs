@@ -30,6 +30,9 @@ namespace Datos
             GuardaUsuario(usuarioBloqueado);
             Usuario uPrueba = new Usuario(_nextUserId, "Prueba", "@PruebaPassword123", "Usuario", "prueba@gmail.com", false);
             GuardaUsuario(uPrueba);
+            Usuario segundoBloqueado = new Usuario(_nextUserId, "SegundoBloqueado", "@SegundoBloqueado123", "Segundo Bloqueado ","segundobloqueado@gmail.com", true);
+            segundoBloqueado.Estado = EstadoUsuario.Bloqueado;
+            GuardaUsuario(segundoBloqueado);
 
             Actividad a1 = new Actividad(u.Id, "Ruta por la montaña", 15.5,  800, TimeSpan.FromHours(1.5),DateTime.Now, TipoActividad.Ciclismo, "Una ruta espectacular por las montañas.", 130);
             GuardaActividad(a1);

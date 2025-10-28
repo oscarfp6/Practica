@@ -78,7 +78,7 @@ namespace www1
                     }
                     else
                     {
-                        Server.Transfer("Menu.aspx", true);
+                        Response.Redirect("Menu.aspx");
                     }
                 }
                 else

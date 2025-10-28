@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
 namespace SeleniumTests
@@ -54,20 +57,20 @@ namespace SeleniumTests
         {
             driver.Navigate().GoToUrl("https://localhost:44367/Login.aspx");
             driver.Navigate().GoToUrl("https://localhost:44367/Login.aspx");
-            driver.FindElement(By.Id("tbxUsuario")).Click();
             driver.FindElement(By.Id("tbxUsuario")).Clear();
-            driver.FindElement(By.Id("tbxUsuario")).SendKeys("bloqueado@gmail.com");
+            driver.FindElement(By.Id("tbxUsuario")).SendKeys("segundobloqueado@gmail.com");
             driver.FindElement(By.Id("tbxContraseña")).Clear();
-            driver.FindElement(By.Id("tbxContraseña")).SendKeys("@BloqueadoPassword123");
+            driver.FindElement(By.Id("tbxContraseña")).SendKeys("@SegundoBloqueado123");
             driver.FindElement(By.Id("btnAceptar")).Click();
             driver.FindElement(By.Id("tbxContraseña")).Click();
             driver.FindElement(By.Id("tbxContraseña")).Clear();
-            driver.FindElement(By.Id("tbxContraseña")).SendKeys("@BloqueadoPassword123");
+            driver.FindElement(By.Id("tbxContraseña")).SendKeys("@SegundoBloqueado123");
             driver.FindElement(By.Id("btnDesbloquear")).Click();
             driver.FindElement(By.Id("tbxContraseña")).Click();
             driver.FindElement(By.Id("tbxContraseña")).Clear();
-            driver.FindElement(By.Id("tbxContraseña")).SendKeys("@BloqueadoPassword123");
+            driver.FindElement(By.Id("tbxContraseña")).SendKeys("@SegundoBloqueado123");
             driver.FindElement(By.Id("btnAceptar")).Click();
+            driver.Navigate().GoToUrl("https://localhost:44367/Menu.aspx");
         }
         private bool IsElementPresent(By by)
         {
