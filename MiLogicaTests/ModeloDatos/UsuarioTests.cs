@@ -165,6 +165,26 @@ namespace MiLogica.ModeloDatos.Tests
             Assert.AreEqual(EstadoUsuario.Bloqueado, usuario.Estado, "El estado debe permanecer Bloqueado.");
         }
 
+        public void DesbloquearUsuarioTest_FalloPorPasswordIncorrectaReiniciaBloqueo()
+        {
+            // Arrange: Bloquear al usuario y expirar el cooldown
+            Usuario usuario = new Usuario(11, "Cooldown", "@CoolPass123456@", "Test", "cooldown@gmail.com", false);
+            usuario.PermitirLogin("wrong1");
+            usuario.PermitirLogin("wrong2");
+            usuario.PermitirLogin("wrong3");
+            usuario.BloqueadoHasta = DateTime.Now.AddMinutes(-1); // Expirar cooldown
+
+            // Act: Intento de desbloqueo con contraseña INCORRECTA
+            bool resultado = usuario.DesbloquearUsuario("cooldown@gmail.com", "incorrecta");
+
+            // Assert
+            Assert.IsFalse(resultado, "El desbloqueo debe fallar por contraseña incorrecta.");
+            Assert.AreEqual(EstadoUsuario.Bloqueado, usuario.Estado, "El estado debe permanecer Bloqueado.");
+            // La lógica en DesbloquearUsuario no reinicia el BloqueadoHasta, pero sí lo hace la lógica en Login.aspx.cs.
+            // Para testear la pura lógica del modelo, DesbloquearUsuario simplemente devuelve false, sin cambiar nada si falla.
+            Assert.IsNull(usuario.BloqueadoHasta, "El modelo no debe reasignar BloqueadoHasta si el desbloqueo falla por password.");
+        }
+
         [TestMethod()]
         public void VerificarInactividadTest()
         {
@@ -200,8 +220,6 @@ namespace MiLogica.ModeloDatos.Tests
                 Console.WriteLine("La contraseña no cumple los requisitos de seguridad, no se ha cambiado.");
             Assert.IsFalse(Maria.ComprobarPassWord("short"));
 
-
-
         }
 
         [TestMethod()]
@@ -215,27 +233,91 @@ namespace MiLogica.ModeloDatos.Tests
             Assert.IsFalse(Ana.CambiarPassword("@Contraseñavalida123", "newPass"));
         }
 
+        /// <summary>
+        /// Comprueba que un administrador puede establecer una nueva contraseña de forma segura.
+        /// </summary>
+        [TestMethod()]
+        public void AdminEstablecerPasswordTest_Exito()
+        {
+            // Arrange: Un usuario bloqueado o en cualquier estado
+            Usuario u = new Usuario(12, "TestAdmin", "@OldPass123456@", "User", "adminchange@gmail.com", false);
+            u.Estado = EstadoUsuario.Bloqueado;
+            u.BloqueadoHasta = DateTime.Now.AddMinutes(5);
 
+            string nuevaPassSegura = "@NuevaPassSegura789";
+
+            // Act
+            bool resultado = u.AdminEstablecerPassword(nuevaPassSegura);
+
+            // Assert
+            Assert.IsTrue(resultado, "El cambio de contraseña por admin debe ser exitoso.");
+            Assert.IsTrue(u.ComprobarPassWord(nuevaPassSegura), "La nueva contraseña debe funcionar.");
+            Assert.AreEqual(EstadoUsuario.Activo, u.Estado, "El estado debe restablecerse a Activo.");
+            Assert.IsNull(u.BloqueadoHasta, "El cooldown debe eliminarse.");
+        }
+
+        /// <summary>
+        /// Comprueba que un administrador NO puede establecer una contraseña insegura.
+        /// </summary>
+        [TestMethod()]
+        public void AdminEstablecerPasswordTest_FalloInsegura()
+        {
+            // Arrange
+            Usuario u = new Usuario(13, "TestAdmin", "@OldPass123456@", "User", "adminchange2@gmail.com", false);
+            string nuevaPassInsegura = "short";
+            string passOriginal = "@OldPass123456@";
+
+            // Act
+            bool resultado = u.AdminEstablecerPassword(nuevaPassInsegura);
+
+            // Assert
+            Assert.IsFalse(resultado, "El cambio de contraseña por admin debe fallar si es insegura.");
+            Assert.IsTrue(u.ComprobarPassWord(passOriginal), "La contraseña original debe conservarse.");
+            Assert.AreEqual(EstadoUsuario.Activo, u.Estado, "El estado no cambia al fallar la validación de la nueva pass.");
+        }
 
         [TestMethod()]
         public void ActualizarPerfilTest()
         {
             Usuario Pedro = new Usuario();
-            Pedro.ActualizarPerfil("Pedro", "Sánchez", null,null);
+            Pedro.ActualizarPerfil("Pedro", "Sánchez", null, null);
             Assert.AreEqual("Pedro", Pedro.Nombre);
             Assert.AreEqual("Sánchez", Pedro.Apellidos);
-            Pedro.ActualizarPerfil("Pedro", "Sánchez", 30, 80.5);
+
+            // Probar asignación de valores válidos
+            Pedro.ActualizarPerfil("Pedro Mod", "Sánchez Mod", 30, 80.5);
+            Assert.AreEqual("Pedro Mod", Pedro.Nombre);
             Assert.AreEqual(30, Pedro.Edad);
+            Assert.AreEqual(80.5, Pedro.Peso);
+
+            // Probar asignación de valores nulos
+            Pedro.ActualizarPerfil("Pedro", "Sánchez", null, null);
+            Assert.IsNull(Pedro.Edad);
+            Assert.IsNull(Pedro.Peso);
+
+            // Probar límites de Edad (debe lanzar excepción)
+            Assert.ThrowsException<ArgumentException>(() => Pedro.ActualizarPerfil("P", "S", 121, 50.0));
+            // Probar límites de Peso (debe lanzar excepción)
+            Assert.ThrowsException<ArgumentException>(() => Pedro.ActualizarPerfil("P", "S", 30, 500.1));
         }
 
         [TestMethod()]
         public void ToStringTest()
         {
             Usuario Marta = new Usuario(7, "Marta", "@Contraseñavalida123", "Hernandez", "marta@gmail.com", true);
-            Console.WriteLine(Marta.ToString());
-            Assert.IsTrue(Marta.ToString().Contains("Marta"));
-            Assert.IsTrue(Marta.ToString().Contains("Hernandez"));
-            Assert.IsTrue(Marta.ToString().Contains("marta@gmail.com"));
+            Marta.Edad = 25;
+            Marta.Peso = 65.5;
+
+            // Act
+            string result = Marta.ToString();
+
+            // Assert
+            StringAssert.Contains(result, "Marta");
+            StringAssert.Contains(result, "Hernandez");
+            StringAssert.Contains(result, "marta@gmail.com");
+            StringAssert.Contains(result, "Edad: 25");
+            // Nota: Se verifica el formato con punto decimal (Invariant Culture)
+            StringAssert.Contains(result, "Peso: 65.5 kg");
         }
     }
 }

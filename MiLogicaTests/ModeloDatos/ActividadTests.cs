@@ -78,6 +78,61 @@ namespace MiLogica.ModeloDatos.Tests
             Assert.ThrowsException<ArgumentException>(() => actividad.FCMedia = 230);
         }
 
+        /// <summary>
+        /// Comprueba que se puede crear una actividad solo con ID de usuario y título,
+        /// y que los valores por defecto son correctos (Kms=0, Duracion=1min, Tipo=Otro).
+        /// </summary>
+        [TestMethod()]
+        public void Constructor_Simple_InitializesDefaults()
+        {
+            // Arrange
+            int idUsuario = 5;
+            string titulo = "Actividad por defecto";
+
+            // Act
+            var actividad = new Actividad(idUsuario, titulo);
+
+            // Assert
+            Assert.AreEqual(idUsuario, actividad.IdUsuario);
+            Assert.AreEqual(titulo, actividad.Titulo);
+            Assert.AreEqual(0.0, actividad.Kms);
+            Assert.AreEqual(0, actividad.MetrosDesnivel);
+            Assert.AreEqual(TimeSpan.FromMinutes(1), actividad.Duracion);
+            Assert.AreEqual(TipoActividad.Otro, actividad.Tipo);
+            Assert.IsNull(actividad.FCMedia);
+            Assert.IsTrue(actividad.Fecha <= DateTime.Now); // Solo chequeamos que no sea futura
+        }
+
+        /// <summary>
+        /// Comprueba que los setters de las propiedades funcionan correctamente con valores válidos.
+        /// </summary>
+        [TestMethod()]
+        public void Setters_ConValoresValidos_ActualizaCorrectamente()
+        {
+            // Arrange
+            var actividad = new Actividad(1, "Inicial", 1.0, 10, TimeSpan.FromMinutes(1), DateTime.Now, TipoActividad.Running);
+
+            // Act
+            actividad.Titulo = "Nuevo Título";
+            actividad.Descripcion = "Nueva Descripción";
+            actividad.Kms = 15.5;
+            actividad.MetrosDesnivel = 500;
+            actividad.Duracion = TimeSpan.FromHours(2);
+            actividad.Fecha = DateTime.Now.AddDays(-1);
+            actividad.Tipo = TipoActividad.Ciclismo;
+            actividad.FCMedia = 155;
+
+            // Assert
+            Assert.AreEqual("Nuevo Título", actividad.Titulo);
+            Assert.AreEqual("Nueva Descripción", actividad.Descripcion);
+            Assert.AreEqual(15.5, actividad.Kms);
+            Assert.AreEqual(500, actividad.MetrosDesnivel);
+            Assert.AreEqual(TimeSpan.FromHours(2), actividad.Duracion);
+            Assert.AreEqual(TipoActividad.Ciclismo, actividad.Tipo);
+            Assert.AreEqual(155, actividad.FCMedia);
+            Assert.IsTrue(actividad.Fecha < DateTime.Now);
+        }
+
         #endregion
 
         #region Pruebas de Propiedades Calculadas
@@ -178,14 +233,39 @@ namespace MiLogica.ModeloDatos.Tests
         #region Pruebas de Métodos Públicos
 
         /// <summary>
-        /// Verifica que el método ToString genera el formato de cadena esperado.
+        /// Verifica que el método ToString genera el formato de cadena esperado (con FC Media).
         /// </summary>
         [TestMethod()]
-        public void ToStringTest()
+        public void ToStringTest_ConFCMedia()
         {
+            // Arrange
             Actividad actividad = new Actividad(1, "paseo mañanero", 24, 200, new TimeSpan(1, 0, 0), DateTime.Now, TipoActividad.Running, "Salida de running por el parque", 150);
-            StringAssert.Contains(actividad.ToString(), "24,00 km");
-            StringAssert.Contains(actividad.ToString(), "150 bpm");
+
+            // Act
+            string result = actividad.ToString();
+
+            // Assert
+            StringAssert.Contains(result, "24,00 km");
+            StringAssert.Contains(result, "150 bpm");
+            StringAssert.Contains(result, "2,50 min/km"); // 60 min / 24 km = 2.5 min/km
+        }
+
+        /// <summary>
+        /// Verifica que el método ToString genera el formato de cadena esperado (sin FC Media).
+        /// </summary>
+        [TestMethod()]
+        public void ToStringTest_SinFCMedia()
+        {
+            // Arrange
+            Actividad actividad = new Actividad(1, "paseo mañanero", 24, 200, new TimeSpan(1, 0, 0), DateTime.Now, TipoActividad.Running, "Salida de running por el parque", null);
+
+            // Act
+            string result = actividad.ToString();
+
+            // Assert
+            StringAssert.Contains(result, "24,00 km");
+            Assert.IsFalse(result.Contains("bpm"));
+            StringAssert.Contains(result, "2,50 min/km");
         }
 
         #endregion

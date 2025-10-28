@@ -79,6 +79,53 @@ namespace Datos.Tests
             Assert.AreEqual(fcMediaOriginal, final.FCMedia, "La FCMedia no debería perderse.");
         }
 
+        /// <summary>
+        /// Comprueba que se actualiza una actividad que inicialmente tenía FCMedia = null.
+        /// </summary>
+        [TestMethod()]
+        public void ActualizaActividadTest_ConFCMediaNullANull()
+        {
+            // Arrange
+            int idUsuario = capa.LeeUsuario("oscar@gmail.com").Id;
+            Actividad act = new Actividad(idUsuario, "Sin FC", 10.0, 0, TimeSpan.FromMinutes(60), DateTime.Now, TipoActividad.Running, fcMedia: null);
+            capa.GuardaActividad(act);
+
+            // Act
+            Actividad actModificada = capa.LeeActividad(act.Id);
+            actModificada.Titulo = "Ahora con Título";
+            bool resultado = capa.ActualizaActividad(actModificada);
+            Actividad final = capa.LeeActividad(act.Id);
+
+            // Assert
+            Assert.IsTrue(resultado);
+            Assert.AreEqual("Ahora con Título", final.Titulo);
+            Assert.IsNull(final.FCMedia, "FCMedia debe seguir siendo null.");
+        }
+
+        /// <summary>
+        /// Comprueba que se actualiza FCMedia de un valor a otro.
+        /// </summary>
+        [TestMethod()]
+        public void ActualizaActividadTest_ConFCMediaConValor()
+        {
+            // Arrange
+            int idUsuario = capa.LeeUsuario("oscar@gmail.com").Id;
+            Actividad act = new Actividad(idUsuario, "Con FC", 10.0, 0, TimeSpan.FromMinutes(60), DateTime.Now, TipoActividad.Running, fcMedia: 130);
+            capa.GuardaActividad(act);
+
+            // Act
+            Actividad actModificada = capa.LeeActividad(act.Id);
+            actModificada.FCMedia = 160; // Cambio el valor de un campo no editable (pero que el DAL debe persistir)
+            actModificada.Kms = 12.0;
+            bool resultado = capa.ActualizaActividad(actModificada);
+            Actividad final = capa.LeeActividad(act.Id);
+
+            // Assert
+            Assert.IsTrue(resultado);
+            Assert.AreEqual(160, final.FCMedia, "FCMedia debe haberse actualizado.");
+            Assert.AreEqual(12.0, final.Kms, "Kms debe haberse actualizado.");
+        }
+
         [TestMethod()]
         public void CapaDatosTestConstructor()
         {
@@ -114,6 +161,7 @@ namespace Datos.Tests
             Usuario oscarSegundo = capa.LeeUsuarioPorId(idOscar);
             Assert.IsNotNull(oscarSegundo);
             Assert.AreEqual(oscar, oscarSegundo);
+            Assert.AreEqual(oscar._passwordHash, oscarSegundo._passwordHash);
 
         }
 
@@ -157,6 +205,38 @@ namespace Datos.Tests
             ana.Suscripcion = false;
             bool resultadoAna = capa.ActualizaUsuario(ana);
             Assert.IsTrue(resultadoAna);
+        }
+
+        /// <summary>
+        /// Comprueba que se actualizan correctamente los campos opcionales Edad y Peso.
+        /// </summary>
+        [TestMethod()]
+        public void ActualizaUsuarioTest_ConDatosOpcionales()
+        {
+            // Arrange
+            Usuario u = capa.LeeUsuario("oscar@gmail.com");
+            u.Edad = 30;
+            u.Peso = 75.5;
+
+            // Act
+            bool resultado = capa.ActualizaUsuario(u);
+
+            // Assert
+            Assert.IsTrue(resultado);
+            Usuario uModificado = capa.LeeUsuario("oscar@gmail.com");
+            Assert.AreEqual(30, uModificado.Edad);
+            Assert.AreEqual(75.5, uModificado.Peso);
+
+            // Act 2: Eliminar datos opcionales (pasar a null)
+            u.Edad = null;
+            u.Peso = null;
+            bool resultado2 = capa.ActualizaUsuario(u);
+
+            // Assert 2
+            Assert.IsTrue(resultado2);
+            Usuario uFinal = capa.LeeUsuario("oscar@gmail.com");
+            Assert.IsNull(uFinal.Edad);
+            Assert.IsNull(uFinal.Peso);
         }
 
         [TestMethod()]
@@ -331,15 +411,6 @@ namespace Datos.Tests
         }
 
         [TestMethod()]
-        public void ValidaUsuarioTest()
-        {
-
-
-
-
-        }
-
-        [TestMethod()]
         public void NumUsuariosTest()
         {
             Usuario segundo = new Usuario(capa._nextUserId, "Ana", "@Contraseñaseguraa123", "Gomez", "ana@gmail.com", false);
@@ -347,7 +418,11 @@ namespace Datos.Tests
             Usuario tercero = new Usuario(capa._nextUserId, "Luis", "@Contraseñaseguraa123", "Martinez", "luis@gmail.com", false);
             capa.GuardaUsuario(tercero);
             int numUsuarios = capa.NumUsuarios();
+<<<<<<< HEAD
+            Assert.AreEqual(7, numUsuarios); // Debería haber 6 usuarios ahora (admin creado)
+=======
             Assert.AreEqual(7, numUsuarios); // Debería haber 7 usuarios ahora (admin creado)
+>>>>>>> 9a98641d6f515f243c9b0fc6e2c44a0bd06e599d
         }
 
         [TestMethod()]
@@ -395,6 +470,19 @@ namespace Datos.Tests
         public void NumActividadesTest()
         {
             int idUsuarioOscar = capa.LeeUsuario("oscar@gmail.com").Id;
+            // El constructor de CapaDatos crea 7 actividades para Oscar
+            Assert.AreEqual(8, capa.NumActividades(idUsuarioOscar));
+
+            // Creamos un nuevo usuario sin actividades (aparte de las iniciales)
+            Usuario u = new Usuario(0, "Nuevo", "@NuevaPassword123", "User", "nuevo@gmail.com", false);
+            capa.GuardaUsuario(u);
+
+            Assert.AreEqual(0, capa.NumActividades(u.Id));
+
+            // Agregamos una actividad
+            capa.GuardaActividad(new Actividad(u.Id, "Nueva Carrera"));
+
+            Assert.AreEqual(1, capa.NumActividades(u.Id));
         }
     }
 }
