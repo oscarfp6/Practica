@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 namespace SeleniumTests
 {
     [TestClass]
-    public class CTA1
+    public class CTA3
     {
         private static IWebDriver driver;
         private StringBuilder verificationErrors;
@@ -52,19 +52,15 @@ namespace SeleniumTests
         }
 
         [TestMethod]
-        public void TheCTA1Test()
+        public void TheCTA3Test()
         {
             driver.Navigate().GoToUrl("https://localhost:44367/Login.aspx");
-            driver.Navigate().GoToUrl("https://localhost:44367/Login.aspx");
-            driver.FindElement(By.Id("btnRegistrarse")).Click();
-            driver.Navigate().GoToUrl("https://localhost:44367/SignUp.aspx");
-            driver.FindElement(By.Id("tbxEmailRegistro")).Click();
-            driver.FindElement(By.Id("tbxEmailRegistro")).Clear();
-            driver.FindElement(By.Id("tbxEmailRegistro")).SendKeys("nuevecito@gmail.com");
-            driver.FindElement(By.Id("tbxPasswordRegistro")).Clear();
-            driver.FindElement(By.Id("tbxPasswordRegistro")).SendKeys("@Contraseñasegura123");
-            driver.FindElement(By.Id("btnConfirmar")).Click();
-            driver.Navigate().GoToUrl("https://localhost:44367/Login.aspx");
+            driver.FindElement(By.Id("tbxUsuario")).Click();
+            driver.FindElement(By.Id("tbxUsuario")).Clear();
+            driver.FindElement(By.Id("tbxUsuario")).SendKeys("prueba@gmail.com");
+            driver.FindElement(By.Id("tbxContraseña")).Clear();
+            driver.FindElement(By.Id("tbxContraseña")).SendKeys("@PruebaPassword123");
+            driver.FindElement(By.Id("btnAceptar")).Click();
         }
         private bool IsElementPresent(By by)
         {

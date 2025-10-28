@@ -74,7 +74,7 @@ namespace www1
                     lblIncorrecto.Text = string.Empty;
                     if (usuarioAutenticado.Id == 1)
                     {
-                        Server.Transfer("MenuAdmin.aspx", true);
+                        Response.Redirect("MenuAdmin.aspx");
                     }
                     else
                     {

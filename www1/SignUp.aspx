@@ -84,14 +84,7 @@
         .success-message {
              color: #5cb85c; /* Verde */
         }
-        /* Ocultar inicialmente los mensajes */
-        .message-label {
-             visibility: hidden; /* Oculto por defecto via CSS */
-        }
-         /* Mostrar mensajes cuando ASP.NET los hace visibles */
-        .message-label[style*="visible"] {
-             visibility: visible !important; /* Forzar visibilidad */
-        }
+
 
     </style>
 </head>

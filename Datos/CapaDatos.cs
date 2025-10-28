@@ -25,10 +25,12 @@ namespace Datos
             GuardaUsuario(admin);
             Usuario u = new Usuario(_nextUserId, "Oscar", "@Contraseñasegura123", "Fuentes Paniego", "oscar@gmail.com", true);
             GuardaUsuario(u);
-            Usuario usuarioInactivo = new Usuario(_nextUserId, "Inactivo", "@InactivoPassword1234", "Usuario Inactivo", "inactivo@gmail.com", false);
-            usuarioInactivo.Estado = EstadoUsuario.Inactivo;
-            GuardaUsuario(usuarioInactivo);
-            
+            Usuario usuarioBloqueado = new Usuario(_nextUserId, "Bloqueado", "@BloqueadoPassword123", "Usuario Bloqueado", "bloqueado@gmail.com", false);
+            usuarioBloqueado.Estado = EstadoUsuario.Bloqueado;
+            GuardaUsuario(usuarioBloqueado);
+            Usuario uPrueba = new Usuario(_nextUserId, "Prueba", "@PruebaPassword123", "Usuario", "prueba@gmail.com", false);
+            GuardaUsuario(uPrueba);
+
             Actividad a1 = new Actividad(u.Id, "Ruta por la montaña", 15.5,  800, TimeSpan.FromHours(1.5),DateTime.Now, TipoActividad.Ciclismo, "Una ruta espectacular por las montañas.", 130);
             GuardaActividad(a1);
             Actividad incompleta = new Actividad(u.Id, "Actividad Incompleta");

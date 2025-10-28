@@ -347,7 +347,7 @@ namespace Datos.Tests
             Usuario tercero = new Usuario(capa._nextUserId, "Luis", "@Contraseñaseguraa123", "Martinez", "luis@gmail.com", false);
             capa.GuardaUsuario(tercero);
             int numUsuarios = capa.NumUsuarios();
-            Assert.AreEqual(5, numUsuarios); // Debería haber 5 usuarios ahora (admin creado)
+            Assert.AreEqual(6, numUsuarios); // Debería haber 6 usuarios ahora (admin creado)
         }
 
         [TestMethod()]
@@ -361,7 +361,7 @@ namespace Datos.Tests
             Usuario tercero = new Usuario(0, "Luis", "@Contraseñaseguraa123", "Martinez", "luis@gmail.com", false);
             tercero.Estado = EstadoUsuario.Inactivo;
             capa.GuardaUsuario(segundo);
-            Assert.AreEqual(3, capa.NumUsuariosActivos()); // Debería haber 3 usuarios activos
+            Assert.AreEqual(4, capa.NumUsuariosActivos()); // Debería haber 4 usuarios activos
         }
 
         [TestMethod()]
