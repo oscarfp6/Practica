@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Text;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI; 
+using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 
 namespace SeleniumTests
@@ -12,25 +11,38 @@ namespace SeleniumTests
     [TestClass]
     public class CTA5
     {
-        private static IWebDriver driver;
+        // --- CAMPOS NO ESTÁTICOS ---
+        // Estas variables ahora son únicas para cada test que se ejecute.
+        private IWebDriver driver;
         private StringBuilder verificationErrors;
-        private static string baseURL;
+        private string baseURL;
         private bool acceptNextAlert = true;
+        private WebDriverWait wait; // El "elemento extra", ahora tampoco es estático
 
-        private static WebDriverWait wait = null!; // Variable para la espera explícita
 
-        [ClassInitialize]
-        public static void InitializeClass(TestContext testContext)
+        // [ClassInitialize] SE ELIMINA
+
+
+        [TestInitialize] // Se ejecuta ANTES de CADA test
+        public void InitializeTest()
         {
+            // --- CÓDIGO MOVIDO AQUÍ ---
+            // 1. Se crea un navegador NUEVO y único para este test.
             driver = new ChromeDriver();
             baseURL = "https://www.google.com/";
+
+            // 2. Se crea el 'wait' usando el 'driver' de ESTE test.
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
 
+            // 3. Se inicializa el gestor de errores.
+            verificationErrors = new StringBuilder();
         }
 
-        [ClassCleanup]
-        public static void CleanupClass()
+        [TestCleanup] // Se ejecuta DESPUÉS de CADA test
+        public void CleanupTest()
         {
+            // --- CÓDIGO MOVIDO AQUÍ ---
+            // 1. Se cierra el navegador de ESTE test.
             try
             {
                 //driver.Quit();// quit does not close the window
@@ -41,23 +53,20 @@ namespace SeleniumTests
             {
                 // Ignore errors if unable to close the browser
             }
-        }
 
-        [TestInitialize]
-        public void InitializeTest()
-        {
-            verificationErrors = new StringBuilder();
-        }
-
-        [TestCleanup]
-        public void CleanupTest()
-        {
+            // 2. Se comprueban los errores de ESTE test.
             Assert.AreEqual("", verificationErrors.ToString());
         }
+
+        // [ClassCleanup] SE ELIMINA
 
         [TestMethod]
         public void TheCTA5Test()
         {
+            // El código de tu test no necesita ningún cambio,
+            // ya que ahora utiliza las variables 'driver' y 'wait'
+            // que se crearon específicamente para él en [TestInitialize].
+
             driver.Navigate().GoToUrl("https://localhost:44367/Login.aspx");
             driver.FindElement(By.Id("tbxUsuario")).Click();
             driver.FindElement(By.Id("tbxUsuario")).Clear();
@@ -88,6 +97,11 @@ namespace SeleniumTests
             // Si llegamos aquí, la verificación es exitosa
             Console.WriteLine("Verificación exitosa: El mensaje de cuenta bloqueada se mostró correctamente.");
         }
+
+        // --- MÉTODOS AUXILIARES ---
+        // (No cambian, ya que usan las variables 'driver' y 'acceptNextAlert'
+        // que ahora son campos de instancia, lo cual es correcto)
+
         private bool IsElementPresent(By by)
         {
             try

@@ -1,54 +1,43 @@
-﻿using System;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace SeleniumTests
 {
     [TestClass]
     public class CTA7
     {
-        private static IWebDriver driver;
-        private StringBuilder verificationErrors;
+
         private static string baseURL;
         private bool acceptNextAlert = true;
+        private IWebDriver driver; // ¡YA NO ES ESTÁTICO!
+        private StringBuilder verificationErrors;
 
-        [ClassInitialize]
-        public static void InitializeClass(TestContext testContext)
-        {
-            driver = new ChromeDriver();
-            baseURL = "https://www.google.com/";
-        }
+        // (No necesitamos ClassInitialize)
 
-        [ClassCleanup]
-        public static void CleanupClass()
-        {
-            try
-            {
-                //driver.Quit();// quit does not close the window
-                driver.Close();
-                driver.Dispose();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-        }
-
-        [TestInitialize]
+        [TestInitialize] // Se ejecuta ANTES de CADA test
         public void InitializeTest()
         {
+            driver = new ChromeDriver(); // ¡Crea un navegador nuevo para este test!
             verificationErrors = new StringBuilder();
         }
 
-        [TestCleanup]
+        [TestCleanup] // Se ejecuta DESPUÉS de CADA test
         public void CleanupTest()
         {
+            try
+            {
+                driver.Close(); // Cierra el navegador de este test
+                driver.Dispose();
+            }
+            catch (Exception) { /* Ignorar errores si ya estaba cerrado */ }
+
             Assert.AreEqual("", verificationErrors.ToString());
         }
 
@@ -56,9 +45,10 @@ namespace SeleniumTests
         public void TheCTA7Test()
         {
             driver.Navigate().GoToUrl("https://localhost:44367/Login.aspx");
-            driver.Navigate().GoToUrl("https://localhost:44367/Login.aspx");
+            driver.FindElement(By.Id("tbxUsuario")).Click();
             driver.FindElement(By.Id("tbxUsuario")).Clear();
             driver.FindElement(By.Id("tbxUsuario")).SendKeys("segundobloqueado@gmail.com");
+            driver.FindElement(By.Id("tbxContraseña")).Click();
             driver.FindElement(By.Id("tbxContraseña")).Clear();
             driver.FindElement(By.Id("tbxContraseña")).SendKeys("@SegundoBloqueado123");
             driver.FindElement(By.Id("btnAceptar")).Click();
@@ -70,7 +60,6 @@ namespace SeleniumTests
             driver.FindElement(By.Id("tbxContraseña")).Clear();
             driver.FindElement(By.Id("tbxContraseña")).SendKeys("@SegundoBloqueado123");
             driver.FindElement(By.Id("btnAceptar")).Click();
-            driver.Navigate().GoToUrl("https://localhost:44367/Menu.aspx");
         }
         private bool IsElementPresent(By by)
         {

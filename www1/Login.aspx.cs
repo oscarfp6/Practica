@@ -74,11 +74,11 @@ namespace www1
                     lblIncorrecto.Text = string.Empty;
                     if (usuarioAutenticado.Id == 1)
                     {
-                        Response.Redirect("MenuAdmin.aspx");
+                        Response.Redirect("AdminMenu.aspx");
                     }
                     else
                     {
-                        Response.Redirect("Menu.aspx");
+                        Server.Transfer("Menu.aspx", true);
                     }
                 }
                 else
@@ -206,7 +206,7 @@ namespace www1
 
         protected void btnCambiarPassword_Click(object sender, EventArgs e)
         {
-            Server.Transfer("CambiarPassword.aspx", true);
+            Response.Redirect("CambiarPassword.aspx", true);
         }
     }
 }

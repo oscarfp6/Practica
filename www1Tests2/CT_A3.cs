@@ -12,42 +12,31 @@ namespace SeleniumTests
     [TestClass]
     public class CTA3
     {
-        private static IWebDriver driver;
-        private StringBuilder verificationErrors;
+
         private static string baseURL;
         private bool acceptNextAlert = true;
+        private IWebDriver driver; // ¡YA NO ES ESTÁTICO!
+        private StringBuilder verificationErrors;
 
-        [ClassInitialize]
-        public static void InitializeClass(TestContext testContext)
-        {
-            driver = new ChromeDriver();
-            baseURL = "https://www.google.com/";
-        }
+        // (No necesitamos ClassInitialize)
 
-        [ClassCleanup]
-        public static void CleanupClass()
-        {
-            try
-            {
-                //driver.Quit();// quit does not close the window
-                driver.Close();
-                driver.Dispose();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-        }
-
-        [TestInitialize]
+        [TestInitialize] // Se ejecuta ANTES de CADA test
         public void InitializeTest()
         {
+            driver = new ChromeDriver(); // ¡Crea un navegador nuevo para este test!
             verificationErrors = new StringBuilder();
         }
 
-        [TestCleanup]
+        [TestCleanup] // Se ejecuta DESPUÉS de CADA test
         public void CleanupTest()
         {
+            try
+            {
+                driver.Close(); // Cierra el navegador de este test
+                driver.Dispose();
+            }
+            catch (Exception) { /* Ignorar errores si ya estaba cerrado */ }
+
             Assert.AreEqual("", verificationErrors.ToString());
         }
 
