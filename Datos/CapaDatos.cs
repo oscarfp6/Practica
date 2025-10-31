@@ -97,17 +97,20 @@ namespace Datos
         public Usuario LeeUsuario(string email)
         {
             Usuario usuario = null;
+            //Lee el usuario ignorando mayúsculas/minúsculas en el email
             usuario = tblUsuarios.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
             return usuario;
         }
 
         public Usuario LeeUsuarioPorId(int idUsuario)
         {
+            //Lee el usuario por su Id
             return tblUsuarios.FirstOrDefault(u => u.Id == idUsuario);
         }
 
         public bool ValidaUsuario(string email, string password)
         {
+            //Lee el usuario por su email y comprueba la contraseña
             var usuario = LeeUsuario(email);
             if (usuario == null) return false;
             return usuario.ComprobarPassWord(password);
@@ -117,11 +120,13 @@ namespace Datos
 
         public int NumUsuarios()
         {
+            //Devuelve el número total de usuarios
             return tblUsuarios.Count;
         }
 
         public int NumUsuariosActivos()
         {
+            //Devuelve el número total de usuarios activos
             return tblUsuarios.Count(u => u.Estado == EstadoUsuario.Activo);
         }
 
@@ -194,6 +199,7 @@ namespace Datos
 
         public Actividad LeeActividad (int idElemento)
         {
+            //Lee una actividad por su Id
             return tblActividades.FirstOrDefault(a => a.Id == idElemento);
         }
 
@@ -205,108 +211,12 @@ namespace Datos
 
         public int NumActividades (int idUsuario)
         {
+            //Devuelve el número de actividades de un usuario
             return tblActividades.Count(a => a.IdUsuario == idUsuario);
         }
 
 
-        /*
 
-
-
-        bool ICapaDatos.GuardaActividad(Actividad e)
-        {
-            if (e.Id > 0 && tblActividades.Any(act => act.Id == e.Id))
-            {
-                return ((ICapaDatos)this).ActualizaActividad(e);
-            }
-
-            // 2. Caso de Inserción: Actividad nueva (o ID inválido)
-            e.AsignarIdParaPersistencia(_nextActividadId++); tblActividades.Add(e);
-            return true;
-        }
-
-        bool ICapaDatos.ActualizaActividad(Actividad e)
-        {
-            var actividadExistente = tblActividades.FirstOrDefault(act => act.Id == e.Id);
-            if (actividadExistente != null)
-            {
-                actividadExistente.Titulo = e.Titulo;
-                actividadExistente.Descripcion = e.Descripcion;
-                actividadExistente.Kms = e.Kms;
-                actividadExistente.MetrosDesnivel = e.MetrosDesnivel;
-                actividadExistente.Duracion = e.Duracion;
-                actividadExistente.Tipo = e.Tipo;
-                actividadExistente.FCMedia = e.FCMedia;
-                return true;
-            }
-            return false;
-        }
-
-        bool ICapaDatos.EliminaActividad(int idElemento)
-        {
-            var actividadExistente = tblActividades.FirstOrDefault(act => act.Id == idElemento);
-            if (actividadExistente != null)
-            {
-                tblActividades.Remove(actividadExistente);
-                return true;
-            }
-            return false;
-        }
-
-
-
-        bool ICapaDatos.ActualizaUsuario(Usuario u)
-        {
-            var usuarioExistente = tblUsuarios.FirstOrDefault(user => user.Id == u.Id);
-            if (usuarioExistente != null)
-            {
-                usuarioExistente.Nombre = u.Nombre;
-                usuarioExistente.Apellidos = u.Apellidos;
-                usuarioExistente.Estado = u.Estado;
-                usuarioExistente._passwordHash = u._passwordHash;
-                usuarioExistente.Suscripcion = u.Suscripcion;
-                return true;
-            }
-            return false;
-        }
-
-        Usuario ICapaDatos.LeeUsuario(string email)
-        {
-            return tblUsuarios.FirstOrDefault(user => user.Email == email);
-        }
-
-        Usuario ICapaDatos.LeeUsuarioPorId(int idUsuario)
-        {
-            return tblUsuarios.FirstOrDefault(user => user.Id == idUsuario);
-        }
-
-
-
-
-
-        int ICapaDatos.NumUsuarios()
-        {
-            return tblUsuarios.Count;
-        }
-
-        int ICapaDatos.NumUsuariosActivos()
-        {
-            return tblUsuarios.Count(user => user.Estado == EstadoUsuario.Activo);
-        }
-
-        bool ICapaDatos.ValidaUsuario(string email, string password)
-        {
-            var usuario = ((ICapaDatos)this).LeeUsuario(email);
-            if (usuario == null) return false;
-            return usuario.ComprobarPassWord(password);
-        }
-
-        public List<Actividad> ObtenerActividadesUsuario(int idUsuario)
-        {
-            return tblActividades.Where(act => act.IdUsuario == idUsuario).ToList();
-        }
-
-        */
 
 
     }
