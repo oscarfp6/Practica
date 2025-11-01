@@ -14,7 +14,7 @@ namespace Datos
     {
         internal interface ICapaDatos
         {
-            /// Este Interfaz se entrga a modo de requisitos mínimos a implementar y probar.
+            /// Este Interfaz se entrega a modo de requisitos mínimos a implementar y probar.
             /// Debéis de incluir funcionalidades adicionales
 
             /// <summary>
