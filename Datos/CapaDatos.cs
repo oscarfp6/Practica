@@ -7,20 +7,31 @@ using System.Runtime.CompilerServices;
 
 namespace Datos
 {
+    /// <summary>
+    /// Implementación de la capa de acceso a datos en memoria (mock).
+    /// Simula una base de datos para facilitar el desarrollo y las pruebas unitarias.
+    /// </summary>
     public class CapaDatos : ICapaDatos
     {
+        // Almacenes de datos en memoria, simulando tablas de base de datos.
         private List<Usuario> tblUsuarios;
         private List<Actividad> tblActividades;
+
+        // Contadores para simular claves primarias autoincrementales.
         public int _nextUserId = 1;
         private int _nextActividadId = 1;
 
 
-
+        /// <summary>
+        /// Inicializa la capa de datos y carga un conjunto de datos de prueba (seeding)
+        /// para tener usuarios y actividades disponibles desde el arranque.
+        /// </summary>
         public CapaDatos()
         {
-
             tblUsuarios = new List<Usuario>();
             tblActividades = new List<Actividad>();
+
+            // --- Carga de Datos de Prueba (Seeding) ---
             Usuario admin = new Usuario(_nextUserId, "Admin", "@AdminPassword1234", "Admin Apellidos", "admin@gmail.com", true);
             GuardaUsuario(admin);
             Usuario u = new Usuario(_nextUserId, "Oscar", "@Contraseñasegura123", "Fuentes Paniego", "oscar@gmail.com", true);
@@ -30,11 +41,11 @@ namespace Datos
             GuardaUsuario(usuarioBloqueado);
             Usuario uPrueba = new Usuario(_nextUserId, "Prueba", "@PruebaPassword123", "Usuario", "prueba@gmail.com", false);
             GuardaUsuario(uPrueba);
-            Usuario segundoBloqueado = new Usuario(_nextUserId, "SegundoBloqueado", "@SegundoBloqueado123", "Segundo Bloqueado ","segundobloqueado@gmail.com", true);
+            Usuario segundoBloqueado = new Usuario(_nextUserId, "SegundoBloqueado", "@SegundoBloqueado123", "Segundo Bloqueado ", "segundobloqueado@gmail.com", true);
             segundoBloqueado.Estado = EstadoUsuario.Bloqueado;
             GuardaUsuario(segundoBloqueado);
 
-            Actividad a1 = new Actividad(u.Id, "Ruta por la montaña", 15.5,  800, TimeSpan.FromHours(1.5),DateTime.Now, TipoActividad.Ciclismo, "Una ruta espectacular por las montañas.", 130);
+            Actividad a1 = new Actividad(u.Id, "Ruta por la montaña", 15.5, 800, TimeSpan.FromHours(1.5), DateTime.Now, TipoActividad.Ciclismo, "Una ruta espectacular por las montañas.", 130);
             GuardaActividad(a1);
             Actividad incompleta = new Actividad(u.Id, "Actividad Incompleta");
             GuardaActividad(incompleta);
@@ -50,40 +61,51 @@ namespace Datos
             GuardaActividad(a6);
             Actividad a7 = new Actividad(u.Id, "Maratón de la ciudad", 42.195, 500, TimeSpan.FromHours(4.0), DateTime.Now, TipoActividad.Running, "Participación en el maratón anual de la ciudad.", 155);
             GuardaActividad(a7);
-            
+
         }
 
+        /// <summary>
+        /// Guarda un nuevo usuario en la colección, si el email no existe previamente.
+        /// </summary>
+        /// <param name="usuario">El objeto Usuario a guardar.</param>
+        /// <returns>True si el usuario fue guardado; False si el email ya existía.</returns>
         public bool GuardaUsuario(Usuario usuario)
         {
-            // Verificamos si ya existe un usuario con el mismo email.
+            // Validación de regla de negocio: El email debe ser único (ignorando mayúsculas).
             var existente = tblUsuarios.FirstOrDefault(u => u.Email.Equals(usuario.Email, StringComparison.OrdinalIgnoreCase));
 
             if (existente != null)
             {
-                // Si encontramos un usuario, no lo añadimos y devolvemos false.
+                // El email ya está en uso, se rechaza el guardado.
                 return false;
             }
 
-            // Asignamos un nuevo ID al usuario y lo incrementamos para el siguiente.
+            // Asignación de ID simulando autoincremento.
             usuario.Id = _nextUserId++;
 
-            // Añadimos el usuario a nuestra "tabla".
+            // Persistencia en memoria.
             tblUsuarios.Add(usuario);
 
             return true;
         }
 
 
-
+        /// <summary>
+        /// Actualiza un usuario existente basado en su ID.
+        /// </summary>
+        /// <param name="usuario">El objeto Usuario con los datos actualizados.</param>
+        /// <returns>True si el usuario fue encontrado y actualizado; False si el ID no se encontró.</returns>
         public bool ActualizaUsuario(Usuario usuario)
         {
+            // Búsqueda del registro a actualizar.
             var existente = tblUsuarios.FirstOrDefault(u => u.Id == usuario.Id);
             if (existente == null)
             {
-                // Si no encontramos el usuario, devolvemos false.
+                // El usuario no existe, no se puede actualizar.
                 return false;
             }
-            // Actualizamos los campos del usuario existente.
+
+            // Actualización de los campos (mapeo).
             existente.Nombre = usuario.Nombre;
             existente.Apellidos = usuario.Apellidos;
             existente.Estado = usuario.Estado;
@@ -94,68 +116,91 @@ namespace Datos
             return true;
         }
 
+        /// <summary>
+        /// Busca un usuario por su email, ignorando mayúsculas y minúsculas.
+        /// </summary>
+        /// <param name="email">El email a buscar.</param>
+        /// <returns>El objeto Usuario si se encuentra; null si no.</returns>
         public Usuario LeeUsuario(string email)
         {
             Usuario usuario = null;
-            //Lee el usuario ignorando mayúsculas/minúsculas en el email
+            // La comparación OrdinalIgnoreCase es una regla de negocio clave.
             usuario = tblUsuarios.FirstOrDefault(u => u.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
             return usuario;
         }
 
+        /// <summary>
+        /// Busca un usuario por su ID único.
+        /// </summary>
+        /// <param name="idUsuario">El ID del usuario.</param>
+        /// <returns>El objeto Usuario si se encuentra; null si no.</returns>
         public Usuario LeeUsuarioPorId(int idUsuario)
         {
-            //Lee el usuario por su Id
             return tblUsuarios.FirstOrDefault(u => u.Id == idUsuario);
         }
 
+        /// <summary>
+        /// Valida las credenciales de un usuario.
+        /// </summary>
+        /// <param name="email">Email del usuario.</param>
+        /// <param name="password">Contraseña a verificar.</param>
+        /// <returns>True si el email y contraseña coinciden; False en caso contrario.</returns>
         public bool ValidaUsuario(string email, string password)
         {
-            //Lee el usuario por su email y comprueba la contraseña
             var usuario = LeeUsuario(email);
             if (usuario == null) return false;
+
+            // Delega la comprobación de la contraseña al modelo de Usuario.
             return usuario.ComprobarPassWord(password);
-
-
         }
 
+        /// <summary>
+        /// Obtiene el número total de usuarios registrados.
+        /// </summary>
         public int NumUsuarios()
         {
-            //Devuelve el número total de usuarios
             return tblUsuarios.Count;
         }
 
+        /// <summary>
+        /// Obtiene el número de usuarios cuyo estado es 'Activo'.
+        /// </summary>
         public int NumUsuariosActivos()
         {
-            //Devuelve el número total de usuarios activos
             return tblUsuarios.Count(u => u.Estado == EstadoUsuario.Activo);
         }
 
-
+        /// <summary>
+        /// Obtiene una copia de la lista de todos los usuarios.
+        /// </summary>
+        /// <returns>Una nueva lista de usuarios. Modificar esta lista no afectará al almacén de datos.</returns>
         public List<Usuario> ObtenerTodosLosUsuarios()
         {
-            // Devolvemos una nueva lista para que el original (tblUsuarios) no se modifique desde fuera
+            // Se devuelve una nueva lista (copia) para proteger la encapsulación.
+            // Esto evita que código externo modifique la lista original (tblUsuarios).
             return tblUsuarios.ToList();
         }
 
+        /// <summary>
+        /// Guarda una nueva actividad, asignándole un ID.
+        /// </summary>
+        /// <param name="actividad">La actividad a guardar.</param>
+        /// <returns>True si se guardó; False si el usuario asociado no existe o si la actividad ya tiene un ID (indicando que es una actualización).</returns>
         public bool GuardaActividad(Actividad actividad)
         {
-            // 1. Validar que el IdUsuario exista
+            // 1. Validación de clave foránea: El usuario debe existir.
             var usuario = tblUsuarios.FirstOrDefault(u => u.Id == actividad.IdUsuario);
             if (usuario == null)
             {
                 return false; // El usuario al que pertenece la actividad no existe
             }
 
-            // 2. Validar que no sea una actividad duplicada (si ya tiene un ID)
-            // (Esta lógica asume que 0 es una actividad nueva)
+            // 2. Validación de inserción: No se debe guardar una actividad que ya tenga ID.
             if (actividad.Id != 0)
             {
-                var existente = tblActividades.FirstOrDefault(a => a.Id == actividad.Id);
-                if (existente != null)
-                {
-                    // Ya existe un registro con ese ID, usar ActualizaActividad en su lugar
-                    return false;
-                }
+                // Este método es solo para actividades nuevas (Id=0).
+                // Para actualizar, se debe usar ActualizaActividad.
+                return false;
             }
 
             // 3. Asignar nuevo ID y guardar
@@ -164,15 +209,21 @@ namespace Datos
             return true;
         }
 
+        /// <summary>
+        /// Actualiza una actividad existente basada en su ID.
+        /// </summary>
+        /// <param name="actividad">El objeto Actividad con los datos actualizados.</param>
+        /// <returns>True si se actualizó; False si no se encontró el ID.</returns>
         public bool ActualizaActividad(Actividad actividad)
         {
-            var existente = tblActividades.FirstOrDefault(a => a.Id ==actividad.Id);
-            if(existente == null)
+            var existente = tblActividades.FirstOrDefault(a => a.Id == actividad.Id);
+            if (existente == null)
             {
-                // Si no encontramos la actividad, devolvemos false.
+                // La actividad no existe.
                 return false;
             }
-            // Actualizamos los campos de la actividad existente.
+
+            // Mapeo de campos para la actualización.
             existente.Titulo = actividad.Titulo;
             existente.Descripcion = actividad.Descripcion;
             existente.Kms = actividad.Kms;
@@ -184,40 +235,51 @@ namespace Datos
             return true;
         }
 
+        /// <summary>
+        /// Elimina una actividad de la colección.
+        /// </summary>
+        /// <param name="idElemento">El ID de la actividad a eliminar.</param>
+        /// <returns>True si se eliminó; False si no se encontró el ID.</returns>
         public bool EliminaActividad(int idElemento)
         {
             var existente = tblActividades.FirstOrDefault(a => a.Id == idElemento);
             if (existente == null)
             {
-                // Si no encontramos la actividad, devolvemos false.
+                // No se puede eliminar algo que no existe.
                 return false;
             }
-            // Eliminamos la actividad de nuestra "tabla".
+
             tblActividades.Remove(existente);
             return true;
         }
 
-        public Actividad LeeActividad (int idElemento)
+        /// <summary>
+        /// Lee una actividad por su ID único.
+        /// </summary>
+        /// <param name="idElemento">El ID de la actividad.</param>
+        /// <returns>El objeto Actividad si se encuentra; null si no.</returns>
+        public Actividad LeeActividad(int idElemento)
         {
-            //Lee una actividad por su Id
             return tblActividades.FirstOrDefault(a => a.Id == idElemento);
         }
 
-        public List<Actividad> ObtenerActividadesUsuario (int idUsuario)
+        /// <summary>
+        /// Obtiene todas las actividades registradas para un usuario específico.
+        /// </summary>
+        /// <param name="idUsuario">El ID del usuario.</param>
+        /// <returns>Una lista de actividades; devuelve una lista vacía si el usuario no tiene actividades.</returns>
+        public List<Actividad> ObtenerActividadesUsuario(int idUsuario)
         {
-            //Si el usuario no tiene actividades, devuelve una lista vacía
             return tblActividades.Where(a => a.IdUsuario == idUsuario).ToList();
         }
 
-        public int NumActividades (int idUsuario)
+        /// <summary>
+        /// Devuelve el número total de actividades para un usuario específico.
+        /// </summary>
+        /// <param name="idUsuario">El ID del usuario.</param>
+        public int NumActividades(int idUsuario)
         {
-            //Devuelve el número de actividades de un usuario
             return tblActividades.Count(a => a.IdUsuario == idUsuario);
         }
-
-
-
-
-
     }
 }
